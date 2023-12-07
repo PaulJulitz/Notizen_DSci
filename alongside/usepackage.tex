@@ -1,7 +1,7 @@
 %%% Seitenkonfigurationen und Formatierung
 	\usepackage{fullpage}
 	\usepackage[ngerman]{babel}	
-	\usepackage[utf8]{inputenc}	
+	%\usepackage[utf8]{inputenc} % Problem with ipythonnb enviroment
 	\usepackage[top=1.5cm, left=3cm, right=3cm,bottom=2.5cm,headsep=1.5cm]{geometry}  
 	\usepackage{microtype} % verbesserter Randausgleich
 
@@ -30,7 +30,8 @@
 	% Listings Style
 	\definecolor{vbagreen}{RGB}{0,128,0}
 	\definecolor{vbablue}{RGB}{0,0,128}
-	\definecolor{mysticlight}{RGB}{222,228,240} % Background colour
+	\definecolor{mysticlight}{RGB}{222,228,240} % Background color lislisting
+	\definecolor{light-gray}{gray}{0.95} % background color jupter notebook
 % Einfärbung der Section-Titel			
 \usepackage{sectsty} 
 	\partfont{\color{mainone}}  
@@ -38,10 +39,10 @@
 	\subsectionfont{\color{mainthree}}
 	\subsubsectionfont{\color{mainthree}}
 
-% Make coloring environments
-\usepackage[listings]{tcolorbox}
+%%%% Make coloring environments %%%%%%%%%%%%%%%%%%%%
+\usepackage[many]{tcolorbox}
 
-% Creating theorems environments
+%%% Creating theorems environments %%
 \tcbuselibrary{theorems}
 
 \makeatletter
@@ -70,10 +71,49 @@
 	{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
 	{Def}%(prefix) for reference
 
-% Jupter Notebook entries
-\definecolor{light-gray}{gray}{0.95}
-% Many is used for lstings
-\tcbuselibrary{listings}
+%%% Jupter Notebook entries %%
+				%% Environment for iPython Notebook
+				% Reference: https://tex.stackexchange.com/questions/223465/ipython-notebook-cells-with-listings
+				% Using each IPython cell with: \begin{ipythonnb} ... \end{ipythonnb}
+				% Linked in usepackage.tex
+		% Many is used for lstings
+\tcbuselibrary{listings} % this is not the usepackage \usepackage{listings}
+% the space reserved between for the ``In'' numbers and the code
+\newlength\inwd
+\setlength\inwd{1.3cm}
+
+\newcounter{ipythcntr}
+
+\newtcblisting{ipythonnb}[1][\theipythcntr]{
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0.4pt,
+  colback=light-gray,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{blue!50!black},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\stepcounter{ipythcntr}In [#1]:};
+  }
+  listing options={
+    basicstyle=\footnotesize\ttfamily,
+    language=python,
+    escapechar=¢,
+    showstringspaces=false,
+  },
+}
+
+
 
 
 %%% Symbole und Grafiken
