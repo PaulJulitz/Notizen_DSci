@@ -1,5 +1,5 @@
 #Exeption form the rule
-!main-Hauptdokumentation.pdf
+#!main-Hauptdokumentation.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -15,7 +15,7 @@
 *.cb2
 .*.lb
 *.ist
-*.pdf
+#*.pdf
 *.in
 *.lua
 
