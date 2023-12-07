@@ -187,18 +187,24 @@
 			xrightmargin=3cm,
 			keywordstyle={\color{blue}\bfseries}
 		}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
 		\lstdefinestyle{python}
 	{
 		language=python,
-		basicstyle=\mdseries, % the size of the fonts that are used for the code
-		%xleftmargin=\textwidth,
-		%xrightmargin=\textwidth,
+		basicstyle=\ttm, % the size of the fonts that are used for the code
+		xleftmargin=.05\textwidth,
+		xrightmargin=.05\textwidth,
+		framextopmargin=3pt,
+		framexbottommargin=4pt, 
 		escapeinside={<@}{@>},
-		backgroundcolor = \color{gray}, % Background color
+		backgroundcolor = \color{light-gray}, % Background color
 		keywordstyle=\color{vbablue},   % keyword style
 		commentstyle=\color{gray}\ttfamily,  % comment style
 		firstnumber=1,                	% start line enumeration with line 1
-		frame=tb,	                	% adds a frame around the code (single, tb,...)	
+		framesep=0.5em,
+		%frameround=tttt,
+		%frame=single,	                	% adds a frame around the code (single, tb,...)	
 		numbers=left,                   % where to put the line-numbers; possible values are (none, left, right)
 		numbersep=5pt,                  % how far the line-numbers are from the code
 		numberstyle=\tiny\color{gray},	% the style that is used for the line-numbers
@@ -211,8 +217,3 @@
 		morekeywords={}%,				% add keywords
 	%	morecomment=[l]{///}			% add comment syntax
 	}
-
-	%% Environment for iPython Notebook
-	% Reference: https://tex.stackexchange.com/questions/223465/ipython-notebook-cells-with-listings
-	% Using each IPython cell with: \begin{ipythonnb} ... \end{ipythonnb}
-	% Linked in usepackage.tex
