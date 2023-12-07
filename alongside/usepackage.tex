@@ -40,7 +40,7 @@
 	\subsubsectionfont{\color{mainthree}}
 
 %%%% Make coloring environments %%%%%%%%%%%%%%%%%%%%
-\usepackage[many]{tcolorbox}
+\usepackage{tcolorbox}
 
 %%% Creating theorems environments %%
 \tcbuselibrary{theorems}
@@ -76,42 +76,8 @@
 				% Reference: https://tex.stackexchange.com/questions/223465/ipython-notebook-cells-with-listings
 				% Using each IPython cell with: \begin{ipythonnb} ... \end{ipythonnb}
 				% Linked in usepackage.tex
-		% Many is used for lstings
-\tcbuselibrary{listings} % this is not the usepackage \usepackage{listings}
-% the space reserved between for the ``In'' numbers and the code
-\newlength\inwd
-\setlength\inwd{1.3cm}
 
-\newcounter{ipythcntr}
 
-\newtcblisting{ipythonnb}[1][\theipythcntr]{
-  enlarge left by=\inwd,
-  width=\linewidth-\inwd,
-  enhanced,
-  boxrule=0.4pt,
-  colback=light-gray,
-  listing only,
-  top=0pt,
-  bottom=0pt,
-  overlay={
-    \node[
-      anchor=north east,
-      text width=\inwd,
-      font=\footnotesize\ttfamily\color{blue!50!black},
-      inner ysep=2mm,
-      inner xsep=0pt,
-      outer sep=0pt
-      ] 
-      at (frame.north west)
-      {\stepcounter{ipythcntr}In [#1]:};
-  }
-  listing options={
-    basicstyle=\footnotesize\ttfamily,
-    language=python,
-    escapechar=¢,
-    showstringspaces=false,
-  },
-}
 
 
 
