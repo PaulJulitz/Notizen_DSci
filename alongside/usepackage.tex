@@ -1,0 +1,201 @@
+%%% Seitenkonfigurationen und Formatierung
+	\usepackage{fullpage}
+	\usepackage[ngerman]{babel}	
+	\usepackage[utf8]{inputenc}	
+	\usepackage[top=1.5cm, left=3cm, right=3cm,bottom=2.5cm,headsep=1.5cm]{geometry}  
+	\usepackage{microtype} % verbesserter Randausgleich
+
+
+%%%
+\usepackage{scrlayer-scrpage} % Verwendung der Fuß- und Kopfzeile
+		\pagestyle{scrheadings}
+		%\clearscrheadfoot
+		%\chead[{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}]{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}
+		\ofoot[\pagemark]{\pagemark}
+	\renewcommand{\thesection}{\arabic{section}} % Entfernt die Null vor der Section Nummerierung
+	\setcounter{tocdepth}{3} % Ändert die Verästelung, wie weit ToC gehen soll.
+	\setcounter{secnumdepth}{3} % Ändert die Nummerirung für die verschiedenen Ebenen.
+	\setlength\parindent{2pt} % Noindent im gesamten Dokument
+
+%%% Farben und Fonts
+%		\usepackage{fontspec} % Lulatex Font:Calibri
+%			\setmainfont{Calibri}
+		\usepackage[dvipsnames]{xcolor}
+			% Style 
+			\definecolor{mainone}{RGB}{5,56,110} 
+			\definecolor{maintwo}{RGB}{0,63,125} 
+			\definecolor{mainthree}{RGB}
+			% Color for iPython Notebooks
+			\definecolor{light-gray}{gray}{0.95}{7,82,161}
+			\definecolor{mainfour}{RGB}{0,115,228}
+			% Listings Style
+			\definecolor{vbagreen}{RGB}{0,128,0}
+			\definecolor{vbablue}{RGB}{0,0,128}
+			% More colors
+			\definecolor{mysticlight}{RGB}{222,228,240}
+		\usepackage{sectsty} % Einfärbung der Section-Titel
+			\partfont{\color{mainone}}  
+			\sectionfont{\color{mainone}}
+			\subsectionfont{\color{mainthree}}
+			\subsubsectionfont{\color{mainthree}}
+
+
+%\title{% Difinition Enviroment
+%}
+%\author{}
+%\date{\today}
+%\abstract{}
+%\maketitle
+
+% 
+\usepackage[listings]{tcolorbox}
+% Many is used for lstings
+	\tcbuselibrary{listings}
+	\tcbuselibrary{theorems}
+	
+	\makeatletter
+		% add tcblistings to \jobname.lol (list of listings)
+	\tcbset{
+		addtolol/.style={list entry={\kvtcb@title},
+		add to list={lol}{subsection}},
+	}
+	\makeatother
+	
+	\newtcbtheorem[% <init option>
+		auto counter,
+		number within=part,
+		list inside=ListDefinition
+		]{definition}%(name)
+		{Definition}%(display name)
+		{colback=gray!5,colframe=mainthree!90,fonttitle=\bfseries}%(option)
+		{Def}%(prefix) for refernce
+	
+	\newtcbtheorem[% <init option>
+		auto counter,
+		number within=part,
+		list inside=ListLemmaDefinition
+		]{lemma-definition}%(name)
+		{Definition}%(display name)
+		{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
+		{Def}%(prefix) for reference
+
+
+%%% Symbole und Grafiken
+	\usepackage{amsmath,amsfonts, amssymb,bm}
+		\numberwithin{equation}{section} % Indezierung der Align-Umgebung
+	\usepackage{graphicx} % für den Befehl 	includegraphics
+	\usepackage{mathtools} % Verbesserung von amsmath; Nutzung von Math-Command außerhalb der Math-Env
+	\usepackage{eurosym} % Eurozeichen
+	\usepackage{siunitx} % SI-Einheiten
+		\sisetup{
+			per-mode=fraction, 
+			group-digits=true,
+			group-separator={\,},
+			%decimalsymbol=comma,
+			fraction-function=\tfrac,
+			binary-units=true,
+			number-math-rm = \ensuremath 
+		}
+	\usepackage{float} 	%Erzwingen der figure [H]
+	\usepackage{pgf-umlcd} %Class Diagramm, UML Diagramm
+		\renewcommand{\umlfillcolor}{white}
+		\renewcommand{\umldrawcolor}{black}
+		\renewcommand{\umltextcolor}{black}
+
+
+	
+	\usepackage{tikz} % Grafikgestaltung
+		\usetikzlibrary{calc}
+		\usetikzlibrary{arrows, arrows.meta}
+		\usetikzlibrary{fit}% <-- new
+		\tikzset{%
+			level 1/.style={level distance=3.5cm, sibling distance=4.5cm},
+			level 2/.style={level distance=3.5cm, sibling distance=2cm},
+			bag/.style={text width=50pt, text centered},
+			end/.style={circle, minimum width=3pt, fill, inner sep=0pt},
+		}
+	
+	% XY-Diagramm
+	\usepackage[all]{xy}
+	
+	% Plot generator
+	\usepackage{pgfplots}
+	%\pgfplotsset{width=7cm,compat=1.9}
+	
+	% We will externalize the figures
+	%\usepgfplotslibrary{external}
+	%\tikzexternalize
+	%- Entscheidungsbaum; Struktur, Folder Aufbau
+	\usepackage[edges]{forest}
+	\def\Size{.9pt}
+	\tikzset{pics/folder/.style={code={%
+				\node[inner sep=-5pt, minimum size=#1](-foldericon){};
+				\node[folder style, inner sep=0pt, minimum width=0.6*#1, minimum height=0.6*#1, above right, xshift=-0.25*#1] at (-foldericon.west){};
+				\node[folder style, inner sep=4pt, minimum size=#1, xshift=-0.4*#1] at (-foldericon.center){};}
+		},
+		pics/folder/.default={10pt},
+		folder style/.style={draw=gray,top color=mainone,bottom color=mainone}
+	}
+	
+	\forestset{is file/.style={edge path'/.expanded={%
+				([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+			inner sep=1pt},
+		this folder size/.style={edge path'/.expanded={%
+				([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner ysep=0.6*#1},
+		folder tree indent/.style={before computing xy={l=#1}},
+		folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+		folder icons/.default={10pt},
+	}
+	
+	
+%%% Tabellen
+	\usepackage{multirow}
+		\renewcommand{\arraystretch}{1.5}	
+		% ? footskip=1.2cm
+	\usepackage{hhline} % geht anders mit vertikalen Linien um, als hline
+	\usepackage{colortbl} % Einfärbung von Zellen 
+	\usepackage{booktabs} % \toprule, \midrule und \bottomrule
+	
+
+%%% Appendix
+	\usepackage[pdfencoding=auto,
+			%hidelinks,
+			colorlinks = true,
+			linkcolor = mainone, % Farbe für Interneverweise
+			urlcolor = mainone, % Farbe für URL Link
+			citecolor= mainone % Farbe für Citationen 
+			]{hyperref} % Hyperlinks; hidelinks - vorherige Option
+	\usepackage{appendix} % Appendix
+		% Option: page - Front page
+		% Option: toc - Eintrag in ToC
+		% Option: titletoc - 
+%		\renewcommand{\appendixtocname}{} % Ändert Chapter-Namen in toc
+%		\renewcommand{\appendixname}{Appendizes} % Ändert Chapter-Namen im Dokument - KLAPPT NICHT
+
+%	\usepackage[printonlyused]{acronym} % Abkürzungsverzeichnis
+	% This package is not been needed, because glossaries takes care of it
+	% Option: printonlyused to display acronyms which are used.
+	\usepackage[automake, % automake erstellt automatisch eine .gls datei
+				acronym, % Acronym Packet; Unterschied zu Acronym ist, dass glossaries eine Sortierungsfunktion hat
+				style=indexgroup
+			]{glossaries} % Glossar Package
+		\renewcommand{\glossarysection}[2][]{} % Unterdrückt den Titel des Glossars
+		%\glsaddall % Der Befehl fügt alle Glossary-Einträge in das Glossar ein. This has to be place inside the document.
+
+%%% Sonstiges
+	\usepackage{comment} % Auskommentieren
+	\usepackage{pdfpages} % Einzelne Seiteneinbindung der PDFs
+		% Option: nup=Spalten x Zeilen. Rasterdarstellung
+		
+%% BibLaTeX:
+
+%% in der Präambel:
+\usepackage[backend=biber, %% Hilfsprogramm "biber" (statt "biblatex" oder "bibtex")
+style=authoryear, %% Zitierstil (siehe Dokumentation)
+natbib=true, %% Bereitstellen von natbib-kompatiblen Zitierkommandos
+hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
+]{biblatex}
+
+
+
+

@@ -1,0 +1,54 @@
+% MathOperator %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\R}{\mathbb{R}}
+\DeclareMathOperator*{\N}{\mathbb{N}}
+%\DeclareMathOperator*{\C}{\mathbb{C}} - Problem mit Hyperlink, pdfencoding = auto
+\DeclareMathOperator*{\Q}{\mathbb{Q}}
+\DeclareMathOperator*{\Z}{\mathbb{Z}}
+\DeclareMathOperator*{\Euro}{\text{\euro}}
+
+% Command %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\newcommand{\bl}[1]{
+	\textcolor{blue}{#1}
+}
+
+% Mathmatical Function Names or Symbole %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Erwartungswert}[1]{\ensuremath{E\left[ #1 \right]}}
+\newcommand{\Varianz}[1]{\ensuremath{Var\left[ #1 \right]}}
+\newcommand{\Normalverteilung}[1]{\ensuremath{\mathcal{N}\left( #1 \right)}}
+\newcommand{\Vector}[1]{\ensuremath{\bm{#1}}}
+\newcommand{\SigmaAlgebra}{\ensuremath{\mathcal{A}}}
+\newcommand{\SigmaAlgebraText}{\ensuremath{\sigma}-Algebra}
+\newcommand{\SigmaAlgebraIndividuel}[1]{\ensuremath{\mathcal{ #1 }}}
+\newcommand{\WRaum}{\ensuremath{(\Omega, \SigmaAlgebra, P)}}
+\newcommand{\Leerzeichen}{\,}
+\newcommand{\Potenzmenge}{\ensuremath{\mathcal{P}}}
+\newcommand{\Stichprobenmenge}{\ensuremath{\mathcal{X}}}
+\newcommand{\MaximumLikelihoodFunktion}{\ensuremath{\mathbb{L}(\vartheta|x)}}
+
+% Enviorment Style %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Menge}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\refDefinition}[1]{% Reference to definition before
+	\ref{#1} - \nameref{Def:#1} (S.: \pageref{Def:#1})
+}
+\newenvironment{Definition}[1]{% Easy creation for definition enviroment
+	\begin{definition}[label=#1]{#1}{#1}
+}{
+	\end{definition}
+}
+\newenvironment{Lemma-Definition}[1]% Easy creation for lemma-definition enviroment
+{%Begindef
+	\begin{lemma-definition}[label=#1]{#1}{#1}
+}
+{%Enddef
+	\end{lemma-definition}
+}
+
+%%% Begriffe %%%%
+\newcommand{\Env}{Environment(Umgebung) }
+\newcommand{\Envs}{Environments(Umgebungen)}
+\newcommand{\ASA}{Azure Synapse Analytics}

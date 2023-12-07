@@ -1,0 +1,462 @@
+\section{Logistische Regression} \label{ref: Kapitel Logistische Regression} 
+\subsection{Overview}
+Um Klassifikationsprobleme zu lösen, wobei die abhängige Variable $Y$ diskret ist, ist eins der gängigsten Modell die Logistische Regression. Die \textit{Logistische Regression} teilt sich in 
+\begin{description} \centering
+	\item[Binare] Die kategorische Zielvariable hat nur zwei Ausprägungen
+	\item[Multinomial] Die kategorische Zielvariable hat mehr als zwei Ausprägungen
+	\item[Ordinal] Die Ausprägungen der Zielvariablen habe eine ordinale Skalierung
+\end{description} auf. Der Fokus in diesem Kapitel wird auf der \textit{Binäre Klassifikation} sein.\\
+
+Warum die \gls{p_LRM} in unter diesen Bedingungen keine plausiblen Ergebnisse liefern kann, liegt an daran, dass Wahrscheinlichkeiten von über 100 und unter 0 Prozent erreicht werden können. Für für $Y$ nur Ausprägungen von $0$ oder $1$ erreicht werden können. Könnte eine \gls{p_LRM} mit $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$ Werte von größer $1$ oder kleiner $0$ erreichen. 
+
+Als Exkurs wird gezeigt, wie polynomische Terme in der Hypothesenfunktion helfen, Entscheidungsgrenze genauer um die Daten zu legen.
+
+\subsection{General-Lineare-Model}
+\subsubsection{Model}
+Mit der Erweiterung des \gls{p_LRM}, kann ein bereiteres Spektrum an Fragestellungen, mit den Methoden der Linearen Regression beantwortet werden. 
+
+\begin{Definition}{Generalisiertes lineares Modell}
+	Man spricht von einem \gls{GML}, wenn folgenden Annahmen gelten:
+	\begin{itemize}
+		\item Die Beobachtungen $y_i$ mit $i=1,\dots, n$ von $Y$ können als voneinander unabhängigen Realisationen der Zufallsvariablen $Y_i$ mit unbekannten Erwartungswert $\mu_i:= \Erwartungswert{Y_i}$ angesehen werden.
+		\item Die Zufallsvarialben $Y_i$ stammen alle aus der gleichen Verteilung, deren Parameter für jede Beobachtung $i$ unterschiedlich seinen können, und welche aus der Familie der Expontialfamilie von Verteilungen stammt.
+		\item Es gibt eine monotone, differenzierbare Funkion $g$, sodass für die erklärenden Variablen $X_j$ gilt
+		\begin{align}
+			g(\mu_i) =h(\theta_1,\dots, \theta_n; X_{i,1}, \dots, X_{i,m}) + \varepsilon_i
+		\end{align}
+		für $i= 1, \dots, n$ und $j= 1, \dots, m$ erfüllt ist.
+	\end{itemize}
+\end{Definition}
+Das \gls{GML} teilt sich auf, in einen \textbf{linearen Schätzer} (engl. \textit{linear Predictor})
+\begin{align}
+	\eta_i = h(\theta_1,\dots, \theta_n; X_1, \dots, X_n)
+\end{align}
+welcher lineare in der Parametern $\theta_i$ ist, und die erklärenden Variablen $X_j$ mit $j\in\N$ in der bekannten \gls{p_LRM} Struktur vereint. Es ist dabei wichtig zu beachten, dass die Hypothesenfunktion $h()$ nicht $Y_i$ beschreibt, sondern $\eta_i$.\\
+
+Die Verbindung zwischen $Y_i$ und $h()$ wird mit \textbf{Link-Funktion} gesichert. Je nach Verteilung sind andere Überlegungen für $g()$ notwendig. Es gleibt jedoch bestehen
+\begin{align}
+	g(\mu_i)&= \eta_i \\
+	\text{mit}\: \Erwartungswert{Z_i} &=\mu_i.	
+\end{align}
+
+In den Spezialfällen wird ersichtlich, dass es verschiedenen Funktion für $g$ geben kann. 
+\footnote{Allgemein: Es gibt zwei Sichtweisen für eine statistische Fragestellung: \textbf{Erwartung des Zielvariablen} $Y$ für die Ausprägung $i$, sodass gilt
+	\begin{align}
+		\Erwartungswert{Y_i}=  h(\theta_1,\dots, \theta_n; X_1, \dots, X_n)
+	\end{align}
+	Oder als \textbf{Konstruktion der Messung der systematischen und stochastischen Komponenten des Modells}
+	\begin{align}
+		Y_i	 = h(\theta_1,\dots, \theta_n; X_1, \dots, X_n) + \varepsilon_i.
+	\end{align}
+	Zu der Interpretation des Erwartungswertes wird in der Schätzung als \textit{Regression von} $Y$ \textit{gegeben} $X$ neu formuliert.}
+
+
+
+\subsubsection{Unterschied Lineares Model und General-Lineare-Model}
+
+Das \gls{GML} ist eine Erweiterung des \gls{p_LRM} (Linearen Regressionsmodel).\footnote{Quellen für diese Kapitel sind 
+	\cite{log.1},
+	\cite{log.2},
+	\cite{log.3},
+	\cite{log.4},
+	\cite{log.5},
+	\cite{log.6},
+	\cite{log.7},
+	\cite{log.8},
+	\cite{log.9},
+	\cite{log.10},
+	\cite{log.11},
+	\cite{log.12},
+	\cite{log.13},
+	\cite{log.14},
+	\cite{log.15},
+	\cite{log.16},
+	\cite{log.17}}
+Ein Schwerpunkt ist, die Zielvariable $Z$\footnote{In der Literatur zu dem Thema wird die Zielvariable mit $Y$ notiert, selbst wenn die Zielvariable eine Zusammesetzung mehrer Zufallsvariblen ist, wir ein Teil meist mit $Y$ abgekürzt.}, welche nicht normalverteilt sind. Ziel ist es für Daten, welche binäre oder kategoriesche Ausprägungen haben, die verfügbaren Werkzeuge des \gls{p_LRM} einzubinden. Es handelt sich somit um eine Überkategorie des bekannten \gls{p_LRM}. Dieser stellt ein Spezialfall des \gls{GML} dar, wie im Folgenden zu sehen ist. Im Weiteren werden sich auf drei Erweiterungen fokussiert, welche den Vergleich mit dem Speziallfall \gls{p_LRM} aufzeigen:
+
+\paragraph{Verteilung Zielvariable} In \gls{p_LRM} ist $Y$ normalverteilt. Dies wird unter \gls{GML} erweitert, und $Z$ ist exponential verteilt. Zu der Familie der Exponential Verteilungen gehört auch die Normalverteilung. Weitere Verteilungen sind Binomial, Gamma, etc.. Die Aussagekraft eines \gls{GML} wird damit um diskrete Fragestellungen erweitert.
+
+\paragraph{Hypothesenfunktion} Anders als bei \gls{p_LRM} wird die $Y$ nicht direkt durch die Hypothesenfunktion beschrieben. Die lineare Hypothesenfunktion bezieht sich auf eine \textbf{Predictor (Schätzer)} $\eta$:
+\begin{align}
+	\eta_i =  h(\theta_1,\dots, \theta_n; X_1, \dots, X_n)
+\end{align}
+
+\paragraph{Link Funktion}
+Um den \textit{Predictor} mit der $Y$ zu verbinden, wird eine beliebig gewählte Link-Funktion $g$\footnote{In der Literatur zu dem Thema wird der Unterschied von einer Funktion zu einer Abbildung kaum getroffen. Weshalb im in dem Kapitel Funktion ebenfalls Abbildung bedeuteten kann.} gewählt. Diese stellt die Beziehung zwischen dem Erwartungswert von $Z$ und dem \textit{Predictor} her:
+\begin{align}
+	\Erwartungswert{Y_i}= g(\eta_i)
+\end{align}
+
+
+\paragraph{Verteilung der Fehler}
+Für ein \gls{p_LRM} wird angenommen, dass der Fehler $\varepsilon_i$ bei Messungen von $Y_i$ \gls{iid} bei jeder Ziehung $i$ ($i\in \N$) ist, sodass
+\begin{align}
+	\Erwartungswert{\varepsilon} &= 0 \\ 
+	\text{und } \Varianz{\varepsilon} & =0.
+\end{align}
+Für die Verteilung wird angenommen, dass $\varepsilon_i\sim \Normalverteilung{0, \sigma^2}$. In \gls{GML} kann keine homoskedastisch angenommen werden, weil für die Fehler mit Zu- oder Abnahme der abhängigen Variablen sich ändern können.
+
+\subsubsection{Spezialfall: Lineares Model im General-Linearen-Model}
+Sei $\varepsilon_i\sim No(0, \sigma^2)$ und $g$ gleich der Identitätsabbildung, folgt
+\begin{align}
+	\eta_i = \Erwartungswert{\mu_i} = \mu_i	
+\end{align}
+
+\subsubsection{Spezialfall: Binäre Verteilung im General-Linearen-Model} \label{sec: Spezialfall: Binäres Verteilung}
+Sei $Y_i \sim Binomial(n_i, p_i)$ und $Z_i = Y_i/n_i$, es folgt
+\begin{align} 
+	\Erwartungswert{Y_i/n_i} = p_i \:\text{und}\: \Varianz{Y_i/n_i}= \frac{1}{n_i} p_i (1- p_i)  
+\end{align}
+Die \textit{Link-Funktion} ist die \textit{Logit-Funktion} mit $logit(x)= \log\left(\frac{x}{1-x}\right)$: 
+\begin{align}
+	g:\begin{cases}
+		(0,1) & \rightarrow  (-\infty; \infty),\\
+		\mu_i  & \mapsto g(\mu_i)
+	\end{cases}\:\text{mit}\:g(\mu_i)= logit(\mu_i)
+\end{align}
+
+\subsection{Hypothesenfunktion}
+\subsubsection{Regressionsmodell}
+In der Regression Statistik wird der Zusammenhang zwischen der Zielgröße $Y$ und den abhängigen Variablen $X_1, \dots, X_m$ dargestellt.
+\footnote{
+	Die Begrifflichkeiten von Zielgrößen und Variablen werden in fachübergreifender Literatur nicht immer eindeutig benannt. Um es mit dem Konzept der Abbildung zu vereinigen, siehe  \ref{sec: Abbildung}
+}
+Hierbei ist $Y_i$ eine Abbildung für jede Ziehung eines Zufallsexperiments. Es handelt sich um eine Zufallsvariable, sie \ref{sec: Zufallsvariable und Verteilungen}. In der Regressionsanalyse wird eine funktionalen Beziehung $Y_i = h\left(X_{i,1}, \dots, X_{i,m}\right) + \varepsilon_i$ angenommen. Das Ziel ist, eine Funktion zu schätzen, welche die Daten am nächsten abbilden kann. Für $\varepsilon_i$ gilt, dass es alle Störungen aufgreift, welche funktional nicht abgebildet werden können.\footnote{
+	Bei $\varepsilon$ handelt es sich um eine Zufallsvariable. Konvention ist, dass Zufallsvariablen Großbuchstaben erhalten. Mit dieser Konvention wird hier gebrochen.} \\
+
+In dem Prozess der Schätzung, wird der Funktionszusammenhang um weitere Variablen $\varTheta_1, \dots, \varTheta_n$ erweitert $\rightarrow  h\left(X_{i,1}, \dots, X_{i,m}; \varTheta_1, \dots, \varTheta_n\right)$. Für $\varTheta_j$ gilt, dass es sich um Variablen handelt, welche für jede Ziehung konstant bleiben: diese nennen wir \textit{Parameter}. Deshalb kann die Hypthesenfunktion $h$ aus der Perspektive mit und ohne Parameter betrachtet werden. Wird $Y_i$ beschrieben durch $h$ und $\varepsilon_i$, erhält $Y_i$ Zufallsvariablen-Struktureigenschaften durch $\varepsilon_i$, weil es sich hierbei um eine Zufallsvariable handelt, für die gilt $\sim \Normalverteilung{0, \sigma^2}$. Dies Annahme über die Verteilung der Störung wir mit der Erweiterung $\gls{GML}$ abgeändert, jedoch bleibt $\varepsilon_i$ eine Zufallsvariablen. \\
+
+Für $X$ kann angenommen werden, dass es sich hierbei um eine stochastische Variablen handelt, diese müsste dann die Bedingungen einer Zufallsvariablen erfüllen. Handelt es sich bei $X_i$ um eine Zufallsvariable, so müssen die folgenden Annahmen für ein Regressionsmodell gelten:
+\begin{align}
+	&\Erwartungswert{\varepsilon_i| X_i} = 0, \label{algin: I. Heteroskedastisches Modell}\\
+	&(X_1, Y_1), \dots, (X_n, Y_n)\:\textit{sind}\:\gls{iid},\\
+	&\Erwartungswert{X_i^k}<\infty\:\text{und}\:\Erwartungswert{Y_i^k}<\infty\:\text{für alle}\:k\in \N\:\text{und}\:\Varianz{X_i}>0.
+\end{align}
+In diesem Fall spricht man von einem \textbf{bedingt heteroskedastischen Modell}. Wird die Annahme \ref{algin: I. Heteroskedastisches Modell} durch $\Erwartungswert{\varepsilon_i|X_i} = 0$ und $\Varianz{\varepsilon_i|X_i}=\sigma_\varepsilon^2$ ersetzt, spricht man von einem bedingten \textbf{homoskedastisches Modell}. Wie im oberen Abschnitt erwähnt, gilt $\varepsilon_i|X_i\sim\Normalverteilung{0, \sigma_\varepsilon^1}$ spricht man von einem \textbf{klassichen Modell}.
+
+\begin{Definition}{Regressionsmodel}
+	Der Funktionszusammenhang für die abhängige und unabhängigen Variablen heißt \textit{Regressionsmodel}\footnote{Der Begriff Regression bezieht sich auf stetige Erwartungsfunktion der Zielvariablen $Y_i$. Ist die Zielvariable diskret, so wird von \textit{Klassifizierung} gesprochen.} und für diesen gilt:
+	\begin{align}
+		Y_i = h\left(X_{i,1}, \dots, X_{i,m}; \varTheta_1, \dots, \varTheta_n\right) + \varepsilon_i.
+	\end{align}
+	Die Funktion $h$ bildet die Beziehung von $\Vector{X}_i=\left[X_{i,1}, \dots, X_{i,m}\right]$ und $\Vector{\varTheta}= \left[\varTheta_1, \dots, \varTheta_n\right]$ ab und wird \textit{Hypothesenfunktion der Regression} bezeichnet. Jede Messstörung $i$ wird unter der Zufallsvariablen $\varepsilon_i$ aufgegriffen.
+\end{Definition}
+
+
+
+\subsubsection{Lineare Regression}
+Als Synonym für das Regressionsmodell wird auch nur \textit{Regression} verwandt.\footnote{Die Parameter werden üblicherweise mit $\beta$ geschrieben.}
+\begin{Lemma-Definition}{Lineares Regressionsmodell}
+	Ist $h$ lineare in den Parametern $\Vector{\varTheta}$, so spricht man von einem \textit{linearen Regressionsmodell}.
+\end{Lemma-Definition}
+Die Bezeichnung der Linearität bezieht sich auf die Parameter, wie im Exkurs angezeigt, kann das Modell auch nicht linear sein. Selbst wenn der Zusammenhang zwischen $Y_i$ und $\Vector{X}_i$ per \textit{multipler Regression} oder \textit{polynomial Regression} beschrieben wird, so ist meist das Regressionsmodell linear in $\Vector{\varTheta}$.
+
+\paragraph{Beispiele} 
+\begin{itemize}
+	\item Mit $h = \varTheta_0 + \varTheta_1X_{i,1} + \varTheta_2X_{i,2}$ liegt ein \textit{Multiple Regressions-Hypothesenfunktion} vor.
+	\item Sei $h= \varTheta_0 + \varTheta_1\log(X_i)$ ist die Regressionsmodell linear, aber der Funktionszusammenhang zwischen $Y_i$ und $X_i$ nicht.
+	\item Für \textit{Polynomische Regression} gilt dies ebenfalls. Im einfachen Fall mit einer abhängigen Variablen $X_i$, $p\in \N$ und $h= \varTheta_0 + \varTheta_1X_i^1+\dots \varTheta_pX_i^p$ ist der Zusammenhang zwischen $X_i$ und $Y_i$ nichtlinear, aber für $h$ in $\Vector{\varTheta}$ schon.
+	\item  Ebenfalls für \textit{Mehrdimensionale Polynome} im Regressionsmodell mit beispielsweise
+	$h=\varTheta_0 + \varTheta_1X_{i,1} +\varTheta_1X_{i,1}^2 +\varTheta_2X_{i,1}X_{i,2} +\varTheta_1X_{i,1}^2  +\varTheta_1X_{i,2}^2$ ist $h$ lineare in $\Vector{\varTheta}$. 
+\end{itemize} 
+
+\subsubsection{(Exkurs) Nichtlineare Regression}
+In der \textit{nichtlineare Regression} werden Funktionen $h$ untersucht, welche sich nicht als lineare Funktionen in den Parametern schreiben lassen. Die Modellierung der Hypothesenfunktion leitet sich oft direkt aus der Theorie ab. Zum Beispiel wird für den Zusammenhang der Subtrat-Konzentration $x$ (in ppm) die Funktion Michealis-Menten-Funktion herangezogen, um das Regressionsmodell mit 
+\begin{align}
+	h(\Vector{X_i}, \Vector{\varTheta})= \frac{\varTheta_1 X_i}{\varTheta_2 + X_i}
+\end{align}
+zu modellieren. Für den biochemischen Sauerstoffverbrauch in [mg/l] wird 
+\begin{align}
+	h(\Vector{X_i}, \Vector{\varTheta})= \varTheta_1\left(1-e^{-\varTheta_2X_i}\right)
+\end{align} modelliert.\\
+
+\begin{Definition}{linearisierbar}
+	Ein nichtlineares Regressionsmodell, welches durch monotone Transformation der Zielvariablen und der Ausgangsvariablen in eine lineare Funktion in den Parametern überführt werden kann, wird \textit{linearisierbar} genannt.
+\end{Definition}
+Für $h=\varTheta_1X_i^{\varTheta_2}$ wird die Transformation mit $\ln$ angewandt. Es folgt
+\begin{align}
+	&\ln(\varTheta_1) + \varTheta_2\ln(X_i)\\
+	&\rightarrow \beta_0 + \beta_1 \ln(X_i)\:\text{mit}\: \beta_0 =\ln(\varTheta_1)\:\text{und}\: \beta_1=\varTheta_2
+\end{align} 
+Hiermit wird eine neue Hypothesenfunktion aufgestellt.
+
+\subsection{Binäre Klassifiktion}
+\subsubsection{Modell}
+Im dem Kapitel \href{ref: Kapitel Logistische Regression} wird der Schwerpunkt auf die kategorische Verteilung mit zwei Ausprägungen von $Y$ gelegt. Das Logistische Regressionsmodell hat das Ziel die diskrete Zufallsvariable $Y_i$ mit zwei Ausprägungen 
+\begin{align}
+	y\in \left\lbrace 0,1 \right \rbrace 
+	\text{mit}\:& 0 : \: \text{Negative Ausprägung der Klasse} \\
+	& 1 : \: \text{Positive Ausprägung der Klasse}
+\end{align} zu modellieren. \\
+
+\begin{Definition}{Logistisches Modell}
+	Unter den folgenden Annahmen wird von einem \textbf{Logistischen Modell} gesprochen:
+	\begin{itemize}
+		\item Für die Zufallsvariable $Y_i$ wird eine dichotome Verteilung angenommen, sodass $\Erwartungswert{Y_i} = p_i$ gilt.
+		\item Sei $\eta_i =  h(\Vector{X}, \Vector{\varTheta})$ gilt: 
+		\begin{align}
+			\eta_i &= g\left(\mu_i\right), 0 <p <1\:\text{und}\: g(z)=\ln\left(\frac{z}{1-z}\right)\\
+			p &= g^{-1}(\eta_i), -\infty <\eta_i <\infty\:\text{und}\: g^{-1}(z)=\frac{1}{1+e^{-z}}
+		\end{align}
+		Die Funktion $g^{-1}$ wird \textit{Sigmoind Funktion} und $g$ die \textit{Logit Funktion} genannt.
+	\end{itemize}
+\end{Definition}
+
+
+Würde es sich um eine lineare Regression von $Y_i$ handeln, so müsste für $h$ gelten $0 \leq h(\Vector{X}, \Vector{\varTheta}) \leq 1$. Mit dem Rahmen des \gls{GML} muss nicht mehr $Y_i$ modelliert werden, sondern der Schätzer $\eta_i$. Die Beziehung zwischen dem Erwartungswert von $Y_i$ wird mit der Logit-Funktion hergestellt.
+
+
+\subsubsection{Interpretation Lineares logistisches Modell}
+Gegeben sei eine binomialverteilte Zufallsvariable $Y_i$ mit Erwartungswert (Erfolgswahrscheinlichkeit) $p_i = \Erwartungswert{Y_i/n_i}$. Diese Variable hängt von $\Vector{X}$ in folgender Form ab: 
+\begin{align}
+	logit(p_i) = \log\left(\frac{p_i}{1-p_i} \right) = \beta_0 + \beta_1X_{1,i} + \dots \beta_n X_{n,i}
+\end{align}
+Die Parameter von $h$ werden mit der Maximum Likelyhood-Methode geschätzt. Jeder gegeben Wert für $\beta_i$ gibt dabei nicht direkt Auskunft über die Eintrittswahrscheinlichkeit, sondern nur über den \textit{log-Odds}. Wird aber nach $p_i$ aufgelöst, erhält man die gegeben Eintrittswahrscheinlichkeit. 
+
+\subsubsection{Exkurs: Example Malignat}
+Für diskrete Zufallsvariable $Y-$Malignat Cancer wurden folgende Kombinationen von $(X_i,Y_i)$ gefunden:
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}
+		\pgfplotsset{width=6cm,compat=1.9}
+		\begin{axis}[
+			%title={$Y-$ Malignat Cancer},
+			xlabel={Tumor Size [\si{\milli\meter}]},
+			ylabel={Malignat [0-1]},
+			xmin=0, xmax=100,
+			ymin=0, ymax=1.2,
+			xtick={0,20,40,60,80},
+			ytick={0,0.5,1},
+			axis lines = left,
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,
+			legend pos= south east,
+			legend style ={
+				%at = {(0.5, -0.5)},
+				%anchor = north,
+				draw=none,
+				nodes = {scale=0.6}
+			}
+			]
+			
+			\addplot[
+			color=mainone,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = mainone
+			}
+			]
+			coordinates {
+				(10,0)(14,0)(20,0)(25,0)(45,1)(55,1)(60,1)
+			};
+			\addlegendentry{Datapoints}
+			
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Realisation von $(Y_i, X_i)$}
+\end{figure}
+Eine Hypothesenfunktion $h$ lineare in $\varTheta_k$ und $X_i$ kann nicht sicherstellen, dass geschätzte Werte $\hat{y}$ nicht über $1$ oder $0$ erreicht werden. Für die Interpretation würde dies bedeuten, dass eine Wahrscheinlichkeit von über $\SI{100}{\percent}$ oder $\SI{0}{\percent}$ erreicht werden. 
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}
+		\pgfplotsset{width=6.5cm,compat=1.9}
+		\begin{axis}[
+			%title={$Y-$ Malignat Cancer},
+			xlabel={Tumor Size [\si{\milli\meter}]},
+			ylabel={Malignat [0-1]},
+			xmin=0, xmax=100,
+			ymin=0, ymax=1.2,
+			xtick={0,20,40,60,80},
+			ytick={0,0.5,1},
+			axis lines = left,
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,
+			legend pos= south east,
+			legend style ={
+				%at = {(0.5, -0.5)},
+				%anchor = north,
+				draw=none,
+				nodes = {scale=0.6}
+			}
+			]
+			
+			\addplot[
+			color=mainone,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = mainone
+			}
+			]
+			coordinates {
+				(10,0)(14,0)(20,0)(25,0)(45,1)(55,1)(60,1)
+			};
+			\addlegendentry{Datapoints}
+			\addplot[
+			color=maintwo,
+			domain=0:100, 
+			samples=100
+			]
+			{
+				0.1 + 0.01*x
+			};
+			legend{},
+			\addlegendentry{$h(\Vector{X})=0.1 +X_i$}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Lineare Hypothesenfunktion}
+\end{figure}
+\subsubsection{Exkurs: Dummy-Variable}
+Seinen $X_1$ und $X_2$ zwei nicht-stochastische Merkmals-Variablen. Für das Regressionsmodell von $Y_i$ wird angenommen $Y_i = \beta_0 + \beta_1X_{1,i} + \beta_2X_{2,i} + \varepsilon_i$. Für $X_2$ gilt jetzt, dass es sich um kategorische Merkmals-Variablen handelt, eine sogenannte \textit{Dummy-Variablen}.
+Beispiel: $Y-$ Vitalkapazität, $X_1-$Alter und $X_2-$Exposition mit $x_2 = \left\lbrace 0:\:\text{nicht exponiert}; 1:\:\text{exponiert}\right.$ Für nicht exponierte Arbeiter ($x_2=0$): $$y_i = \beta_0 + \beta_1x_{1,i} + \varepsilon_i.$$
+Für exponierte Arbeiter ($x_2=1$): $$y_i = \beta_0 + \beta_1x_{1,i} + \beta_2x_{2,i}+\varepsilon_i.$$
+Modelliert man $X_2$ nicht als eigenen Dimension, so wird der Effekt über den Achsenabschnitt in der Regressionsgleichung erfasst. Ob $X_2$ einen Effekt besitzt, lässt sich in der Verschiebung der Regressiongerade darstellen.
+
+\subsection{Decision Boundry}
+\subsubsection{Simple Lineare Model}
+Sei $h(\Vector{X}, \Vector{\varTheta}) = \varTheta_0 + \varTheta_1X_i$. Ebenfalls wird angenommen, dass für die Vorhersage von $y_i=1$ muss $$g^{-1}(h(\Vector{X}, \Vector{\varTheta}))\geq 0,5 \rightarrow h(\Vector{X}, \Vector{\varTheta}) > 0$$ und für $y_i=0$ muss $$g^{-1}(h(\Vector{X}, \Vector{\varTheta}))< 0,5 \rightarrow h(\Vector{X}, \Vector{\varTheta})<0$$ gelten. Dies bedeutet, bei einer Wahrscheinlichkeit von großer gleich 0,5 die Vorhersage für $y_i=1$ getroffen wird.
+
+Daraus lässt sich eine \textit{Decision Boundry} Entscheidungslinie ziehen, ab welchen Punkt das Modell die Vorhersage für oder gegen das Eintreten bestimmt. Sei $\Vector{\varTheta}=[-3,1,1]^T$ gilt für $h(\Vector{X}, \Vector{\varTheta}) = -3 + X_1 + X_2$. Es kann jetzt die Entscheidungsgrenze bestimmt werden, bei welcher entschieden wird, wann $y_i=1$ geschätzt werden kann. 
+\begin{align*}
+	\text{Für}\:y=1 \longrightarrow -3 + X_1 + X_2 &\leq 0 \\
+	X_2 &\leq 3 - X_1 \\
+\end{align*}
+Für beispielhafte Datenpunkte ergibt sich eine Entscheidungsgrenze, wobei die Punkte auf der einen oder anderen Seite farblich markiert werden, um zu signalisieren, ob gegeben der Datenpunkte, dass Modell sich für das Eintreten von $y_i=1$ entscheidet oder nicht.
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}
+		\pgfplotsset{width=6.5cm,compat=1.9}
+		\begin{axis}[
+			title={Decision Boundry},
+			xlabel={$X_1$},
+			ylabel={$X_2$},
+			xmin=0, xmax=3,
+			ymin=0, ymax=3,
+			xtick={0,1,2,3},
+			ytick={0,1,2,3},
+			axis lines = left,
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,
+			legend pos= south east,
+			legend style ={
+				%at = {(0.5, -0.5)},
+				%anchor = north,
+				draw=none,
+				nodes = {scale=0.6}
+			}
+			]
+			
+			\addplot[
+			color=black,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = mainone
+			}
+			]
+			coordinates {
+				(0.2,0.2)(0.4,0.2)(0.2,0.5)(2.1,0.2)(0.4,2.2)(1.1,1.2)(1.4,1.5)(1.4,1.2)(1,1.8)
+			};
+			
+			
+			\addplot[
+			color=red,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = red
+			}
+			]
+			coordinates {
+				(3.2,3.2)(2,2.2)(2.1,2.6)(1.4,2.8)(3.4,3.8)
+			};
+			\addplot[
+			color=mainthree,
+			domain=0:100, 
+			samples=100
+			]
+			{
+				3 -x
+			};
+			\addlegendentry{Vorhersage $y_i=0$}
+			\addlegendentry{Vorhersage $y_i=1$}
+			\addlegendentry{Decision Boundry}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Lineare Hypothesenfunktion}
+\end{figure}
+
+
+\subsubsection{Komplexe Polynomisches Model}
+Sei $h(\Vector{X}, \Vector{\varTheta}) = \varTheta_0 + \varTheta_1X_i + \varTheta_2X_2 + \varTheta_3X_1^2+\varTheta_4x_2^2$ und $\Vector{\varTheta}= [-1,0,0,1,1]^T$ gilt für die Decision Boundry
+\begin{align*}
+	\text{Für}\:y=1 \longrightarrow -1 + X_1^2 + X_2^2 &\leq 0 \\
+	X_2 &\leq \sqrt{1-X_1^2} \\
+\end{align*}
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}
+		\pgfplotsset{width=6.5cm,compat=1.9}
+		\begin{axis}[
+			title={Decision Boundry},
+			xlabel={$X_1$},
+			ylabel={$X_2$},
+			xmin=-2, xmax=2,
+			ymin=-2, ymax=2,
+			xtick={-2,-1,0,1,2},
+			ytick={-2,-1,0,1,2},
+			axis lines = left,
+			legend pos=north west,
+			ymajorgrids=true,
+			grid style=dashed,
+			legend pos= south east,
+			legend style ={
+				%at = {(0.5, -0.5)},
+				%anchor = north,
+				draw=none,
+				nodes = {scale=0.6}
+			}
+			]
+			
+			\addplot[
+			color=black,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = mainone
+			}
+			]
+			coordinates {
+				(0.2,0.2)(0.4,0.2)(0.2,0.5)(-0.2,0.2)(-0.4,0.2)(-0.2,0.5)(0.2,-0.2)(0.4,-0.2)(0.2,-0.5)(-0.2,-0.2)(-0.4,-0.2)(-0.2,-0.5)
+			};
+			
+			
+			\addplot[
+			color=red,
+			only marks,
+			mark=*,
+			mark options = {
+				scale = 1,
+				fill = red
+			}
+			]
+			coordinates {
+				(1.2,1.2)(1.4,1.2)(1.2,1.5)(-1.2,1.2)(-1.4,1.2)(-1.2,1.5)(1.2,-1.2)(1.4,-1.2)(1.2,-1.5)(-1.2,-1.2)(-1.4,-1.2)(-1.2,-1.5)
+			};
+			\draw[mainthree] (axis cs:0,0) circle[radius=1];% sqrt(1-x^2)
+			\addlegendentry{Vorhersage $y_i=0$}
+			\addlegendentry{Vorhersage $y_i=1$}
+			\addlegendentry{Decision Boundry}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Polynom Hypothesenfunktion}
+\end{figure}

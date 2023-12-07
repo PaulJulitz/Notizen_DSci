@@ -1,0 +1,141 @@
+\documentclass[11pt]{report} % 
+	
+
+%\documentclass[10pt, oneside]{book}
+%Geeignet fuer langere Berichte, kurze Buecher oder 
+
+% report war es vorher
+% book ist, damit chapter und part genutzt werden.
+%\input{alongside/usepackage_short}
+%\input{alongside/usepackage_graphic}
+%\input{alongside/usepackage_lst}
+\input{alongside/usepackage}
+
+
+\input{alongside/command}
+\input{appendix/acronym}
+\input{appendix/acronym_p}
+\input{appendix/acronym_db}
+%\input{appendix/glossaries_db} % Nicht mehr uptodate
+\input{appendix/glossaries}
+\addbibresource{alongside/Citavi_Bib_1.bib} %% Einbinden der bib-Datei
+%\addbibresource{alongside/Citavi_Bib-Own.bib} %% Einbinden der bib-Datei
+
+%Used XeLaTex compiler
+\begin{document}
+
+%\input{alongside/titlepage}
+%\input{alongside/titlepage_2}
+
+\pagebreak
+\hypersetup{linkcolor=black}
+\tableofcontents
+\pagebreak
+
+
+%% Artifical Intelligence %%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapter/part_1} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{chapter/section_1_1_1} % Libraries for Data Analysis (Pandas, Matplotlib, etc.)
+
+%\input{chapter/chapter_1_1} % ML SciKit-Learn 
+%\input{chapter/section_1_1_5} % Scikit-Learn 3 hours
+%\input{chapter/section_1_1_4} %  Encoder Categorial Values
+%\input{chapter/section_1_1_2} % Intro Clustering: K-Means
+
+%\input{chapter/chapter_1_3} % Azure ML Usage
+%\input{chapter/section_1_2_3} % azureml-core (Python SDK)
+%\input{chapter/chapter_2_10_2} % Application: Person Course
+%\input{chapter/chapter_2_10_3} % Excuse
+
+%Backlog %%%
+
+
+
+
+%% Computer Science  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{chapter/part_2} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%)\input{chapter/chapter_2_1}  % Version Controll
+%\input{chapter/chapter_2_2}  % Power BI
+%\input{chapter/chapter_2_3}  % Power Platform
+%\input{chapter/chapter_2_4}  % Qlik Sense
+%\input{chapter/chapter_2_6}  % VBA
+%\input{chapter/chapter_2_5}  % SQL
+
+%\input{chapter/chapter_2_7}  % Python
+%\input{chapter/section_2_7_1} % OOP
+%\input{chapter/section_2_7_2} % Introduction into Python
+%\input{chapter/section_2_7_3} % 
+
+%\input{chapter/chapter_2_8} % Continuous Integration
+%\input{chapter/chapter_2_8_1} % Repo/ Virtual Enviroment
+%\input{chapter/chapter_2_8_2} % Automatic Testing
+%\input{chapter/chapter_2_8_4} % Pipeline
+%\input{chapter/chapter_2_8_3} % ML Testing (Offen)
+
+%\input{chapter/chapter_2_9} % Azure Synaps
+%\input{chapter/chapter_2_9_1} % Azure
+%\input{chapter/chapter_2_9_2} % Azure Synapse
+
+%\input{chapter/chapter_2_10} % Azure ML
+%\input{chapter/chapter_2_10_1} % Overview 
+%
+%\input{chapter/chapter_2_10_1_2} % Deep Dive
+
+
+
+
+
+%% Mathematics %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{chapter/part_3} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{chapter/chapter_3_2} % Einfuehrung/ Lose Gedanken
+%\input{chapter/chapter_3_1} % Stochastik
+%\input{chapter/section_3_1_4} % Overview
+%\input{chapter/section_3_1_2} % Wahrscheinlichkeitstheorie
+%\input{chapter/section_3_1_3} % Inferenz Statistik
+%\input{chapter/section_3_1_5} % Abriss Deskriptive/ EDA Statistik
+%\input{chapter/chapter_3_3} % Applied Statistics
+%\input{chapter/section_1_2_1} % Neu: 3_3_1 Logistische Regression
+%\input{chapter/section_1_1_3} % Neu: 3_3_2 Metrics für ML-Modelle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% No-DSci %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{chapter/part_4} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{chapter/chapter_4_2} % Own Snipts of Thoughts
+%\input{chapter/chapter_4_1} % NfM
+%\input{chapter/chapter_4_4} % NfM Stuff
+%\input{chapter/chapter_4_5} % NfM Epolog
+
+
+%\input{chapter/chapter_4_3} % Drei Faltigkeit
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Books %%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{chapter/part_5} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{chapter/chapter_5_1} % How Emotions are Made
+%\input{chapter/chapter_5_2} % The Enigma of Reason by Hugo Mercier
+%\input{chapter/chapter_1_2} % Philosophy of Science
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ################################################### 
+\input{appendix/helpchapter_n1} % Appendix - Acrynomy
+%\input{appendix/helpchapter_n2} % Appendix - Glossary
+%\input{appendix/helpchapter_n3} % Literary
+%\input{appendix/helpchapter_n4} % Definition
+%\input{appendix/helpchapter_n5}
+
+\end{appendices}
+
+\end{document}

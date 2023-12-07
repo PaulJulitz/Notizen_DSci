@@ -1,0 +1,51 @@
+	\usepackage{float} 	%Erzwingen der figure [H]
+	\usepackage{pgf-umlcd} %Class Diagramm, UML Diagramm
+		\renewcommand{\umlfillcolor}{white}
+		\renewcommand{\umldrawcolor}{black}
+		\renewcommand{\umltextcolor}{black}
+
+
+	
+	\usepackage{tikz} % Grafikgestaltung
+		\usetikzlibrary{calc}
+		\usetikzlibrary{arrows, arrows.meta}
+		\usetikzlibrary{fit}% <-- new
+		\tikzset{%
+			level 1/.style={level distance=3.5cm, sibling distance=4.5cm},
+			level 2/.style={level distance=3.5cm, sibling distance=2cm},
+			bag/.style={text width=50pt, text centered},
+			end/.style={circle, minimum width=3pt, fill, inner sep=0pt},
+		}
+	
+	% XY-Diagramm
+	\usepackage[all]{xy}
+	
+	% Plot generator
+	\usepackage{pgfplots}
+	%\pgfplotsset{width=7cm,compat=1.9}
+	
+	% We will externalize the figures
+	%\usepgfplotslibrary{external}
+	%\tikzexternalize
+	%- Entscheidungsbaum; Struktur, Folder Aufbau
+	\usepackage[edges]{forest}
+	\def\Size{.9pt}
+	\tikzset{pics/folder/.style={code={%
+				\node[inner sep=-5pt, minimum size=#1](-foldericon){};
+				\node[folder style, inner sep=0pt, minimum width=0.6*#1, minimum height=0.6*#1, above right, xshift=-0.25*#1] at (-foldericon.west){};
+				\node[folder style, inner sep=4pt, minimum size=#1, xshift=-0.4*#1] at (-foldericon.center){};}
+		},
+		pics/folder/.default={10pt},
+		folder style/.style={draw=gray,top color=mainone,bottom color=mainone}
+	}
+	
+	\forestset{is file/.style={edge path'/.expanded={%
+				([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+			inner sep=1pt},
+		this folder size/.style={edge path'/.expanded={%
+				([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner ysep=0.6*#1},
+		folder tree indent/.style={before computing xy={l=#1}},
+		folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+		folder icons/.default={10pt},
+	}
+	

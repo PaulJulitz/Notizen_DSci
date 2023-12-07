@@ -1,0 +1,41 @@
+`
+
+% Note: Reference to Preprocessing and Model Structure of scikit learn
+% Now: Bwertungsmetric von Kategorischen Werten
+
+\subsection{Performance}
+\subsubsection{Regression Analysis}
+Die gängigsten Beurteilungen uns Messgrößten für die Aussagkraft von Regressionsmodelen im Bereich \gls{ML},  sind:
+\paragraph{\gls{R2}}
+Gegeben eines Vektor $\Vector{Y}$ mit der Länge $n$, welcher als unabhängiger Teil eines Datensatzes eines Regressionsmodells fungiert, gibt es einen Vektor $\hat{\Vector{Y}}$, welcher die Vorhersagewerte zu jedem Datenpunkt $i$ beinhält. Ein \textit{Residualwert} ist $
+\epsilon_i = y_i - \hat{y}_i$. Der \textit{Durchschnitt mean) der beobachteten Werte} wird definiert als $\overline{y}=\frac{1}{n}\sum y_i$. 
+\begin{definition}{empirisches Bestimmtheitsmaß}{}
+	Sei $y_i$ beobachtet Werte $i\in \left\lbrace 1, \dots, n\right\rbrace$ der unabhängigen Variabel $Y$  eines Regressionsmodells. Sei $\hat{y}_i$ der geschätzte Werte für den gegeben Datensatz $i$.
+	\begin{itemize}
+		\item Die \gls{SQE} wird definiert durch 
+		\begin{align}
+			\sum_i \epsilon_i = \sum_i (y_i - \hat{y}_i)^2 
+		\end{align}
+		\item Die \gls{SQT} wird definiert durch
+		\begin{align}
+			\sum_i (y_i - \overline{y})^2
+		\end{align}
+		mit $\overline{y} = \frac{1}{n}\sum y_i$.
+	\end{itemize} 
+Für das \textit{empirische Bestimmtheitsmaß} $R^2$ gilt
+\begin{align}
+	1 - \frac{\gls{SQE}}{\gls{SQT}}
+	\end{align}
+\end{definition}
+
+\paragraph{\gls{MSE}} Um die Verzerrung eines Punktschätzers kann mit Hilfe von \gls{MSE} bestimmt werden. 
+\begin{definition}
+	Inhalt...
+\end{definition} 
+\begin{lemma-definition}{Parmeterfunktion}{}
+	sd
+\end{lemma-definition}
+
+
+- Root Mean Square Error (RMSE) $$RMSD= \sqrt{MSE(\hat{\theta})} = \sqrt{E((\hat{\theta}-\theta)^2)}$$
+- Mean Absolute Error $$MAE = \frac{\Sigma |y_i - x_i|}{n}$$

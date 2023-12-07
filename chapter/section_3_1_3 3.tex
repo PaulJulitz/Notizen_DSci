@@ -1,0 +1,81 @@
+\pagebreak
+
+\section{Inferenz Statistik}
+
+\subsection{Motivation}
+
+In der Schließenden Statistik werden die Ergebnisse (Parameter der Grundgesamtheit) überprüft und zu verifizieren, ob die usprüngelichen Annahmen über das Statisches Experiment zu treffen und ob die Stichprobe ausreichend Informationen enthält, eine solche Aussage zu treffen.
+ 
+Die Essenz ist daher, anhand einer bekannten Stichproben $x$ einen unbekannten Parameter $\varTheta$ zu schätzen. Dafür konstruiert man einen \textit{Schätzer}.\\
+
+Im Folgenden wird der Schwerpunkt der Beispiele darauf liegen, dass es sich bei den \textit{Parametern der Grundgesamtheit} um Parameter des \gls{SM} handelt - der Verteilungsfunktion. Bei den Regressionparameter gelten in den meisten Fällen die gleichen Definitionen. Die Definitionen beschreiben im Kern, wie mit den Daten der Stichproben umgegangen werden soll. Eine Einschränkung auf Parameter der Verteilungsfunktion ist in der Regel nicht gegeben.
+
+\subsection{Schätzer}
+
+\paragraph{Abgrenzung Statistik und Schätzer}
+\begin{Definition}{Statistik}
+Sei $\left(\Omega, \SigmaAlgebra\right)$ ein \textit{messbarer Raum}\footnote{Hinweis zur Regression: Es wird hier nicht auf eine Wahrscheinlichkeitsraum verwiesen. Für die Abbildung werden nur die Werte aus $\Omega$ auf $\beta$ abgebildet. Für $\Omega$ kann auch gelten, dass es sich hierbei um einen Vektor handelt. So könnten verschiedenen Variablen $X$ und $Y$ auf einen andere Menge abgebildet werden.} und $\left(\beta, \SigmaAlgebraIndividuel{\beta}$  ein weitere \textit{messbarer Raum}, so heißt eine \textit{messbare Abbildung}\footnote{Siehe Definition Messbare Abbildung \refDefinition{Messbarkeitseigenschaft}}
+\begin{align}
+	S: \left(\Omega, \SigmaAlgebra\right) \rightarrow \left(\beta, \SigmaAlgebraIndividuel{\beta}
+\end{align}
+eine \textbf{Statistik}.
+\end{Definition}
+
+Eine \textit{Statistik} unterscheidet sich strukturell nicht von 
+\begin{itemize}
+	\item von einer Schätzfunktion,
+	\item einer Zufallsvariable (Abbildung),
+	\item einem Punktschätzer oder
+	\item einer messbaren Funktion (\refDefinition{Messbarkeitseigenschaft}).
+\end{itemize}
+
+Im Kern steht, dass mit dieser Konstruktion Verteilungen und Bildmaße ermöglichen.\\
+
+Der Unterschied, zwischen \textit{Statistik} und \textit{Schätzfunktion}, liegt in der Verwendung und Interpretation\footnote{Bei der Schätzfunktion werden nicht binden, weitere Eigenschaften gefordert. Somit bleibt die Definition die gleiche.}
+
+\begin{description}
+	\item[Statistik] Ziel ist es Ordnung und Struktur aus den vorhanden Informationen (Daten) zu gewinnen. Dabei soll die Beobachtungstiefe reduziert werden. 
+	\item[Schätzfunktion] Ziel ist hier mit den vorhanden Daten ($\left(\Omega, \SigmaAlgebra \right)$) eine Auswertung zu gewinnen, um unbekannte Parameter/ Werte bestmöglich zu \textit{schätzen}. Die Schätzfunktion unterliegt hier Gütekriterien.
+\end{description}
+
+\paragraph{Beispiele für Statistiken und Schätzfunktionen}
+Wie schon oben mehrmals erwähnt, eine Statistik teilt sich den Aufbau mit der Schätzfunktion und weiteren Objekten. Das Ziel ist jedoch eine Struktur oder eine Beschreibung (Deskriptive Statistik) zu bewinnen.\\
+
+\begin{itemize}
+	\item Die \textbf{Ordnungsstatistik} gibt den $i$-ten kleinsten Wert einer Stichprobe an.\\
+	\item Eine \textbf{Teststatistik}, auch \textit{\textbf{Prüfgröße}} oder \textit{\textbf{Testgröße}} genannt, wird als Hilfsfunktion in der mathematischen Statistik im Bereich der Testtheorie verwendet. Bei einem Hypothesentest wird die \textit{Nullhypothese} abgelehnt, wenn die \textit{Teststatistik} einen gewissen Wert $k$ über oder unterschreitet.
+\end{itemize}
+
+
+Am Beispiel der Tesstatistik: Gegeben sei 
+\begin{align}
+	T: \Stichprobenmenge \rightarrow \R,
+\end{align} die \textit{Teststatistik}, sowie ein \textit{statistischer Test}
+\begin{align}
+	\phi: \Stichprobenmenge \rightarrow [0,1],
+\end{align}
+mit 
+\begin{align}
+	\phi(X) = \begin{cases}
+		1 & \text{falls} T(X) > k,
+		0 & \text{falls} T(X) <= k
+	\end{cases}
+\end{align}
+hierbei ist $k$ eine feste Zahl, die auch kriterischer Wert genannt. Ist $T$ ein $z-$Statistik, 
+\begin{align}
+	\overline{X} = \frac{1}{n}\left(X_1 + X_2 + \dots, X_n\right)
+\end{align}
+das Stichprobenmittel, $\Stichprobenmenge = \R^n$, ist eine typische Teststatistik
+\begin{align}
+	T(X) =\sqrt{n} \frac{\overline{X} - \mu}{\sigma}
+\end{align}
+Die \textbf{Teststatistik} ist standardnormalverteilt mit $T\sim \Normalverteilung{0,1}$. Für den $t-$Test ist die $t-$Statistik $t-$verteilt mit $T\sim t_{n-1}$.\\
+
+Im direkten Vergleich. Sei $X=\Menge{0,1}^n, \SigmaAlgebra = \Potenzmenge (X)$ und $\left(P_\vartheta\right)_{\vartheta \in \Theta} \right)=\Menge{Ber(n, \vartheta)
+| \vartheta \in \Theta}$. Das \textit{Stichprobenmittel}, als Schätzfunktion für den Parameter $\vartheta$, ist gegeben durch
+\begin{align}
+	\hat{\Theta}&: X \rightarrow [0,1]\Leerzeichen\text{mit}\Leerzeichen, \\
+	&\hat{\Theta}
+\end{align}
+% Beispiel hinzufügen
+% Schätzfunktion Notation T_n oder T: Dach vartheta als Schätzwert; Dach Theta, noch nicht sicher.
