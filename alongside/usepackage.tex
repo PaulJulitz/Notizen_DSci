@@ -20,37 +20,28 @@
 %%% Farben und Fonts
 %		\usepackage{fontspec} % Lulatex Font:Calibri
 %			\setmainfont{Calibri}
-		\usepackage[dvipsnames]{xcolor}
-			% Style 
-			\definecolor{mainone}{RGB}{5,56,110} 
-			\definecolor{maintwo}{RGB}{0,63,125} 
-			\definecolor{mainthree}{RGB}
-			% Color for iPython Notebooks
-			\definecolor{light-gray}{gray}{0.95}{7,82,161}
-			\definecolor{mainfour}{RGB}{0,115,228}
-			% Listings Style
-			\definecolor{vbagreen}{RGB}{0,128,0}
-			\definecolor{vbablue}{RGB}{0,0,128}
-			% More colors
-			\definecolor{mysticlight}{RGB}{222,228,240}
-		\usepackage{sectsty} % Einfärbung der Section-Titel
-			\partfont{\color{mainone}}  
-			\sectionfont{\color{mainone}}
-			\subsectionfont{\color{mainthree}}
-			\subsubsectionfont{\color{mainthree}}
+% Set colors
+\usepackage[dvipsnames]{xcolor}
+	% Style 
+	\definecolor{mainone}{RGB}{5,56,110} 
+	\definecolor{maintwo}{RGB}{0,63,125} 
+	\definecolor{mainthree}{RGB}{0,63,125} 
+	\definecolor{mainfour}{RGB}{0,115,228}
+	% Listings Style
+	\definecolor{vbagreen}{RGB}{0,128,0}
+	\definecolor{vbablue}{RGB}{0,0,128}
+	\definecolor{mysticlight}{RGB}{222,228,240} % Background colour
+% Einfärbung der Section-Titel			
+\usepackage{sectsty} 
+	\partfont{\color{mainone}}  
+	\sectionfont{\color{mainone}}
+	\subsectionfont{\color{mainthree}}
+	\subsubsectionfont{\color{mainthree}}
 
-
-%\title{% Difinition Enviroment
-%}
-%\author{}
-%\date{\today}
-%\abstract{}
-%\maketitle
-
-% 
+% Make coloring environments
 \usepackage[listings]{tcolorbox}
 % Many is used for lstings
-	\tcbuselibrary{listings}
+	%\tcbuselibrary{listings}
 	\tcbuselibrary{theorems}
 	
 	\makeatletter
