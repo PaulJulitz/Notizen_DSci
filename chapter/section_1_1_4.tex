@@ -1,0 +1,85 @@
+\section{Data Preprocessing: Categorial Values}
+%Quelle: Working with Predictive Analytics} 
+In diesem Themen-Block wurden die Kategorischen Varialben aufgegriffen, und die Option des One Hot und Label Encoders.
+
+Prozesse und Algorithmen im \gls{ML} Bereich benötigen als Input numerische Werte. Daten diese dies nicht bieten können, müssen in solche kodiert werden.
+
+Es gibt dafür zwei bestehende Methoden im sklearn Paket:
+\begin{itemize}
+	\item 
+	\begin{lstlisting}[style=python]
+		from sklearn import preprocessing
+		le = preprocessing.LabelEncoder()	 # Create a class object
+	\end{lstlisting}
+	\item 
+	\begin{lstlisting}[style=python]
+		
+	\end{lstlisting}
+\end{itemize}
+
+\paragraph{Label Encoder}
+Der Preprocessor von \gls{g_scikit} bietet eine Classe an, welche Kategorische Werte eines Arrays in numerische umwandelt.
+Dies ist notwendig, weil ML-Modelle nur numerische Werte einlesen.
+Haben die Werte eine ordinale Struktur, kann ein ML Modell diese abbilden. Ist dies jedoch nicht vorhanden, so bietet One Hot Encoder eine bessere Struktur an.
+
+\begin{lstlisting}[style=python]
+	#################### Python Libraries
+	import pandas as pd
+	import numpy as np
+	from sklearn.model_selection import train_test_split
+	from sklearn.impute import SimpleImputer
+	import matplotlib.pyplot as plt
+	
+	# Label Encoder
+	from sklearn.preprocessing import OneHotEncoder
+	from sklearn.preprocessing import LabelEncoder
+	from sklearn.compose import ColumnTransformer
+	
+	#################### Import Date
+	data = pd.read_csv("insurance.csv")
+	
+	#################### EDA
+	
+	#print(data.head(3))
+	#print(data.describe())
+	#print(data["bmi"].unique())
+	#data_nan = data.isnull().sum()
+	#print(data_nan)
+	
+	#################### Data Prepartion
+	
+	data["bmi"].fillna(0, inplace = True) # replace None
+	#print(data.head(3))
+	data_mod = data
+	
+	#################### Label Encoding
+	LE = LabelEncoder()
+	data_mod["sex"] = LE.fit_transform(data["sex"]) # input is an array
+	data_mod["region"] = LE.fit_transform(data["region"])
+	data_mod["smoker"] = LE.fit_transform(data["smoker"])
+	print(data_mod.iloc[:,1:].head())	
+\end{lstlisting}
+
+Im Klassenobjekt werden die Kategorien wie weitere Funktion zum Input Array gespeichert. Wir das Klassenobjekt auf eine anderes Array angesetzt, so werden die vorherigen Daten überschrieben.
+\begin{lstlisting}[style=python]
+	LE = LabelEncoder()
+	data_mod["sex"] = LE.fit_transform(data["sex"]) # input is an array
+	data_mod["region"] = LE.fit_transform(data["region"])
+	data_mod["smoker"] = LE.fit_transform(data["smoker"])
+	print(data_mod.iloc[:,1:].head())
+	
+	# Inverse encoder
+	print(LE.classes_)
+	#data_mod["New"] = LE.inverse_transform(data_mod["region"] #Fuehrt zum Fehler
+	data_mod["New"] = LE.inverse_transform(data_mod["smoker"]
+\end{lstlisting}
+
+\paragraph{One Hot Encoder}
+Um eine Ordnung in den transformierten Daten zu vermeiden, wenn keine existiert, werden Dummy Variablen angelegt. \\
+
+Im ersten Schritt wird der Konstruktor geschaffen, dann die jeweiligen Operationen durchgeführt.
+\begin{lstlisting}[style=python]
+	O_OHE = OneHotEncoder(categorial_feature=[0])
+	O_OHE.fit_Transform1	
+\end{lstlisting}
+Das label-encodedet Array wird aufsplittet in die Anzahl Spalten wie das Array eindeutige Kategorien hat.

@@ -1,0 +1,84 @@
+%%% Seitenkonfigurationen und Formatierung
+	\usepackage{fullpage}
+	\usepackage[ngerman]{babel}	
+	\usepackage[utf8]{inputenc}	
+	\usepackage[top=1.5cm, left=3cm, right=3cm,bottom=2.5cm,headsep=1.5cm]{geometry}  
+	\usepackage{microtype} % verbesserter Randausgleich
+
+
+%%%
+\usepackage{scrlayer-scrpage} % Verwendung der Fuß- und Kopfzeile
+		\pagestyle{scrheadings}
+		%\clearscrheadfoot
+		%\chead[{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}]{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}
+		\ofoot[\pagemark]{\pagemark}
+	\renewcommand{\thesection}{\arabic{section}} % Entfernt die Null vor der Section Nummerierung
+	\setcounter{tocdepth}{3} % Ändert die Verästelung, wie weit ToC gehen soll.
+	\setcounter{secnumdepth}{3} % Ändert die Nummerirung für die verschiedenen Ebenen.
+	\setlength\parindent{2pt} % Noindent im gesamten Dokument
+
+%%% Farben und Fonts
+		\usepackage[dvipsnames]{xcolor}
+			% Style 
+			\definecolor{mainone}{RGB}{5,56,110} 
+			\definecolor{maintwo}{RGB}{0,63,125} 
+			\definecolor{mainthree}{RGB}{7,82,161}
+			\definecolor{mainfour}{RGB}{0,115,228}
+			% Listings Style
+			\definecolor{vbagreen}{RGB}{0,128,0}
+			\definecolor{vbablue}{RGB}{0,0,128}
+			% More colors
+			\definecolor{mysticlight}{RGB}{222,228,240}
+		\usepackage{sectsty} % Einfärbung der Section-Titel
+			\partfont{\color{mainone}}  
+			\sectionfont{\color{mainone}}
+			\sectionfont{\color{mainthree}}
+			\subsectionfont{\color{mainthree}}
+
+%%% Symbole und Grafiken
+	\usepackage{amsmath,amsfonts, amssymb,bm}
+		\numberwithin{equation}{section} % Indezierung der Align-Umgebung
+	\usepackage{graphicx} % für den Befehl 	includegraphics
+	\usepackage{mathtools} % Verbesserung von amsmath; Nutzung von Math-Command außerhalb der Math-Env
+	\usepackage{eurosym} % Eurozeichen
+	\usepackage{siunitx} % SI-Einheiten
+		\sisetup{
+			per-mode=fraction, 
+			group-digits=true,
+			group-separator={\,},
+			%decimalsymbol=comma,
+			fraction-function=\tfrac,
+			binary-units=true,
+			number-math-rm = \ensuremath 
+		}
+	\usepackage{float} 	%Erzwingen der figure [H]
+	\usepackage{pgf-umlcd} %Class Diagramm, UML Diagramm
+		\renewcommand{\umlfillcolor}{white}
+		\renewcommand{\umldrawcolor}{black}
+		\renewcommand{\umltextcolor}{black}
+
+%%% Appendix
+	\usepackage[pdfencoding=auto,
+			%hidelinks,
+			colorlinks = true,
+			linkcolor = mainone, % Farbe für Interneverweise
+			urlcolor = mainone, % Farbe für URL Link
+			citecolor= mainone % Farbe für Citationen 
+			]{hyperref} % Hyperlinks; hidelinks - vorherige Option
+	\usepackage{appendix} % Appendix
+		% Option: page - Front page
+		% Option: toc - Eintrag in ToC
+		% Option: titletoc - 
+%		\renewcommand{\appendixtocname}{} % Ändert Chapter-Namen in toc
+%		\renewcommand{\appendixname}{Appendizes} % Ändert Chapter-Namen im Dokument - KLAPPT NICHT
+	\usepackage{acronym} % Abkürzungsverzeichnis
+	\usepackage[automake, % automake erstellt automatisch eine .gls datei
+				acronym, % Acronym Packet; Unterschied zu Acronym ist, dass glossaries eine Sortierungsfunktion hat
+				style=indexgroup
+			]{glossaries} % Glossar Package
+		\renewcommand{\glossarysection}[2][]{} % Unterdrückt den Titel des Glossars
+
+%%% Sonstiges
+	\usepackage{comment} % Auskommentieren
+	\usepackage{pdfpages} % Einzelne Seiteneinbindung der PDFs
+		% Option: nup=Spalten x Zeilen. Rasterdarstellung
