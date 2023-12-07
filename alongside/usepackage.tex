@@ -40,35 +40,40 @@
 
 % Make coloring environments
 \usepackage[listings]{tcolorbox}
+
+% Creating theorems environments
+\tcbuselibrary{theorems}
+
+\makeatletter
+	% add tcblistings to \jobname.lol (list of listings)
+\tcbset{
+	addtolol/.style={list entry={\kvtcb@title},
+	add to list={lol}{subsection}},
+}
+\makeatother
+
+\newtcbtheorem[% <init option>
+	auto counter,
+	number within=part,
+	list inside=ListDefinition
+	]{definition}%(name)
+	{Definition}%(display name)
+	{colback=gray!5,colframe=mainthree!90,fonttitle=\bfseries}%(option)
+	{Def}%(prefix) for refernce
+
+\newtcbtheorem[% <init option>
+	auto counter,
+	number within=part,
+	list inside=ListLemmaDefinition
+	]{lemma-definition}%(name)
+	{Definition}%(display name)
+	{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
+	{Def}%(prefix) for reference
+
+% Jupter Notebook entries
+\definecolor{light-gray}{gray}{0.95}
 % Many is used for lstings
-	%\tcbuselibrary{listings}
-	\tcbuselibrary{theorems}
-	
-	\makeatletter
-		% add tcblistings to \jobname.lol (list of listings)
-	\tcbset{
-		addtolol/.style={list entry={\kvtcb@title},
-		add to list={lol}{subsection}},
-	}
-	\makeatother
-	
-	\newtcbtheorem[% <init option>
-		auto counter,
-		number within=part,
-		list inside=ListDefinition
-		]{definition}%(name)
-		{Definition}%(display name)
-		{colback=gray!5,colframe=mainthree!90,fonttitle=\bfseries}%(option)
-		{Def}%(prefix) for refernce
-	
-	\newtcbtheorem[% <init option>
-		auto counter,
-		number within=part,
-		list inside=ListLemmaDefinition
-		]{lemma-definition}%(name)
-		{Definition}%(display name)
-		{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
-		{Def}%(prefix) for reference
+\tcbuselibrary{listings}
 
 
 %%% Symbole und Grafiken
