@@ -147,12 +147,12 @@
 		{
 				language=bash,
 				basicstyle=\color{white}\footnotesize\ttfamily, % the size of the fonts that are used for the code
-				xleftmargin=4cm,
-				xrightmargin=4cm,
+				xleftmargin=.05\textwidth,
+				xrightmargin=.05\textwidth,
 				escapeinside={<@}{@>},
 				backgroundcolor = \color{black}, % Background color
 				keywordstyle=\color{yellow},   % keyword style
-				commentstyle=\color{vbagreen},  % comment style
+				commentstyle=\color{gray},  % comment style
 				firstnumber=1,                	% start line enumeration with line 1
 				frame=tb,	                	% adds a frame around the code (single, tb,...)	
 				numbers=left,                   % where to put the line-numbers; possible values are (none, left, right)
@@ -164,7 +164,7 @@
 				tabsize=2,		                % sets default tabsize to 2 spaces
 				columns=fixed,					% Using fixed column width (for e.g. nice alignment)
 				breaklines=true,				% sets if atomatic line breaking
-				morekeywords={conda, +, flake8, mypy, pip},		% add keywords
+				morekeywords={conda, +, flake8, mypy, pip, python},		% add keywords
 				morecomment=[l]{///}			% add comment syntax
 		}
 		\lstdefinestyle{Config}
