@@ -93,7 +93,7 @@ warn-unused_configs = true
 no_implicit_reexport = true
 \end{lstlisting}
 
-Wenn die Tests konfiguriert sind und die \gls{VEU} für die Testmodule angelegt ist, können die Test über das Terminal durchgeführt werden.
+Wenn die Tests konfiguriert sind und die \gls{VEN} für die Testmodule angelegt ist, können die Test über das Terminal durchgeführt werden.
 
 \paragraph{Erklärung mypy} ist ein Modul, welches \textbf{Type Hints} überprüft.
 Python ist eine dynamische Programmiersprache. Dies bedeutet, dass Angaben über den Typ von Variablen nicht explizit getätigt werden müssen. Anders ist dies bei Programmiersprachen wir \textit{C++}. Mit \textit{mypy} kann eine Überprüfung von \textbf{statischen Type hints} überprüft werden. Dies kann je nach Einstellungen und Optionen in genauer Granularität vorgenommen werden.\footnote{
@@ -288,23 +288,23 @@ Der Standard W292 verlangt hingegen kein leere Zeile am Ende.
 \subsection{Motivation}
 Mit \textit{tox} soll die Testungen Python automatisiert werden. Als Frontend soll tox dienen mit CI-Server zu kommunizieren, um Testungen automatisch ohne ohne großes zutun zu verwalten. Es werden verschiedene Virtuelle Umgebungen erstellt, welche unter verschiedenen Konfigurationen die Testungen des Codes vornehmen.\\
 
-Das Plug-in \textit{tox-conda} wird verwendet, wenn die Verwaltung von der \gls{VEU} durch conda betrieben wird.
+Das Plug-in \textit{tox-conda} wird verwendet, wenn die Verwaltung von der \gls{VEN} durch conda betrieben wird.
 
 
 \subsection{Allgemeine Konfiguration Begrifflichkeiten (Short)} 
 Für \textit{tox}/ \textit{tox-conda} wird die Konfiguration \textit{tox.ini} erstellt. Mit \textit{tox-conda} werden mehrer $"$settings$"$ unter \textit{testevn} zur Verfügung gestellt. Für die weitere Erklärung wird nur
 \begin{description}
-	\item[cond$\_$env], gibt an, wo und welche \textit{conda-evn.yml} Datei für die Erstellung der \gls{VEU} in conda genutzt wird.
+	\item[cond$\_$env], gibt an, wo und welche \textit{conda-evn.yml} Datei für die Erstellung der \gls{VEN} in conda genutzt wird.
 	\item[$\left\lbrace \right. $toxinidir$\left.\right\rbrace$] Gibt den Pfad zurück, in welchem tox ausgeführt wurde. Wenn Tox im Hauptverzeichnis der Applikation liegt, dann wird dieser Pfad zurückgegeben.
 \end{description}
 relevant sein. Weitere Einstellungen, wie conda$\_$deps, conda$\_$channel, können unter \href{https://github.com/tox-dev/tox-conda} zur Verfügung gestellt werden.
 
 \subsection{Bsp.: Grundfunktionalität}
-Diese Beispiel dient die Grundfunktionalität von tox gezeigt. Diese zeigt die Automatisierung der Installation einer \gls{VEU} und die Ausführung eines Kommands.\\
+Diese Beispiel dient die Grundfunktionalität von tox gezeigt. Diese zeigt die Automatisierung der Installation einer \gls{VEN} und die Ausführung eines Kommands.\\
 
-In der tox Konfigurationsdatei, \textit{tox.ini}, wird festgelegt, dass die \gls{VEU} für die Python Version 3.7 aufgesetzt werden soll. Die Abhängigkeiten (deps) werden über die requirements$\_$dev.txt Datei installiert. Dies sind alle Packet, welche benötigt werden, um den Test durchzuführen. Wenn die Erstellung der \gls{VEU} fertig ist und alle benötigten Packete installiert werden, wird der Befehl \textit{pytest} ausgeführt. Diese drei Schritte
+In der tox Konfigurationsdatei, \textit{tox.ini}, wird festgelegt, dass die \gls{VEN} für die Python Version 3.7 aufgesetzt werden soll. Die Abhängigkeiten (deps) werden über die requirements$\_$dev.txt Datei installiert. Dies sind alle Packet, welche benötigt werden, um den Test durchzuführen. Wenn die Erstellung der \gls{VEN} fertig ist und alle benötigten Packete installiert werden, wird der Befehl \textit{pytest} ausgeführt. Diese drei Schritte
 \begin{itemize}
-	\item Erstellen einer \gls{VEU},
+	\item Erstellen einer \gls{VEN},
 	\item Installation aller Abhängigkeiten und 
 	\item die Ausführung von Kommandozeilen Befehle
 \end{itemize}
@@ -424,7 +424,7 @@ commands = pytest
 
 
 \subsection{Bsp. Vorherige Ausführung}
-Für die Entwicklung-\gls{VEU} wird \textit{tox-conda} über pip 
+Für die Entwicklung-\gls{VEN} wird \textit{tox-conda} über pip 
 \begin{lstlisting}[style=CMD]
 pip install tox-conda
 \end{lstlisting}
@@ -447,7 +447,7 @@ oder über conda$\_$requirments$\_$dev.yml
 %pip install -r requirments.txt herausnehmen, wenn pip install -e . ausgeführt wird und die Setup.py startet, wird pip install -r requirments.txt ebenso installiert. Wie sich dies in Kombination mit den anderen Konfiguration auswirkt ist unklar. Wie kann jetzt die Conda umgebung erstellt werden.
 
 \subsection{Bsp.: Multiple Umgebungen}
-Im Folgenden wird für jedes Testmodul eine eigene \gls{VEU} erstellt.
+Im Folgenden wird für jedes Testmodul eine eigene \gls{VEN} erstellt.
 Die sind eigenen Umgegeben, welche mit jeweiligen Kommands verbunden sind. 
 
 \begin{lstlisting}[style=Config, caption={Own Env}, captionpos=b]

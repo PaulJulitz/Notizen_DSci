@@ -104,16 +104,16 @@ Weiter Bestandteile für Build Prozesses sind hier nicht enthalten. Die Konfigur
 
 \section{Virtual Environment}
 \subsection{Allgemein}
-Eine \gls{VEU} ist eine Ordner-Verzeichnis, in welchen Bibliothek-Pakete (aka. Pakete) abgelegt werden. Jedes Paket ist zu einer jeweiligen Version gespeichert. Dies stelle sicher zum einen sicher, dass die benötigten Pakete für ein Programm in einem Container liegen. Dieser kann einzeln separat von jeweiligen Updates an den Paketen selbst verwaltet werden. Die Informationen über diesen Container werden in Form einer \textit{requirment} Datei mit im Repository hinterlegt. Diese Information erlaubt, das testen und Ausführen des Programmes auf anderen Rechner oder Server. Die genaue Abhängikeit zu den spezifischen Versionen wird so übermittelt, damit eine genauer Kopie des Containers erstellt wird.\\
+Eine \gls{VEN} ist eine Ordner-Verzeichnis, in welchen Bibliothek-Pakete (aka. Pakete) abgelegt werden. Jedes Paket ist zu einer jeweiligen Version gespeichert. Dies stelle sicher zum einen sicher, dass die benötigten Pakete für ein Programm in einem Container liegen. Dieser kann einzeln separat von jeweiligen Updates an den Paketen selbst verwaltet werden. Die Informationen über diesen Container werden in Form einer \textit{requirment} Datei mit im Repository hinterlegt. Diese Information erlaubt, das testen und Ausführen des Programmes auf anderen Rechner oder Server. Die genaue Abhängikeit zu den spezifischen Versionen wird so übermittelt, damit eine genauer Kopie des Containers erstellt wird.\\
 
-Drei Werkzeuge für die Aufsetzung von \gls{VEU} für die Python Entwicklung sind in \textit{Visual Studio} verfügbar. \footnote{
+Drei Werkzeuge für die Aufsetzung von \gls{VEN} für die Python Entwicklung sind in \textit{Visual Studio} verfügbar. \footnote{
 	\href{Quelle}{https://code.visualstudio.com/docs/python/environments},
 	\href{Conda VE in VStudio}{https://youtu.be/Wuuiga0wKdQ}
 }
 \begin{description}
 	\item[pip] ist ein Paket Manager für Python Pakete. Pakete können von einem öffentlichen Index \textit{PyPI} installiert werden.
-	\item[venv] erstellt \gls{VEU} für Entwicklungen in Python.
-	\item[conda] ist ein Paket Manager \textbf{und} eine Verwaltungssystem für \gls{VEU}. 
+	\item[venv] erstellt \gls{VEN} für Entwicklungen in Python.
+	\item[conda] ist ein Paket Manager \textbf{und} eine Verwaltungssystem für \gls{VEN}. 
 \end{description}
 
 \subsection{conda}
@@ -121,12 +121,12 @@ Drei Werkzeuge für die Aufsetzung von \gls{VEU} für die Python Entwicklung sin
 \gls{g_conda} wird über Anaconda und Miniconda installiert. \footnote{
 	Es gibt die Empfehlung für Data Science Projekte dies zu nutzen.
 }
-Ebenso kann pip über \gls{g_conda} installiert werden, sodass auch Pakete in einem \gls{VEU} über \gls{g_conda} installiert werden. Dies erlaubt Pakete über \gls{g_conda} und \gls{g_pip} in einer \gls{g_conda} \gls{VEU} zu installieren.\footnote{
+Ebenso kann pip über \gls{g_conda} installiert werden, sodass auch Pakete in einem \gls{VEN} über \gls{g_conda} installiert werden. Dies erlaubt Pakete über \gls{g_conda} und \gls{g_pip} in einer \gls{g_conda} \gls{VEN} zu installieren.\footnote{
 	\href{Quelle}{https://stackoverflow.com/questions/20994716/what-is-the-difference-between-pip-and-conda}
 }
 
 \subsubsection{Create VEU} 
-Eine neue \gls{VEU} kann über zwei Wege erstellt werden
+Eine neue \gls{VEN} kann über zwei Wege erstellt werden
 \begin{description}
 	\item[Terminal] Über das Terminal wird der Befehl
 	\begin{lstlisting}[style=CMD]
@@ -164,7 +164,7 @@ Zum Punkt ein. Um \textbf{conda} direkt über das Terminal zu nutzen, muss die S
 	- pip:
 	- pip install -r requirments.txt
 \end{lstlisting}
-Der letzte Teil lässt zu, dass Pakete, welche nicht in \gls{g_conda} zu finden sind, über pip in der conda \gls{VEU} installiert werden.\footnote{Hinweis: Die Packte sind in der \gls{VEU} in Anaconda installiert, nicht separat.} Bestehen Abhängigkeiten zu anderen Packete oder benötigt \gls{g_conda} andere Packete, werden diese gleich mit installiert. 
+Der letzte Teil lässt zu, dass Pakete, welche nicht in \gls{g_conda} zu finden sind, über pip in der conda \gls{VEN} installiert werden.\footnote{Hinweis: Die Packte sind in der \gls{VEN} in Anaconda installiert, nicht separat.} Bestehen Abhängigkeiten zu anderen Packete oder benötigt \gls{g_conda} andere Packete, werden diese gleich mit installiert. 
 
 \begin{figure}[H]
 	\centering
@@ -205,7 +205,7 @@ hat nicht über die Initialisierung der Umgebung geklappt. Um setuptools zu star
 \end{itemize}
 
 \subsection{Setuptools}
-Die Bibliothek \textit{setuptools} hat den Zweck Python Projekte in Bibliotheken umzuwandeln und verteilbare Bibliotheken anzubieten. In dem Abschnitt liegt der Fokus darauf Module aus einem Repository im der eigenen \gls{VEU} zu hinterlegen. Der Mehrwert ist, dass andere Module, welche $"$paralle$"$ zueinander liegen oder eine $"$Ebene$"$ niedriger sortiert sind, auf das Modul im gleichen Repository zugreifen können. \\
+Die Bibliothek \textit{setuptools} hat den Zweck Python Projekte in Bibliotheken umzuwandeln und verteilbare Bibliotheken anzubieten. In dem Abschnitt liegt der Fokus darauf Module aus einem Repository im der eigenen \gls{VEN} zu hinterlegen. Der Mehrwert ist, dass andere Module, welche $"$paralle$"$ zueinander liegen oder eine $"$Ebene$"$ niedriger sortiert sind, auf das Modul im gleichen Repository zugreifen können. \\
 
 Benötigt wird hierfür 
 \begin{itemize}
@@ -215,7 +215,7 @@ Benötigt wird hierfür
 \end{itemize}
 
 Das Vorgehen wir an einem Beispiel im Folgenden erklärt:
-Damit Module innerhalb des Repository gefunden werden können, muss dies deklariert werden. Dies gilt nicht nur für die Hinterlegung in der \gls{VEU}, sonder auch allgemein für den Interpreter.
+Damit Module innerhalb des Repository gefunden werden können, muss dies deklariert werden. Dies gilt nicht nur für die Hinterlegung in der \gls{VEN}, sonder auch allgemein für den Interpreter.
 
 \begin{figure}[H]
 	\centering
@@ -244,7 +244,7 @@ setup()
 \end{lstlisting}
 
 \subsubsection{3 - Konfigurationsdateien}
-Wie oben erwähnt, ist in diesem Abschnitt der Fokus darauf, wie Module in die \gls{VEU} hinterlegt/ installiert/ build)\footnote{
+Wie oben erwähnt, ist in diesem Abschnitt der Fokus darauf, wie Module in die \gls{VEN} hinterlegt/ installiert/ build)\footnote{
 	Build is the process, in which source code is converted into a standalone software.
 } \footnote{
 	\href{https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html}{Quelle}
@@ -253,7 +253,7 @@ Wie oben erwähnt, ist in diesem Abschnitt der Fokus darauf, wie Module in die \
 werden können. Die hier beschriebenen Konfigurationsdateien werden unteranderen genutzt, um Test-Bibliotheken zu konfigurieren. Wie die Abwicklung von Test aussieht, wir unter \textit{Automatic Testing} beschrieben.\\
 
 Die Bibliothek, \textit{setuptools}, hat den Standard PEP 621 übernommen, und bezieht die Metadaten für den Build Prozess\footnote{
-	Der referierte Source Code ist das Module unter \textit{src}, welche in der \gls{VEU} installiert werden soll. 
+	Der referierte Source Code ist das Module unter \textit{src}, welche in der \gls{VEN} installiert werden soll. 
 } 
 aus
 \begin{itemize}
@@ -291,7 +291,7 @@ Diese legt neben den Metadaten die Auswahl der eigen gewählten Packete fest. Un
 \end{lstlisting}
 
 %TODO:STOP
-Unter den Optionen für das Modul festgelegt, wo es sich befindet. In dem Beispiel werden auch Requirments festgelegt, welche das Modul besitzen muss. Es wird geprüft, ob diese in der \gls{VEU} vorhanden sind. Ist es nicht, werden die Packet in der neusten Version installiert.\footnote{
+Unter den Optionen für das Modul festgelegt, wo es sich befindet. In dem Beispiel werden auch Requirments festgelegt, welche das Modul besitzen muss. Es wird geprüft, ob diese in der \gls{VEN} vorhanden sind. Ist es nicht, werden die Packet in der neusten Version installiert.\footnote{
 	\href{https://setuptools.pypa.io/en/latest/userguide/declarative_config.html}{Quelle Setuptools Guide},
 	\href{https://ianhopkinson.org.uk/2022/02/understanding-setup-py-setup-cfg-and-pyproject-toml-in-python/}{Vergleich der Konfigurationsdateien}
 }
@@ -319,7 +319,7 @@ where=src
 
 
 \subsubsection{Installation (Build Process)}
-Ist die \gls{VEU} angelegt, wird mit dem Befehl
+Ist die \gls{VEN} angelegt, wird mit dem Befehl
 
 \begin{lstlisting}[style=CMD]
 	pip install -e .
@@ -328,7 +328,7 @@ Ist die \gls{VEU} angelegt, wird mit dem Befehl
 setuptools aufgerufen. Diese installier das hinterlegte Paket in editierbaren Modus (-e). 
 Dies bedeutet, dass ein Link hinterlegt ist, sodass das packet bearbeitet werden kann, ohne dass es neu installiert werden muss.
 
-Ist die Installation erfolgreich abgeschlossen, befindet sich eine Verlinkung des hinterlegten Pakets unter \gls{VEU} wieder. In dem Beispiel \textit{Slapping} ist das Paket \textit{slapping} in der \gls{VEU} hinterlegt.
+Ist die Installation erfolgreich abgeschlossen, befindet sich eine Verlinkung des hinterlegten Pakets unter \gls{VEN} wieder. In dem Beispiel \textit{Slapping} ist das Paket \textit{slapping} in der \gls{VEN} hinterlegt.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale = 0.4]{attachment/chapter_2/Scc074}
