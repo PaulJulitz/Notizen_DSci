@@ -163,9 +163,9 @@
 	\usepackage[pdfencoding=auto,
 			%hidelinks,
 			colorlinks = true,
-			linkcolor = mainone, % Farbe für Interneverweise
-			urlcolor = mainone, % Farbe für URL Link
-			citecolor= mainone % Farbe für Citationen 
+			linkcolor = light-gray, % Farbe für Interneverweise
+			urlcolor = light-gray, % Farbe für URL Link
+			citecolor= light-gray % Farbe für Citationen 
 			]{hyperref} % Hyperlinks; hidelinks - vorherige Option
 	\usepackage{appendix} % Appendix
 		% Option: page - Front page
@@ -183,7 +183,8 @@
 			]{glossaries} % Glossar Package
 		\renewcommand{\glossarysection}[2][]{} % Unterdrückt den Titel des Glossars
 		%\glsaddall % Der Befehl fügt alle Glossary-Einträge in das Glossar ein. This has to be place inside the document.
-
+		\renewcommand*{\glstextformat}[1]{\textsf{#1}} % Sets the style for each entry: In this case as sans-serif
+		% \renewcommand*{\glstextformat}[1]{\textcolor{green}{#1}} % to color all entries, https://tex.stackexchange.com/questions/38544/glossary-links-color
 %%% Sonstiges
 	\usepackage{comment} % Auskommentieren
 	\usepackage{pdfpages} % Einzelne Seiteneinbindung der PDFs
