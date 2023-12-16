@@ -1,22 +1,9 @@
-\section{Application: Person Course}
-\subsection{Creating a Experiment}
+\chapter{Application: Person Course}
+\section{Creating a Experiment}
 
 Or simpler: Just import jupter notebook
-\begin{markdown}
-Using azureml.core
-\end{markdown}
 
-\begin{lstlisting}[style=python]
-import azureml.core
-from azureml.core import Workspace
-
-ws = Workspace.from_config()
-print('Ready to use Azure ML {} to work with {}'.format(azureml.core.VERSION, ws.name	
-\end{lstlisting}
-
-
-
-\subsection{Hyperparameter Tuning} 
+\section{Hyperparameter Tuning} 
 
 %TODO: Do this after section for batch is ready
 
@@ -25,7 +12,7 @@ print('Ready to use Azure ML {} to work with {}'.format(azureml.core.VERSION, ws
 
 %TODO: STOP
 
-\subsubsection{Batch vs. Mini Batch Size gradient descent}
+\subsection{Batch vs. Mini Batch Size gradient descent}
 
 The training set get's split into smaller \textit{batches}.
 
