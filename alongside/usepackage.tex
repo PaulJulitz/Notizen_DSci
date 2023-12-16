@@ -1,7 +1,7 @@
 %%% Seitenkonfigurationen und Formatierung
 	\usepackage{fullpage}
 	\usepackage[ngerman]{babel}	
-	\usepackage[utf8]{inputenc}	
+	%\usepackage[utf8]{inputenc} % Problem with ipythonnb enviroment
 	\usepackage[top=1.5cm, left=3cm, right=3cm,bottom=2.5cm,headsep=1.5cm]{geometry}  
 	\usepackage{microtype} % verbesserter Randausgleich
 
@@ -13,71 +13,73 @@
 		%\chead[{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}]{\includegraphics[width=1\linewidth]{attachment/x_titlepage/balken_dsci}}
 		\ofoot[\pagemark]{\pagemark}
 	\renewcommand{\thesection}{\arabic{section}} % Entfernt die Null vor der Section Nummerierung
-	\setcounter{tocdepth}{3} % Ändert die Verästelung, wie weit ToC gehen soll.
+	\setcounter{tocdepth}{4} % Ändert die Verästelung, wie weit ToC gehen soll.
 	\setcounter{secnumdepth}{3} % Ändert die Nummerirung für die verschiedenen Ebenen.
 	\setlength\parindent{2pt} % Noindent im gesamten Dokument
 
 %%% Farben und Fonts
 %		\usepackage{fontspec} % Lulatex Font:Calibri
 %			\setmainfont{Calibri}
-		\usepackage[dvipsnames]{xcolor}
-			% Style 
-			\definecolor{mainone}{RGB}{5,56,110} 
-			\definecolor{maintwo}{RGB}{0,63,125} 
-			\definecolor{mainthree}{RGB}
-			% Color for iPython Notebooks
-			\definecolor{light-gray}{gray}{0.95}{7,82,161}
-			\definecolor{mainfour}{RGB}{0,115,228}
-			% Listings Style
-			\definecolor{vbagreen}{RGB}{0,128,0}
-			\definecolor{vbablue}{RGB}{0,0,128}
-			% More colors
-			\definecolor{mysticlight}{RGB}{222,228,240}
-		\usepackage{sectsty} % Einfärbung der Section-Titel
-			\partfont{\color{mainone}}  
-			\sectionfont{\color{mainone}}
-			\subsectionfont{\color{mainthree}}
-			\subsubsectionfont{\color{mainthree}}
+% Set colors
+\usepackage[dvipsnames]{xcolor}
+	% Style 
+	\definecolor{mainone}{RGB}{5,56,110} 
+	\definecolor{maintwo}{RGB}{0,63,125} 
+	\definecolor{mainthree}{RGB}{0,63,125} 
+	\definecolor{mainfour}{RGB}{0,115,228}
+	% Listings Style
+	\definecolor{vbagreen}{RGB}{0,128,0}
+	\definecolor{vbablue}{RGB}{0,0,128}
+	\definecolor{mysticlight}{RGB}{222,228,240} % Background color lislisting
+	\definecolor{light-gray}{gray}{0.95} % background color jupter notebook
+% Einfärbung der Section-Titel			
+\usepackage{sectsty} 
+	\partfont{\color{mainone}}  
+	\sectionfont{\color{mainone}}
+	\subsectionfont{\color{mainthree}}
+	\subsubsectionfont{\color{mainthree}}
+
+%%%% Make coloring environments %%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+
+%%% Creating theorems environments %%
+\tcbuselibrary{theorems}
+
+\makeatletter
+	% add tcblistings to \jobname.lol (list of listings)
+\tcbset{
+	addtolol/.style={list entry={\kvtcb@title},
+	add to list={lol}{subsection}},
+}
+\makeatother
+
+\newtcbtheorem[% <init option>
+	auto counter,
+	number within=part,
+	list inside=ListDefinition
+	]{definition}%(name)
+	{Definition}%(display name)
+	{colback=gray!5,colframe=mainthree!90,fonttitle=\bfseries}%(option)
+	{Def}%(prefix) for refernce
+
+\newtcbtheorem[% <init option>
+	auto counter,
+	number within=part,
+	list inside=ListLemmaDefinition
+	]{lemma-definition}%(name)
+	{Definition}%(display name)
+	{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
+	{Def}%(prefix) for reference
+
+%%% Jupter Notebook entries %%
+				%% Environment for iPython Notebook
+				% Reference: https://tex.stackexchange.com/questions/223465/ipython-notebook-cells-with-listings
+				% Using each IPython cell with: \begin{ipythonnb} ... \end{ipythonnb}
+				% Linked in usepackage.tex
 
 
-%\title{% Difinition Enviroment
-%}
-%\author{}
-%\date{\today}
-%\abstract{}
-%\maketitle
 
-% 
-\usepackage[listings]{tcolorbox}
-% Many is used for lstings
-	\tcbuselibrary{listings}
-	\tcbuselibrary{theorems}
-	
-	\makeatletter
-		% add tcblistings to \jobname.lol (list of listings)
-	\tcbset{
-		addtolol/.style={list entry={\kvtcb@title},
-		add to list={lol}{subsection}},
-	}
-	\makeatother
-	
-	\newtcbtheorem[% <init option>
-		auto counter,
-		number within=part,
-		list inside=ListDefinition
-		]{definition}%(name)
-		{Definition}%(display name)
-		{colback=gray!5,colframe=mainthree!90,fonttitle=\bfseries}%(option)
-		{Def}%(prefix) for refernce
-	
-	\newtcbtheorem[% <init option>
-		auto counter,
-		number within=part,
-		list inside=ListLemmaDefinition
-		]{lemma-definition}%(name)
-		{Definition}%(display name)
-		{colback=gray!5,colframe=gray!90,fonttitle=\bfseries,}%(option)
-		{Def}%(prefix) for reference
+
 
 
 %%% Symbole und Grafiken
@@ -161,9 +163,9 @@
 	\usepackage[pdfencoding=auto,
 			%hidelinks,
 			colorlinks = true,
-			linkcolor = mainone, % Farbe für Interneverweise
-			urlcolor = mainone, % Farbe für URL Link
-			citecolor= mainone % Farbe für Citationen 
+			linkcolor = light-gray, % Farbe für Interneverweise
+			urlcolor = light-gray, % Farbe für URL Link
+			citecolor= light-gray % Farbe für Citationen 
 			]{hyperref} % Hyperlinks; hidelinks - vorherige Option
 	\usepackage{appendix} % Appendix
 		% Option: page - Front page
@@ -181,7 +183,8 @@
 			]{glossaries} % Glossar Package
 		\renewcommand{\glossarysection}[2][]{} % Unterdrückt den Titel des Glossars
 		%\glsaddall % Der Befehl fügt alle Glossary-Einträge in das Glossar ein. This has to be place inside the document.
-
+		\renewcommand*{\glstextformat}[1]{\textsf{#1}} % Sets the style for each entry: In this case as sans-serif
+		% \renewcommand*{\glstextformat}[1]{\textcolor{green}{#1}} % to color all entries, https://tex.stackexchange.com/questions/38544/glossary-links-color
 %%% Sonstiges
 	\usepackage{comment} % Auskommentieren
 	\usepackage{pdfpages} % Einzelne Seiteneinbindung der PDFs
