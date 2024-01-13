@@ -1,8 +1,5 @@
 \section{Using Azure ML API/ SDK/ CLI}
-\subsection{Overview}
-The following
-\subsection{Basics}
-\paragraph{SDK vs. CLI}
+\subsection{Introduction}
 The \gls{g_Python} \gls{AMLSDKv2} with the package library
 \begin{center}
 	\textbf{azure-ai-ml}
@@ -11,13 +8,67 @@ and the \gls{AMLSDKv1} with
 \begin{center}
 	\textbf{azureml-core}
 \end{center}
-are \gls{API}s for the \gls{AML} workspace and it's services. The \gls{CLI} package for \gls{AML} contains a more compact command line style workflows, that need to be executed. The format in v2 is normally <noun><verb><option>.\\
+are \gls{API}s for the \gls{AML} workspace and it's services. The \gls{CLI} package for \gls{AML} contains a more compact command line style workflows, that need to be executed. The format in v2 is normally \textit{<noun><verb><option>}.\\
 
 The \gls{SDK} is more directed to the development, while the \gls{CLI} is more convient for a \gls{CI}/\gls{CD} process. The later is due to the more compact way of executing commands.\footnote{Reference: \href{https://learn.microsoft.com/en-us/answers/questions/1395777/what-is-the-difference-between-azure-ail-ml-and-az}{Difference CLI, SDK}, \href{https://github.com/microsoft/MLOps}{MLOps Python AML}
 }
+\subsection{Basics}
 
-\paragraph{Working with conda}
+\subsubsection{Working with conda}
+\paragraph{Interacting with conda from the terminal}
+Here are three ways to interact with the python interpreter:
+\begin{description}
+	\item[conda comand] Starting the \textit{Anaconda Navigator} and start the \gls{IDE} from there. This then allows to interact with conda throug the \textbf{conda} \textbf{Cmdlet} from the terminal.
 
+	\item[PowerShell Extension] If the local machine has some restriction, that prohibist the use of the command \textbf{conda} from the powershell terminal.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale = 0.3]{attachment/chapter_AML/Scc023}
+		\caption{Terminal Response by using conda command}
+	\end{figure}
+	Still, the following powershell script allows when execute to use a \textit{powershell extension}, that bypass this problem.
+	\begin{lstlisting}[style=CMD, caption={.ps1 script}, captionpos=b]
+		#region conda initialize
+		# !! Contents within this block are managed by 'conda init' !!
+		$varPath  = "C:\User\" + (Get-ChildItem Env:USERNAME).Value + "\anaconda\Scripts\conda.exe"
+		If (Test-Path $varPath ) {
+			(& $varPath  "shell.powershell" "hook") | Out-String | ?{$_} | Invoke-Expression
+		}
+		#endregion
+	\end{lstlisting}
+	This powershell extension allows you with the \gls{g_conda} program.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale = 0.2]{attachment/chapter_AML/Scc026}
+		\caption{PowerShell Extension}
+	\end{figure}
+	One restriction still exists. In \gls{vsc} the option to run a program requires to create a python terminal in which the \textbf{conda} command can be access. This will not work, because a new terminal will be created in which the \textbf{conda} command can't be access. However, the python interpreter in a specific \gls{g_conda} \gls{VEN} can still be access by providing the direct path to it.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale = 0.4]{attachment/chapter_AML/Scc027}
+		\caption{PowerShell Extension and Python Interpreter}
+	\end{figure}
+	\begin{lstlisting}[style=CMD, caption={Commands}, captionpos=b]
+		(base) PS C:\Users\PaulJulitz\Documents\GitHub\Emmy_ML_One> conda activate Icarus_v3
+		(Icarus_v3) PS C:\Users\PaulJulitz\Documents\GitHub\Emmy_ML_One> & C:/Users/PaulJulitz/anaconda3/envs/Icarus_v3/python.exe c:/Users/PaulJulitz/Documents/GitHub/Emmy_ML_One/test.py  
+		Hello
+		None
+		(Icarus_v3) PS C:\Users\PaulJulitz\Documents\GitHub\Emmy_ML_One>
+	\end{lstlisting}
+	\item[Pointing to the interpreter] If the conda command can't be used.
+	Then the python interpreter it self can be selected.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale = 0.4]{attachment/chapter_AML/Scc025}
+		\caption{Selecting the python interpreter in \gls{vsc}}
+	\end{figure}
+	Running a python script will use the python interpreter inside the selected \gls{g_conda} \gls{VEN}.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale = 0.2]{attachment/chapter_AML/Scc024}
+		\caption{Terminal Response by using the python interpreter}
+	\end{figure}
+\end{description}
 
 \begin{comment}
 \subsubsection{*Example SDK/ CLI}
@@ -36,7 +87,9 @@ With both Azure and Azure ML Extension it is possible to manage the resources di
 \end{figure}
 \end{comment}
 
-\subsection{Running "On" the Compute Instance}
+
+
+\subsection{Running ON the Compute Instance}
 \subsubsection{Single Jupyter Notebook Connection}
 Reference: \href{https://learn.microsoft.com/de-de/azure/machine-learning/how-to-launch-vs-code-remote?view=azureml-api-2&tabs=vscode-desktop}{Getting started with VS-Code Desktop}\\
 
@@ -91,7 +144,7 @@ With the option to connect to the workspace it self, the blobstorage, where the 
 	\caption{Create a tunnel connection}
 \end{figure}
 
-On the bottom left (1) the tunnel connection is displayed. The internal filessystem gets linked as the storage (2), where the notebook can be access. Note: Locally stored notebooks can be used by the previous section.
+On the bottom left (1) the tunnel connection is displayed. The internal file system gets linked as the storage (2), where the notebook can be access. Note: Locally stored notebooks can be used by the previous section.
 
 \begin{figure}[H]
 	\centering
@@ -100,11 +153,10 @@ On the bottom left (1) the tunnel connection is displayed. The internal filessys
 \end{figure}
 
 
-\subsection{Running "with" the Compute Instance (SDK v1)}
+\subsection{Running WITH the Compute Instance (SDK v1)}
 
-This section will explain how to use \gls{AML} with your local computer as a compute resources.\footnote{
-Reference:  \href{https://learn.microsoft.com/en-us/azure/machine-learning/how-to-configure-environment?view=azureml-api-2#local-computer-or-remote-vm-environment}{Guide Installing SDK for Local Computer}
-}\\
+This section will explain how to use \gls{AML} with your local computer as a compute resources.
+%\footnote{Reference: \href{https://learn.microsoft.com/en-us/azure/machine-learning/how-to-configure-environment?view=azureml-api-2#local-computer-or-remote-vm-environment}{Guide Installing SDK for Local Computer}}
 
 %TODO: Setting Up a experiment, by using a compute instance 
 %TODO: Setting up an experiemnt, by using local compute.

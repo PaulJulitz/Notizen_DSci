@@ -1,6 +1,9 @@
 #Exeption form the rule
 #!main-Hauptdokumentation.pdf
 
+# Script files
+.env
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
