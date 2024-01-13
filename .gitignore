@@ -1,8 +1,9 @@
 #Exeption form the rule
 #!main-Hauptdokumentation.pdf
 
-# Script files
-.env
+# Paths
+scripts/*
+
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
