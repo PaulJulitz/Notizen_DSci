@@ -32,6 +32,7 @@
 	\definecolor{vbablue}{RGB}{0,0,128}
 	\definecolor{mysticlight}{RGB}{222,228,240} % Background color lislisting
 	\definecolor{light-gray}{gray}{0.95} % background color jupter notebook
+	\definecolor{vscodebackground}{RGB}{0,28,64} % background color jupter notebook
 % Einfärbung der Section-Titel			
 \usepackage{sectsty} 
 	\partfont{\color{mainone}}  
@@ -163,9 +164,9 @@
 	\usepackage[pdfencoding=auto,
 			%hidelinks,
 			colorlinks = true,
-			linkcolor = light-gray, % Farbe für Interneverweise
-			urlcolor = light-gray, % Farbe für URL Link
-			citecolor= light-gray % Farbe für Citationen 
+			linkcolor = gray, % Farbe für Interneverweise
+			urlcolor = gray, % Farbe für URL Link
+			citecolor= gray % Farbe für Citationen 
 			]{hyperref} % Hyperlinks; hidelinks - vorherige Option
 	\usepackage{appendix} % Appendix
 		% Option: page - Front page
@@ -198,6 +199,55 @@ style=authoryear, %% Zitierstil (siehe Dokumentation)
 natbib=true, %% Bereitstellen von natbib-kompatiblen Zitierkommandos
 hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 ]{biblatex}
+
+
+%%% Calculate Time Difference
+% Reference: https://tex.stackexchange.com/questions/14518/difference-between-two-dates
+\usepackage{datenumber}
+%\usepackage{calc} is used at 109 for \usepackage{tikz} with \usetikzlibrary{calc}
+
+\newcounter{datetoday}
+\newcounter{diffyears}
+\newcounter{diffmonths}
+\newcounter{diffdays}
+
+
+\newcommand{\difftoday}[3]{%
+	\setmydatenumber{datetoday}{\the\year}{\the\month}{\the\day}%
+	\setmydatenumber{diffdays}{#1}{#2}{#3}%
+	\addtocounter{diffdays}{-\thedatetoday}%
+	\ifnum\value{diffdays}>0
+	\def\diffbefore{in }%
+	\def\diffafter{}%
+	\else
+	\def\diffbefore{}%
+	\def\diffafter{have passed}%
+	\setcounter{diffdays}{-\value{diffdays}}%
+	\fi
+	\setcounter{diffyears}{\value{diffdays}/365}%
+	\setcounter{diffdays}{\value{diffdays}-365*\value{diffyears}}%
+	\setcounter{diffmonths}{\value{diffdays}/30}%
+	\setcounter{diffdays}{\value{diffdays}-30*\value{diffmonths}}%
+	%
+	\diffbefore
+	\ifnum\value{diffyears}=0
+	\else
+	\ifnum\value{diffyears}>1
+	\thediffyears\space years
+	\else
+	\thediffyears\space year
+	\fi
+	\fi
+	\ifnum\value{diffmonths}=0
+	\else
+	\ifnum\value{diffmonths}>1
+	\thediffmonths\space months
+	\else
+	\thediffmonths\space month
+	\fi
+	\fi
+	\diffafter
+}
 
 
 

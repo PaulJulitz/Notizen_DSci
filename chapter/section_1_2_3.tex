@@ -1,55 +1,58 @@
-\section{azureml-core (Python SDK)}
-% I want to be this guy, who builds with his team an increatiable A.I: system for munich.
 
-\subsection{Connect to Workspace}
-A workspace is a resource, which is tied (child) to a subscription and a resource group. A workspace links the different object to run a \gls{ML} model: Experiment, Training, Deployment. A workspace comes with a \gls{SDK} to interactive with.\\
+\section{AI LEARNING GOALS}
 
-To connect to the workspace, the constructor requires different parameters
-\begin{lstlisting}[style=python]
-	Workspace(
-	subscription_id, resource_group, workspace_name,
-	auth=None,
-	_location=None,
-	_disable_service_check=False,
-	_workspace_id=None,
-	sku='basic',tags=None, _cloud='AzureCloud'
-	)
-\end{lstlisting} 
+\subsection{Now: Running X Model with SDK}
+\begin{itemize}
+	\item Running X Model
+	\item Able to use SDK; CLI
+	\item (Optional) Understanding Neural Networks better
+\end{itemize}
 
-
-\begin{comment}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale = 0.3]{attachment/chapter_AML/Scc001}
-	\caption{Connect to the workspace: Select kernel}
-\end{figure}
-
-We started, with writing the configuration file.
-A started with opening jupter notebook and den selecting the kernel. And a kernel was installed on the compute cluster.
-The authen
-
-\\
-auth
-ServicePrincipalAuthentication or InteractiveLoginAuthentication or MsiAuthentication
-default value: None
-The authentication object. For more details, see https://aka.ms/aml-notebook-auth. If None, the default Azure CLI credentials will be used or the API will prompt for credentials.
+\paragraph{Rough Topic Guide: Basis for SDK, CLI}
+\begin{itemize}
+	\item Basic Doc understanding -> LaTex
+	\item Simple ML-Model Example (Either by Mircosoft Doc or Perscon Example)
+	\item Start Experiment
+	\item Train a Model on different compute targets
+	\item Log Metrics
+	\item (Maybe) Register Model
+	\item Test Model
+\end{itemize}
 
 
-\begin{lstlisting}[style=python]
-	from azureml.core import Workspace
-	ws = Workspace.create(name='myworkspace',
-	subscription_id='<azure-subscription-id>',
-	resource_group='myresourcegroup',
-	create_resource_group=True,
-	location='eastus2'
-	)
-	
-	for i in range(n):
-	print('i = ', i)
-\end{lstlisting}
+
+\paragraph{How to Doc}
+\begin{itemize}
+	\item LaTex for the Deep dive -> Take what is usefull or relevant for other people i Markdown (But not before)
+	\item Code and close explaination !!! No guide $\rightarrow$ \LaTeX or Markdown later
+\end{itemize}
 
 
-\end{comment}
+\subsection{Next Research Quests}
+\paragraph{Sources}
+\begin{itemize}
+	\item $\rightarrow$ MLOps for SDK v2,v1
+	\item Person-Course
+	\item Azure Certificate: DP-100
+\end{itemize}
+
+\paragraph{Topic: Extend ML DevOps Setup}
+\begin{itemize}
+	\item Unity data sanity tests
+	\item Model version
+	\item Model evaluation
+	\item (Optional: Deployment)
+\end{itemize}
+\paragraph{Topic: CI Process flake8, mypa for model script}
+\begin{itemize}
+	\item General enviroment file (local enviroments)
+	\item setup envirnoment files, that the ci pipeline can use them,
+	\item setup ymal file to run CI pipeline for code review test.
+\end{itemize}
+
+\paragraph{Topic: Neural Network}
+
+
 
 
 
