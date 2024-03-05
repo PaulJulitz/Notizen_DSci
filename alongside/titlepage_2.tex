@@ -28,19 +28,19 @@
 	
 	\begin{scope}[transform canvas ={rotate around ={45:($(current page.north)+(-3,-8)$)}}]
 		
-		\shade[rounded corners=28pt, left color=red!80, right color=red!80] ($(current page.north)+(-3,-8)$) rectangle ++(15,1.8);
+		\shade[rounded corners=26pt, left color=red!80, right color=red!80] ($(current page.north)+(-3,-8)$) rectangle ++(15,1.8);
 		
 	\end{scope}
 	
 	\begin{scope}[transform canvas ={rotate around ={45:($(current page.north west)+(4,-15.5)$)}}]
 		
-		\shade[rounded corners=25pt, left color=mainone, right color=maintwo] ($(current page.north west)+(4,-15.5)$) rectangle ++(30,1.8);
+		\shade[rounded corners=23pt, left color=mainone, right color=maintwo] ($(current page.north west)+(4,-15.5)$) rectangle ++(30,1.8);
 		
 	\end{scope}
 	
 	\begin{scope}[transform canvas ={rotate around ={45:($(current page.north west)+(13,-10)$)}},]
 		
-		\shade[rounded corners=22pt, left color=RoyalBlue ,right color=maintwo] ($(current page.north west)+(13,-10)$) rectangle ++(15,1.5);
+		\shade[rounded corners=20pt, left color=RoyalBlue ,right color=maintwo] ($(current page.north west)+(13,-10)$) rectangle ++(15,1.5);
 		
 	\end{scope}
 	
@@ -62,18 +62,74 @@
 		
 	\end{scope}
 	
-	\draw[ultra thick,gray] ($(current page.center)+(5,2)$) -- ++(0,-3cm) node[midway,left=0.25cm,text width=5cm,align=right,black!75]{
+	%% <> | <>
+	% Draw Line
+	\draw[ultra thick,gray] ($(current page.center)+(7,2.5)$) -- ++(0,-1.5cm) 
+
+	node[midway,right=0.25cm,text width=5cm,align=left,black!75]{
+	% Right part
 	{
-		\fontsize{25}{30} \selectfont \bf Simple \\ [10pt] 
+		\fontsize{15}{30} \selectfont  Study \\ [5pt] 
 	}{
 %		\center \fontsize{10}{40} \selectfont $\&$ and then \\[10pt] 
 	}{
-		\fontsize{25}{30} \selectfont \bf $\&$ Brilliant 
+		\fontsize{15}{30} \selectfont $\&$ Research 
 	}
-	} node[midway,right=0.25cm,text width=6cm,align=left,mainone]{{\fontsize{72}{86.4} \selectfont DSci}};
+	% Left part
+	} node[midway,left=0.25cm,text width=6cm,align=right ,mainone]{
+		{
+			\fontsize{40}{86.4} \selectfont DSci
+		}
+	};
+
+	%% Subtitle
+	\node[text width=12cm,align=center] at ($(current page.center)+(0,-1)$) {
+		{
+			\fontsize{12}{19} \selectfont \textcolor{mainone}{
+				\bf Data Science Journey
+			}
+		}	 
+	};
+
+	%%% Title
+	% Section 1
+	\node[text width=10cm, align=center] at ($(current page.center)+(4.5,-6)$) {
+		{ % Text wrapper will take into account single letters size. For example "p" needs more space in the secound line, then "a".
+			\fontsize{50}{52} \selectfont  Computer \linebreak  Science
+		} 
+	};
+	% Section 2
+	\node[text width=10cm, align=center] at ($(current page.center)+(0,-2.5)$) {
+
+		{
+			\fontsize{50}{52} \selectfont  Mathematics
+		}
+	};
+	% Section 3
+	\node[text width=10cm, align=center] at ($(current page.center)+(-4.5,-6)$) {
+		{ % Text wrapper will take into account single letters size. For example "p" needs more space in the secound line, then "a".
+			\fontsize{50}{52} \selectfont Domain \\ [9pt]  Knowledge
+		}
+	};
+	%%% Title Connection Lines
+	% Math-Domain Knowledge
+	\draw[ultra thick,gray] (5,-15.5) -- (4.5,-16.5);
+	% Math-Computer Sc
+	\draw[ultra thick,gray] (10.5,-15.5) -- (11,-16.5);
+	% Domain-Computer Sc
+	\draw[ultra thick,gray] (7,-18) -- (8.5,-18);
 	
-	\node at ($(current page.center)+(0,-4)$) {{\fontsize{60}{72} \selectfont Field of Data Science}};
 	
-	\node[text width=4cm,align=center] at ($(current page.center)+(0,-6.5)$) {{\fontsize{16}{19.2} \selectfont \textcolor{mainone}{ \bf Paul Julitz}} \\[3pt] Notizen \\[3pt] 03.01.2020 };
+	%% Extra Notes: Journey Description
+	\node[text width=12cm,align=center] at ($(current page.center)+(0,-10)$) {
+		{
+			\fontsize{16}{19.2} \selectfont \textcolor{mainone}{
+				\bf \difftoday{2020}{01}{03}
+			 }
+		}\\[3pt]
+		{
+			since the start of the journey on 3 January 2020.
+		}	 
+ };
 	
 \end{tikzpicture} 

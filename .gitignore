@@ -1,6 +1,10 @@
 #Exeption form the rule
 #!main-Hauptdokumentation.pdf
 
+# Paths
+scripts/*
+
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
