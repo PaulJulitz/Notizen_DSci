@@ -3,6 +3,30 @@
 %%%%%%%%%% Formate %%%%%%%%%%%%%%%%
 \makeglossaries 
 
+\newglossaryentry{FFNN}{
+type=\acronymtype,
+	name={FFNN},
+	%plural={MLPs},
+	description={
+		Feed-Forward Neural Networks
+	},
+	first={
+		Feed-Forward Neural Networks (FFNN)
+	}
+}
+
+\newglossaryentry{MLP}{
+type=\acronymtype,
+	name={MLP},
+	%plural={MLPs},
+	description={
+		Multilayer Layer Perceptrons
+	},
+	first={
+		Multilayer Layer Perceptrons (MLP)
+	}
+}
+
 \newglossaryentry{GPU}{
 type=\acronymtype,
 	name={GPU},
@@ -783,14 +807,18 @@ type=\acronymtype,
 
 \newglossaryentry{AI_NN}{
 	type=\acronymtype,
-	name={NN},
+	name={ANN},
+	plural={ANNs},
 	description={
-		(Artificial) Neural Networks
+		Artificial Neural Network
 	},
 	first={
-		(Artificial) Neural Networks (NN)
+		\glsentrydesc{AI_NN} (\glsentrytext{AI_NN})
+	},
+	firstplural={
+  		\glsentrydesc{AI_NN}s (\glsentrytext{AI_NN}s)
 	}
-}
+} 
 
 \newglossaryentry{AI_CNN}{
 	type=\acronymtype,
