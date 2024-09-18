@@ -820,7 +820,7 @@ Mit \textit{.read()} wird die komplette \gls{HTTP}-Seite ausgelesen. Die Daten w
 Achtung: Selbst bei einfachen Seiten ist die Menge der ausgelesenen Daten hoch. Eine Darstellung über die Konsole kann daher eine hohe Rechenzeit benötigen.
 
 \subsubsection{JSON}
-Im diesem Beispiel soll es darum gehen, wie Daten aus dem Web per \gls{JSON} Format ausgelesen werden können. 
+Im diesem Beispiel soll es darum gehen, wie Daten aus dem Web per \gls{J.json} Format ausgelesen werden können. 
 Die Daten beziehen sich auf die Seismischen Erdbeben Daten.
 \begin{figure}[H]
 	\centering
@@ -832,7 +832,7 @@ Der Aufbau der Daten findet sich teilweise wie folgt aus:
 	\includegraphics[scale = 0.3]{attachment/chapter_3/Scc074}
 \end{figure}
 
-Im ersten Schritt wird das Objekt erzeugt, welches die \gls{URL} öffnet: \textit{.request.urlopen()}. Um zuprüfen, ob die Webseite sich anfragen lässt, wird der \gls{HTTP} Code abgefragt. Ist dies Kontrolle positiv, wird die Webseite, die die \gls{JSON} Datei enthält, ausgelesen: \textit{.request.urlopen().read()}. Die Daten werden der Funktion \textit{printResults} übergeben.
+Im ersten Schritt wird das Objekt erzeugt, welches die \gls{URL} öffnet: \textit{.request.urlopen()}. Um zuprüfen, ob die Webseite sich anfragen lässt, wird der \gls{HTTP} Code abgefragt. Ist dies Kontrolle positiv, wird die Webseite, die die \gls{J.json} Datei enthält, ausgelesen: \textit{.request.urlopen().read()}. Die Daten werden der Funktion \textit{printResults} übergeben.
 \begin{lstlisting}{style=python}
 	def main():
 	# define a variable to hold the source URL
@@ -848,7 +848,7 @@ Im ersten Schritt wird das Objekt erzeugt, welches die \gls{URL} öffnet: \texti
 	print("Seite lässt sich nicht öffnen.")
 \end{lstlisting}
 
-Mit dem Paket \textit{JSON} welches \gls{JSON} Formate entschlüsselt oder Daten in solche umwandelt.
+Mit dem Paket \textit{JSON} welches \gls{J.json} Formate entschlüsselt oder Daten in solche umwandelt.
 \begin{itemize}
 	\item String ($""$)
 	\item Boolom (false, true)
@@ -856,7 +856,7 @@ Mit dem Paket \textit{JSON} welches \gls{JSON} Formate entschlüsselt oder Daten
 	\item null 
 	\item Array ($\left[...\right]$)
 	\item Object ($\left\lbrace \dots \right\rbrace$)
-\end{itemize}  Die Funktion \textit{.loads()} ließt die Erdbebendaten ein. Diese können jetzt wie im Beispiel direkt angesteuert werden. Im Glossar wird auf die Logik von \gls{JSON} eingegangen.
+\end{itemize}  Die Funktion \textit{.loads()} ließt die Erdbebendaten ein. Diese können jetzt wie im Beispiel direkt angesteuert werden. Im Glossar wird auf die Logik von \gls{J.json} eingegangen.
 \begin{lstlisting}[style=python]
 	
 	def printResults(data):
