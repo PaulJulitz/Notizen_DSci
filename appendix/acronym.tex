@@ -1,63 +1,56 @@
 % Der Befehl muss vor dem erstellen der Einträge erfolgen.
+%Test
 
 %%%%%%%%%% Formate %%%%%%%%%%%%%%%%
 \makeglossaries 
 
 
 \newglossaryentry{SGD}{
-type=\acronymtype,
+	type=\acronymtype,
 	name={SGD},
 	description={
 		Stochastic Gradient Descent
 	},
-	first={		Stochastic Gradient Descent (SGD)
-	}
+	first=\glsentrydesc{SGD} (\glsentrytext{SGD})
 }
 
 \newglossaryentry{ReLU}{
-type=\acronymtype,
+	type=\acronymtype,
 	name={ReLU},
 	description={
 		Rectified Linear Unit
 	},
-	first={		Rectified Linear Unit (ReLu)
-	}
+	first=\glsentrydesc{ReLU} (\glsentrytext{ReLU})
 }
 
 \newglossaryentry{FFNN}{
-type=\acronymtype,
+	type=\acronymtype,
 	name={FFNN},
 	%plural={MLPs},
 	description={
 		Feed-Forward Neural Networks
 	},
-	first={
-		Feed-Forward Neural Networks (FFNN)
-	}
+	first=\glsentrydesc{FFNN} (\glsentrytext{FFNN})
 }
 
 \newglossaryentry{MLP}{
-type=\acronymtype,
+	type=\acronymtype,
 	name={MLP},
 	%plural={MLPs},
 	description={
 		Multilayer Layer Perceptrons
 	},
-	first={
-		Multilayer Layer Perceptrons (MLP)
-	}
+	first=\glsentrydesc{MLP} (\glsentrytext{MLP})
 }
 
 \newglossaryentry{GPU}{
-type=\acronymtype,
+	type=\acronymtype,
 	name={GPU},
 	plural={GPUs},
 	description={
 		Graphical Processing Unit
 	},
-	first={
-		Graphical Processing Unit (GPU)
-	}
+	first=\glsentrydesc{GPU} (\glsentrytext{GPU})
 }
 
 \newglossaryentry{CPU}{
@@ -67,9 +60,7 @@ type=\acronymtype,
 	description={
 		Compute Processing Unit
 	},
-	first={
-		Compute Processing Unit (CPU)
-	}
+	first=\glsentrydesc{CPU} (\glsentrytext{CPU})
 }
 
 \newglossaryentry{ONNX}{
@@ -78,9 +69,7 @@ type=\acronymtype,
 	description={
 		Open Neural Network Exchange
 	},
-	first={
-		Open Neural Network Exchange (ONNX)
-	}
+	first=\glsentrydesc{ONNX} (\glsentrytext{ONNX})
 }
 
 \newglossaryentry{AKS}{
@@ -89,9 +78,7 @@ type=\acronymtype,
 	description={
 		Azure Kubernetes Service (Instances)
 	},
-	first={
-		Azure Kubernetes Services (AKS)
-	}
+	first=\glsentrydesc{AKS} (\glsentrytext{AKS})
 }
 
 \newglossaryentry{ACI}{
@@ -100,9 +87,7 @@ type=\acronymtype,
 	description={
 		Azure Container Instanz
 	},
-	first={
-		Azure Container Instanze (ACI)
-	}
+	first=\glsentrydesc{ACI} (\glsentrytext{ACI})
 }
 
 \newglossaryentry{BYOC}{
@@ -111,9 +96,7 @@ type=\acronymtype,
 	description={
 		Bring your own container
 	},
-	first={
-		Bring you own container
-	}
+	first=\glsentrydesc{BYOC} (\glsentrytext{BYOC})
 }
 
 \newglossaryentry{MLOps}{
@@ -122,9 +105,7 @@ type=\acronymtype,
 	description={
 		Machine Learning Operations		
 	},
-	first={
-		Machine Learning Operations (MLOps)
-	}
+	first=\glsentrydesc{MLOps} (\glsentrytext{MLOps})
 }
 
 \newglossaryentry{AML}{
@@ -133,9 +114,7 @@ type=\acronymtype,
 	description={
 		Azure ML
 	},
-	first={
-		Azure ML (Azure ML)
-	}
+	first=\glsentrydesc{AML} (\glsentrytext{AML})
 }
 
 \newglossaryentry{SDK}{
@@ -144,9 +123,7 @@ type=\acronymtype,
 	description={
 		Software Development Kit
 	},
-	first={
-		Software Development Kit (SDK)
-	}
+	first=\glsentrydesc{SDK} (\glsentrytext{SDK})
 }
 
 
@@ -156,9 +133,7 @@ type=\acronymtype,
 	description={
 		Virtual Machine
 	},
-	first={
-		Virtual Machine (VM)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.yaml}{
@@ -167,9 +142,7 @@ type=\acronymtype,
 	description={
 		Yaml ain't a Markup Language
 	},
-	first={
-		Yaml ain't a Markup Language (.yml/.yaml)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.pbix}{
@@ -178,9 +151,7 @@ type=\acronymtype,
 	description={
 		Power BI Desktop File
 	},
-	first={
-		Power BI Desktop File (.pbix)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.csv}{
@@ -189,9 +160,7 @@ type=\acronymtype,
 	description={
 		comma-separated values
 	},
-	first={
-		comma-separated values (.csv)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.toml}{
@@ -200,9 +169,7 @@ type=\acronymtype,
 	description={
 		Tom's Obivious Minina Language/File Format
 	},
-	first={
-		Tom's Obivious Minina Language/File Format (.toml)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.json}{
@@ -211,10 +178,8 @@ type=\acronymtype,
 	description={
 		JavaScript Object Notation
 	},
-	first={
-		JavaScript Object Notation (.json)
-	},
-	see=[Glossar:]{g_JSON}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
+}
 }
 
 \newglossaryentry{.xlsx}{
@@ -223,9 +188,7 @@ type=\acronymtype,
 	description={
 		Microsoft Excel Open XML Spreedsheet
 	},
-	first={
-		Microsoft Excel Open XML Spreedsheet (.xlsx)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.xlsm}{
@@ -234,9 +197,7 @@ type=\acronymtype,
 	description={
 		Microsoft Excel Open XML Spreedsheet with Macros
 	},
-	first={
-		Microsoft Excel Open XML Spreedsheet with Macros (.xlsm)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.qvd}{
@@ -245,9 +206,7 @@ type=\acronymtype,
 	description={
 		QlikView Data
 	},
-	first={
-		QlikView Data (.qvd)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.qvf}{
@@ -256,9 +215,7 @@ type=\acronymtype,
 	description={
 		Qlik Sense Desktop App File
 	},
-	first={
-		Qlik Sense Desktop App File (.qvf)
-	}
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 }
 
 \newglossaryentry{.ipynb}{
@@ -267,9 +224,7 @@ type=\acronymtype,
 	description={
 		Jupyter Notebook file format which in interoperable accross many platforms. The name also referes to the user-facing web interface called Jupyter Notebook.
 	},
-	first={
-		Jupyter Notebook File (.ipynb)
-	},
+	first=\glsentrydesc{VM} (\glsentrytext{VM})
 	see=[Glossar:]{g_JupyterNotebook}
 }
 
@@ -281,9 +236,7 @@ type=\acronymtype,
 	description={
 		Objekt-Orientierte-Programmierung
 	},
-	first={
-		Objekt-Orientierte-Programmierung (OOP)
-	}
+	first=\glsentrydesc{OOP} (\glsentrytext{OOP})
 }
 
 
@@ -293,9 +246,7 @@ type=\acronymtype,
 	description={
 		Data Analysis Expressions
 	},
-	first={
-		Data Analysis Expressions (DAX)
-	}
+	first=\glsentrydesc{DAX} (\glsentrytext{DAX})
 }
 
 \newglossaryentry{ETL}{
@@ -304,9 +255,7 @@ type=\acronymtype,
 	description={
 		Extract, Transform, Load
 	},
-	first={
-		Extract, Transform, Load (ETL)
-	}
+	first=\glsentrydesc{ETL} (\glsentrytext{ETL})
 }
 
 \newglossaryentry{VBA}{
@@ -315,9 +264,7 @@ type=\acronymtype,
 	description={
 		Visual Basic Application
 	},
-	first={
-		Visual Basic Application (VBA)
-	}
+	first=\glsentrydesc{VBA} (\glsentrytext{VBA})
 }
 
 \newglossaryentry{AWS}{
@@ -326,9 +273,7 @@ type=\acronymtype,
 	description={
 		Amazon Web Service
 	},
-	first={
-		Amazon Web Service (AWS)
-	}
+	first=\glsentrydesc{AWS} (\glsentrytext{AWS})
 }
 
 
@@ -338,9 +283,7 @@ type=\acronymtype,
 	description={
 		Pivot-Koordinaten-Filter
 	},
-	first={
-		Pivot-Koordinaten-Filter (PKF)	
-	}
+	first=\glsentrydesc{PKF} (\glsentrytext{PKF})
 }
 
 \newglossaryentry{DFO}{
@@ -349,9 +292,7 @@ type=\acronymtype,
 	description={
 		DAX-Filter-Option
 	},
-	first={
-		DAX-Filter-Option (DFO)
-	}
+	first=\glsentrydesc{DFO} (\glsentrytext{DFO})
 }
 
 \newglossaryentry{ODBC}{
@@ -360,9 +301,7 @@ type=\acronymtype,
 	description={
 		Open Database Connectivity (Connection)
 	},
-	first={
-		Open Database Connectivity (ODBC)
-	},
+	first=\glsentrydesc{ODBC} (\glsentrytext{ODBC})
 	see=[Glossar:]{gloss_ODBC}
 }
 
@@ -372,9 +311,7 @@ type=\acronymtype,
 	description={
 		Structured Query Language
 	},
-	first={
-		Structured Query Language (SQL)
-	},
+	first=\glsentrydesc{SQL} (\glsentrytext{SQL})
 	see=[Glossar:]{g_SQL}
 }
 
@@ -384,9 +321,7 @@ type=\acronymtype,
 	description={
 		JavaScript
 	},
-	first={
-		JavaScript (JS)
-	}
+	first=\glsentrydesc{JS} (\glsentrytext{JS})
 }
 
 \newglossaryentry{QMC}{
@@ -395,9 +330,7 @@ type=\acronymtype,
 	description={
 		Qlik Management Console
 	},
-	first={
-		Qlik Management Console (QMC)
-	}
+	first=\glsentrydesc{QMC} (\glsentrytext{QMC})
 }
 
 \newglossaryentry{VCS}{
@@ -406,9 +339,7 @@ type=\acronymtype,
 	description={
 		Version Controll System
 	},
-	first={
-		Version Controll System (VCS)
-	}
+	first=\glsentrydesc{VCS} (\glsentrytext{VCS})
 }
 
 \newglossaryentry{EC2}{
@@ -417,9 +348,7 @@ type=\acronymtype,
 	description={
 		Amazon Elastic Computing Cloud
 	},
-	first={
-		Amazon Elastic Computing Cloud (EC2)
-	},
+	first=\glsentrydesc{EC2} (\glsentrytext{EC2})
 	see=[Glossar:]{g_EC2}
 }
 
@@ -429,9 +358,7 @@ type=\acronymtype,
 	description={
 		command-line interpreter
 	},
-	first={
-		command-line interpreter (cmd)
-	}
+	first=\glsentrydesc{CMD} (\glsentrytext{CMD})
 }
 
 \newglossaryentry{UI}{
@@ -440,9 +367,7 @@ type=\acronymtype,
 	description={
 		User Interface
 	},
-	first={
-		User Interface (UI)
-	}
+	first=\glsentrydesc{UI} (\glsentrytext{UI})
 }
 
 \newglossaryentry{UX}{
@@ -451,9 +376,7 @@ type=\acronymtype,
 	description={
 		User Experience
 	},
-	first={
-		User Experience (UX)
-	}
+	first=\glsentrydesc{UX} (\glsentrytext{UX})
 }
 
 
@@ -463,9 +386,7 @@ type=\acronymtype,
 	description={
 		Simple Storage Services
 	},
-	first={
-		Simple Storage Services (S3)
-	}
+	first=\glsentrydesc{S3} (\glsentrytext{S3})
 }
 
 \newglossaryentry{IoT}{
@@ -474,9 +395,7 @@ type=\acronymtype,
 	description={
 		Internet of Things
 	},
-	first={
-		Internet of Things (IoT)
-	}
+	first=\glsentrydesc{IoT} (\glsentrytext{IoT})
 }
 
 \newglossaryentry{API}{
@@ -485,9 +404,7 @@ type=\acronymtype,
 	description={
 		Application programming interface
 	},
-	first={
-		Application programming interface (API)
-	}
+	first=\glsentrydesc{API} (\glsentrytext{API})
 }
 
 \newglossaryentry{SFTP}{
@@ -496,9 +413,7 @@ type=\acronymtype,
 	description={
 		Secure File Transfer Protocol
 	},
-	first={
-		Secure File Transport Protocol (SFTP)
-	}
+	first=\glsentrydesc{SFTP} (\glsentrytext{SFTP})
 }
 
 \newglossaryentry{CPP}{
@@ -507,9 +422,7 @@ type=\acronymtype,
 	description={
 		C++
 	},
-	first={
-		C++ (CPP)
-	}
+	first=\glsentrydesc{CPP} (\glsentrytext{CPP})
 }
 
 \newglossaryentry{HTTP}{
@@ -518,9 +431,7 @@ type=\acronymtype,
 	description={
 		Hypertext Tranfer Protokoll
 	},
-	first={
-		Hypertext Transfer Protokoll (HTTP)
-	},
+	first=\glsentrydesc{HTTP} (\glsentrytext{HTTP})
 	see=[Glossar:]{g_HTTP}
 }
 
@@ -530,22 +441,8 @@ type=\acronymtype,
 	description={
 		Uniform Resource Locator
 	},
-	first={
-		Uniform Resource Locator (URL)
-	},
+	first=\glsentrydesc{URL} (\glsentrytext{URL})
 	see=[Glossar:]{g_URL}
-}
-
-\newglossaryentry{JSON}{
-	type=\acronymtype,
-	name={JSON},
-	description={
-		JavaScript Object Notation
-	},
-	first={
-		JavaScript Object Noation (JSON)
-	},
-	see=[Glossar:]{g_JSON}
 }
 
 \newglossaryentry{HTML}{
@@ -554,9 +451,7 @@ type=\acronymtype,
 	description={
 		Hypertext Markup Language
 	},
-	first={
-		Hypertext Markup Language (HTML)
-	}
+	first=\glsentrydesc{HTML} (\glsentrytext{HTML})
 }
 
 \newglossaryentry{EDA}{
@@ -565,9 +460,7 @@ type=\acronymtype,
 	description={
 		Exploritory Data Analysis
 	},
-	first={
-		Exploritory Data Analysis (EDA)
-	}
+	first=\glsentrydesc{EDA} (\glsentrytext{EDA})
 }
 
 \newglossaryentry{RKI}{
@@ -576,9 +469,7 @@ type=\acronymtype,
 	description={
 		Robert-Koch-Institute
 	},
-	first={
-		Robert-Koch-Institute (RKI)
-	}
+	first=\glsentrydesc{RKI} (\glsentrytext{RKI})
 }
 
 \newglossaryentry{dbo}{
@@ -587,9 +478,7 @@ type=\acronymtype,
 	description={
 		DataBase Owner
 	},
-	first={
-		DataBase Owner
-	}
+	first=\glsentrydesc{dbo} (\glsentrytext{dbo})
 }
 
 \newglossaryentry{AGen2}{
@@ -598,9 +487,7 @@ type=\acronymtype,
 	description={
 		Azure Data Lake Storage Gen2
 	},
-	first={
-		Azure Data Lake Storage Gen2 (AGen2)
-	}
+	first=\glsentrydesc{AGen2} (\glsentrytext{AGen2})
 }
 
 \newglossaryentry{AD}{
@@ -609,9 +496,7 @@ type=\acronymtype,
 	description={
 		Active Directory
 	},
-	first={
-		Active Directory (AD)
-	}
+	first=\glsentrydesc{AD} (\glsentrytext{AD})
 }
 
 \newglossaryentry{NaN}{
@@ -620,9 +505,7 @@ type=\acronymtype,
 	description={
 		Not a Number
 	},
-	first={
-		Not a Number (NaN)
-	},
+	first=\glsentrydesc{NaN} (\glsentrytext{NaN})
 	see=[Glossar:]{g_NaN}
 }
 
@@ -632,9 +515,7 @@ type=\acronymtype,
 	description={
 		Not available
 	},
-	first={
-		Not available (Na)
-	},
+	first=\glsentrydesc{Na} (\glsentrytext{Na})
 	see=[Glossar:]{g_Na}
 }
 
@@ -644,9 +525,7 @@ type=\acronymtype,
 	description={
 		R - Statisticial Programming Language
 	},
-	first={
-		R - Statisticial Programming Language (R)
-	}
+	first=\glsentrydesc{R} (\glsentrytext{R})
 }
 
 \newglossaryentry{IDE}{
@@ -655,9 +534,7 @@ type=\acronymtype,
 	description={
 		Integrated development environment
 	},
-	first={
-		Integrated development environment (IDE)
-	}
+	first=\glsentrydesc{IDE} (\glsentrytext{IDE})
 }
 
 
@@ -667,9 +544,7 @@ type=\acronymtype,
 	description={
 		Power BI Deployment Pipeline
 	},
-	first={
-		Power BI Deployment Pipeline (PBDP)
-	}
+	first=\glsentrydesc{PBDP} (\glsentrytext{PBDP})
 }
 
 \newglossaryentry{ML}{
@@ -678,9 +553,7 @@ type=\acronymtype,
 	description={
 		Machine Learning
 	},
-	first={
-		Machine Learning (ML)
-	}
+	first=\glsentrydesc{ML} (\glsentrytext{ML})
 }
 
 \newglossaryentry{PQE}{
@@ -689,9 +562,7 @@ type=\acronymtype,
 	description={
 		Power Query Engine
 	},
-	first={
-		Power Query Engine (PQE)
-	}
+	first=\glsentrydesc{PQE} (\glsentrytext{PQE})
 }
 
 \newglossaryentry{GML}{
@@ -700,9 +571,7 @@ type=\acronymtype,
 	description={
 		General Linear Model
 	},
-	first={
-		General Linear Model (GML)
-	}
+	first=\glsentrydesc{GML} (\glsentrytext{GML})
 }
 \newglossaryentry{OLS}{
 	type=\acronymtype,
@@ -710,9 +579,7 @@ type=\acronymtype,
 	description={
 		Ordinary Least Square Estimation
 	},
-	first={
-		Ordinary Least Square Estimation (OLS)
-	}
+	first=\glsentrydesc{OLS} (\glsentrytext{OLS})
 }
 
 \newglossaryentry{MLE}{
@@ -721,21 +588,17 @@ type=\acronymtype,
 	description={
 		Maximum Likelihood Estimation
 	},
-	first={
-		Maximum Likelikhood Estimation (MLE)
-	}
+	first=\glsentrydesc{MLE} (\glsentrytext{MLE})
 }
 
 \newglossaryentry{iid}{
 	type=\acronymtype,
 	name={i.i.d},
 	description={
-			unabhängig und identisch verteilt  
-			(engl.) independent and identically distributed
+		unabhängig und identisch verteilt  
+		(engl.) independent and identically distributed
 	},
-	first={
-			unabhängig und identisch verteilt ((engl.) independent and identically distributed) (i.i.d)
-	}
+	first=\glsentrydesc{iid} (\glsentrytext{iid})
 }
 
 \newglossaryentry{SQE}{
@@ -744,9 +607,7 @@ type=\acronymtype,
 	description={
 		erklärenden Quadradsumme
 	},
-	first={
-		eklärenden Quardsumme (SQE)/ (Engl.: Residual Sum of Squars (SSR)
-	}
+	first=\glsentrydesc{SQE} (\glsentrytext{SQE})
 }
 
 \newglossaryentry{SQT}{
@@ -755,9 +616,7 @@ type=\acronymtype,
 	description={
 		totale Quadradsumme
 	},
-	first={
-		totale Quardsumme (SQT)/ (Engl.: Total Sum of Squars (SST))
-	}
+	first=\glsentrydesc{SQT} (\glsentrytext{SQT})
 }
 
 \newglossaryentry{R2}{
@@ -766,9 +625,7 @@ type=\acronymtype,
 	description={
 		Empirisches Bestimmtheitsmaß
 	},
-	first={
-		Emprisches Bestimmtheitsmaß ($R^2$) (Engl.: Coeffiecient of Determination)
-	}
+	first=\glsentrydesc{R2} (\glsentrytext{R2})
 }
 
 \newglossaryentry{MSE}{
@@ -777,9 +634,7 @@ type=\acronymtype,
 	description={
 		Mittlere quadratischer Fehler
 	},
-	first={
-		Mittlere quadratischer Fehler (MQE) (Engl.: Root Mean Squard Error (MSE))
-	}
+	first=\glsentrydesc{MSE} (\glsentrytext{MSE})
 }
 
 \newglossaryentry{ZV}{
@@ -788,9 +643,7 @@ type=\acronymtype,
 	description={
 		Zufallsvariable ($k=1$)/ Zufallsvektor ($k>1$) oder Zufallsgröße
 	},
-	first={
-		Zufallsvariable (ZV)
-	}
+	first=\glsentrydesc{ZV} (\glsentrytext{ZV})
 }
 
 \newglossaryentry{KI}{
@@ -799,9 +652,7 @@ type=\acronymtype,
 	description={
 		Künstliche Inteligence
 	},
-	first={
-		Künstliche Intelligence (K.I.)/ engl. Artificial Intelligence (A.I.)
-	}
+	first=\glsentrydesc{KI} (\glsentrytext{KI})
 }
 
 \newglossaryentry{AI_ML}{
@@ -810,20 +661,17 @@ type=\acronymtype,
 	description={
 		Machine Learning
 	},
-	first={
-		Machine Learning (ML)
-	}
+	first=\glsentrydesc{AI_ML} (\glsentrytext{AI_ML})
 }
 
+	
 \newglossaryentry{AI_DNN}{
 	type=\acronymtype,
 	name={DNN},
 	description={
 		Deep Neuroal Network
 	},
-	first={
-		Deep Neuroal Network (DNN)
-	}
+	first=\glsentrydesc{AI_DNN} (\glsentrytext{AI_DNN})
 }
 
 \newglossaryentry{AI_NN}{
@@ -833,12 +681,11 @@ type=\acronymtype,
 	description={
 		Artificial Neural Network
 	},
-	first={
-		\glsentrydesc{AI_NN} (\glsentrytext{AI_NN})
+	first=\glsentrydesc{AI_NN} (\glsentrytext{AI_NN})
 	},
 	firstplural={
-  		\glsentrydesc{AI_NN}s (\glsentrytext{AI_NN}s)
-	}
+		\glsentrydesc{AI_NN}s (\glsentrytext{AI_NN}s)
+}
 } 
 
 \newglossaryentry{AI_CNN}{
@@ -847,9 +694,7 @@ type=\acronymtype,
 	description={
 		Convolutional Neural Networks
 	},
-	first={
-		Convolutional Neural Networks (CNN)
-	}
+	first=\glsentrydesc{AI_CNN} (\glsentrytext{AI_CNN})
 }
 
 \newglossaryentry{AI_RL}{
@@ -858,9 +703,7 @@ type=\acronymtype,
 	description={
 		Reinforcement Learning
 	},
-	first={
-		Reinforcement Learning (RL)
-	}
+	first=\glsentrydesc{AI_RL} (\glsentrytext{AI_RL})
 }
 
 \newglossaryentry{PP}{
@@ -869,9 +712,7 @@ type=\acronymtype,
 	description={
 		Power Platform
 	},
-	first={
-		Power Platform (PP)
-	}
+	first=\glsentrydesc{PP} (\glsentrytext{PP})
 }
 
 \newglossaryentry{CDS}{
@@ -880,9 +721,7 @@ type=\acronymtype,
 	description={
 		Common Data Service/ Dataverse
 	},
-	first={
-		Common Data Service/ Dataverse (CDS)
-	}
+	first=\glsentrydesc{CDS} (\glsentrytext{CDS})
 }
 
 \newglossaryentry{DLP}{
@@ -891,9 +730,7 @@ type=\acronymtype,
 	description={
 		Data Loss Prevention Policies
 	},
-	first={
-		Data Loss Prevention Policies (DLP)
-	}
+	first=\glsentrydesc{DLP} (\glsentrytext{DLP})
 }
 
 \newglossaryentry{CI}{
@@ -902,9 +739,7 @@ type=\acronymtype,
 	description={
 		Continous Integration
 	},
-	first={
-		Continous Integration (CI)
-	}
+	first=\glsentrydesc{CI} (\glsentrytext{CI})
 }
 
 \newglossaryentry{CD}{
@@ -913,9 +748,7 @@ type=\acronymtype,
 	description={
 		Continous Development
 	},
-	first={
-		Continous Development (CD)
-	}
+	first=\glsentrydesc{CD} (\glsentrytext{CD})
 }
 
 \newglossaryentry{ALM}{
@@ -924,9 +757,7 @@ type=\acronymtype,
 	description={
 		Application Lifecyle Management
 	},
-	first={
-		Application Lifecyle Management (ALM)
-	}
+	first=\glsentrydesc{ALM} (\glsentrytext{ALM})
 }
 
 \newglossaryentry{MKQ}{
@@ -935,9 +766,7 @@ type=\acronymtype,
 	description={
 		Methode der Kleinsten Quadrate
 	}
-	first={
-		Methode der Kleinsten Quadrate (MKQ)
-	}
+	first=\glsentrydesc{MKQ} (\glsentrytext{MKQ})
 }
 
 \newglossaryentry{KQS}{
@@ -946,9 +775,7 @@ type=\acronymtype,
 	description={
 		Kleinst-Quadrate Schätzer
 	}
-	first={
-		Kleinst-Quadrate Schätzer (KQS)
-	}
+	first=\glsentrydesc{KQS} (\glsentrytext{KQS})
 }
 
 \newglossaryentry{VEN}{
@@ -957,9 +784,7 @@ type=\acronymtype,
 	description={
 		Virtuel Environment
 	}
-	first={
-		Virtuel Environment (ven)
-	}
+	first=\glsentrydesc{VEN} (\glsentrytext{VEN})
 }
 
 \newglossaryentry{LRM}{
@@ -968,9 +793,7 @@ type=\acronymtype,
 	description={
 		Lineares Regressionsmodell
 	},
-	first={
-		Lineares Regressionsmodell (LRM)
-	}
+	first=\glsentrydesc{LRM} (\glsentrytext{LRM})
 }
 
 \newglossaryentry{SM}{
@@ -979,9 +802,7 @@ type=\acronymtype,
 	description={
 		Statistisches Model
 	},
-	first={
-		Statistisches Model (SM)
-	}
+	first=\glsentrydesc{SM} (\glsentrytext{SM})
 }
 
 \newglossaryentry{MLF}{
@@ -990,9 +811,7 @@ type=\acronymtype,
 	description={
 		Maximum-Likelihood Funktion
 	},
-	first={
-		Maximum-Likelihood Funktion (MLF)
-	}
+	first=\glsentrydesc{MLF} (\glsentrytext{MLF})
 }
 
 
@@ -1002,9 +821,7 @@ type=\acronymtype,
 	description={
 		Graphical User Interface
 	},
-	first={
-		Graphical User Interface (MLF)
-	}
+	first=\glsentrydesc{GUI} (\glsentrytext{GUI})
 }
 
 \newglossaryentry{ADL}{
@@ -1013,9 +830,7 @@ type=\acronymtype,
 	description={
 		Azure Data Lake Storage Gen 2/ Azure Data Lake/ Data Lake Storage
 	},
-	first={
-		Azure Data Lake Storage Gen 2 (ADLSG2)
-	}
+	first=\glsentrydesc{ADL} (\glsentrytext{ADL})
 }
 
 
@@ -1025,9 +840,7 @@ type=\acronymtype,
 	description={
 		Platform as a Solution
 	},
-	first={
-		Platform as a Solution (PaaS)
-	}
+	first=\glsentrydesc{PaaS} (\glsentrytext{PaaS})
 }
 
 \newglossaryentry{SaaS}{
@@ -1036,9 +849,7 @@ type=\acronymtype,
 	description={
 		Sofware as a Solution
 	},
-	first={
-		Software as a Solution (PaaS)
-	}
+	first=\glsentrydesc{SaaS} (\glsentrytext{SaaS})
 }
 
 \newglossaryentry{HDFS}{
@@ -1047,9 +858,7 @@ type=\acronymtype,
 	description={
 		Hadoop Distributed File System
 	},
-	first={
-		Hadoop Distributed File System (HDFS)
-	}
+	first=\glsentrydesc{HDFS} (\glsentrytext{HDFS})
 }
 
 \newglossaryentry{ABFS}{
@@ -1058,9 +867,7 @@ type=\acronymtype,
 	description={
 		Azure Blob File System (Driver)
 	},
-	first={
-		Azure Blob File System (ABFS)
-	}
+	first=\glsentrydesc{ABFS} (\glsentrytext{ABFS})
 }
 
 \newglossaryentry{WASB}{
@@ -1069,9 +876,7 @@ type=\acronymtype,
 	description={
 		Windows Azure Storage Blob (Driver)
 	},
-	first={
-		Windows Azure Storage Blob (WASB)
-	}
+	first=\glsentrydesc{WASB} (\glsentrytext{WASB})
 }
 
 \newglossaryentry{RBAC}{
@@ -1080,9 +885,7 @@ type=\acronymtype,
 	description={
 		Role-based access controll
 	},
-	first={
-		Role-based access controll (RBAC)
-	}
+	first=\glsentrydesc{RBAC} (\glsentrytext{RBAC})
 }
 
 \newglossaryentry{ACL}{
@@ -1091,9 +894,7 @@ type=\acronymtype,
 	description={
 		Access control lists
 	},
-	first={
-		Access control lists (ACLs)
-	}
+	first=\glsentrydesc{ACL} (\glsentrytext{ACL})
 }
 
 \newglossaryentry{RDBMS}{
@@ -1102,9 +903,7 @@ type=\acronymtype,
 	description={
 		Relational-Database Management System
 	},
-	first={
-		Relational-Database Management System (RDBMS)
-	}
+	first=\glsentrydesc{RDBMS} (\glsentrytext{RDBMS})
 }
 
 \newglossaryentry{OKR}{
@@ -1113,9 +912,7 @@ type=\acronymtype,
 	description={
 		Objective and Key Results
 	},
-	first={
-		Objective and Key Results (OKR/OKRs)
-	}
+	first=\glsentrydesc{OKR} (\glsentrytext{OKR})
 }
 
 \newglossaryentry{CLI}{
@@ -1124,7 +921,5 @@ type=\acronymtype,
 	description={
 		Command Line Interface
 	},
-	first={
-		Command Line Interface (CLI)
-	}
+	first=\glsentrydesc{CLI} (\glsentrytext{CLI})
 }
