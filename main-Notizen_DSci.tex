@@ -23,12 +23,25 @@
 \addbibresource{alongside/Citavi_Bib_1.bib} %% Einbinden der bib-Datei
 %\addbibresource{alongside/Citavi_Bib-Own.bib} %% Einbinden der bib-Datei
 
+%%%% Starting the Document %%%%%%%%%%
 %Used XeLaTex compiler
 \begin{document}
 
+% Title
 %\input{alongside/titlepage}
-\input{alongside/titlepage_2}
+%\input{alongside/titlepage_2}
 
+%\input{alongside/titlepage_NFM}
+\input{alongside/titlepage_LR}
+%\input{alongside/titlepage_DSc}
+
+% Abstract
+
+%\input{chapter/chapter_4_5_Abstract_NFM}
+\input{chapter/chapter_4_5_Abstract_LR}
+%\input{chapter/chapter_4_5_Abstract_DSci}
+
+% TOC
 \pagebreak
 \hypersetup{linkcolor=black}
 \tableofcontents
@@ -117,7 +130,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Rubics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{chapter/part_4} % Count 3,5 
+%\input{chapter/part_4} % Count 3,5 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Introduction Rubric, Strategy
@@ -127,14 +140,12 @@
 %\input{chapter/chapter_4_6}
 
 %% Nfm 
-\input{chapter/chapter_4_1} % NfM: Main
-%\input{chapter/corrected_chapter_4_1.tex} %(Checked)
-\input{chapter/chapter_4_5} % NfM Epolog
-%\input{chapter/corrected_chapter_4_5.tex} %(Checked)
+%\input{chapter/chapter_4_1} % NfM: Main
+%\input{chapter/chapter_4_5} % NfM Epolog
 %\input{chapter/chapter_4_4} % NfM: Dump, can be deleted.
 
 %% Responsibility I see in Leadership
-%\input{chapter/chapter_4_2} % main
+\input{chapter/chapter_4_2} % main
 %\input{chapter/chapter_4_2_1} % Graveyard, Dump, Epolog
 
 
@@ -161,7 +172,7 @@
 %% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ################################################### 
 \input{appendix/helpchapter_n1} % Appendix - Acrynomy
-\input{appendix/helpchapter_n2} % Appendix - Glossary
+%\input{appendix/helpchapter_n2} % Appendix - Glossary
 %\input{appendix/helpchapter_n3} % Literary
 %\input{appendix/helpchapter_n4} % Changelog
 %\input{appendix/helpchapter_n5} % Erlaeuterungen -> Moved to Rubrics
