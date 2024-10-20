@@ -50,6 +50,8 @@
 
 ## Tags
 
+[v0.0.6 - LR v1.0](https://github.com/PaulJulitz/Notizen_DSci/releases/tag/v0.0.6)
+
 [v0.0.5 - NFM v1.2](https://github.com/PaulJulitz/Notizen_DSci/releases/tag/v0.0.5)
 15 days since the start fo 01.05.2024
 
@@ -62,6 +64,11 @@
 [v0.0.1 - Kernel Chapter](https://github.com/PaulJulitz/Notizen_DSci/releases/tag/v0.0.1)
 
 [v0.0.0 - Inital Upload](https://github.com/PaulJulitz/Notizen_DSci/releases/tag/v0.0.0)
+
+git push command
+```
+
+```
 
 git push command
 ```
