@@ -1,7 +1,0 @@
-*.env
-*.amltmp
-**.ipynb_aml_checkpoints/
-**/__pycache__/*
-/.vs
-.vs
-.vscode
