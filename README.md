@@ -1,5 +1,6 @@
 # Notizen_DSci
 
+Unclear, what to focus on next: 
 ## Newest Study & Research Path
     
     -----------------------------------------------------
