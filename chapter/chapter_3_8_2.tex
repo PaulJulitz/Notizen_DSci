@@ -1,0 +1,234 @@
+
+\section{Draft 2}
+\subsection*{Definitionen und Annahmen}
+
+\begin{itemize}
+    \item \textbf{Fahrt-Ketten:}
+    \begin{itemize}
+        \item Eine Fahrt-Kette besteht aus mehreren einzelnen Fahrten.
+    \end{itemize}
+    
+    \item \textbf{Netz und Linien:}
+    \begin{itemize}
+        \item Das Netz ist unterteilt in verschiedene Linien.
+        \item Stationen können auf mehreren Linien vorhanden sein und fungieren als Knotenpunkte.
+    \end{itemize}
+    
+    \item \textbf{Stationen und Gleise:}
+    \begin{itemize}
+        \item Jede Station enthält mindestens ein Gleis.
+        \item Fahrzeuge durchfahren die Gleise an Stationen.
+    \end{itemize}
+    
+    \item \textbf{Strecken-Abschnitte:}
+    \begin{itemize}
+        \item Es gibt ein-Gleisige Streckenabschnitte zwischen zwei Stationen.
+        \item Andere Abschnitte haben sowohl Hin- als auch Rückrichtung (doppelgleisig).
+    \end{itemize}
+    
+    \item \textbf{Fahrten:}
+    \begin{itemize}
+        \item Jede Fahrt hat eine Start- und eine End-Station.
+        \item Zwischen zwei Fahrten kann eine Pause liegen, in der das Fahrzeug sich an der gleichen Position im Netz befindet.
+        \item Die letzte Fahrt in einer Fahrt-Kette endet an besonderen Stationen im Netzwerk.
+    \end{itemize}
+    
+    \item \textbf{Check-Blöcke:}
+    \begin{itemize}
+        \item Fahrzeuge haben zu gewissen Zeiten fixe ``Check''-Blöcke, wo sie an besonderen Stationen sein müssen.
+        \item Diese Stationen können identisch zu den Stationen sein, die das Ende der letzten Fahrt in der Fahrt-Kette beschreiben.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Problemstellung}
+
+\begin{itemize}
+    \item Die fixen Check-Blöcke sind im Plan so integriert, dass eine Fahrt in der Fahrt-Kette an der besonderen Station endet.
+    \item Im laufenden Betrieb kommt es jedoch zu Zuführungskonflikten, weil die Fahrzeuge Fahrt-Ketten zugewiesen werden, bei denen die Check-Blöcke sich mit anderen Fahrten überlappen.
+\end{itemize}
+
+\subsection*{Mathematische Definition}
+
+\begin{itemize}
+    \item $N$: Menge aller Stationen im Netz.
+    \item $L$: Menge aller Linien im Netz.
+    \item $S \subset N$: Menge der besonderen Stationen zum Ende der Fahrt-Kette und für Check-Blöcke.
+    \item $F$: Menge aller Fahrten.
+    \item $FC \subset F$: Menge aller Fahrt-Ketten.
+    \item $C \subset F$: Menge der fixen Check-Blöcke (oder Check-Fahrten).
+    \item $t(f)$: Zeitdauer einer Fahrt $f$.
+    \item $P \subset N \times N$: Menge der Strecken-Abschnitte (Teilweise ein-Gleising, teilweise doppelgleisig).
+\end{itemize}
+
+\subsection*{Ziel}
+
+Das Ziel ist es, sicherzustellen, dass jeder Check-Block $c \in C$ innerhalb der Planung zu keiner Überlappung mit einer anderen Fahrt $f \in F$ in derselben Fahrt-Kette führt.
+
+\paragraph{Mögliche Lösungsansätze}
+
+\begin{enumerate}
+    \item \textbf{Optimierung der Fahrplanung:}
+    \begin{itemize}
+        \item Eine Optimierung des Fahrzeitplans unter Berücksichtigung der Check-Blöcke.
+    \end{itemize}
+    
+    \item \textbf{Alternative Zuweisung der Fahrten:}
+    \begin{itemize}
+        \item Dynamische Zuweisung von Fahrten zu Fahrzeugen, um Überlappungen zu minimieren.
+    \end{itemize}
+    
+    \item \textbf{Monitoring und Anpassung im laufenden Betrieb:}
+    \begin{itemize}
+        \item Echtzeit-Monitoring der Fahrzeugpositionen und Anpassung der Check-Fahrten bei Bedarf.
+    \end{itemize}
+    
+\end{enumerate}
+\section*{Draft 1}
+
+Below is a common way to encode such problems in an Integer Linear Program (ILP) style. We assume discrete time steps, but you can adapt to continuous time if needed.
+
+\subsection*{2.1 Sets and Parameters}
+
+\begin{itemize}
+  \item \textbf{Objects:}
+  \[
+    O = \{1,2,\dots,|O|\}
+  \]
+  Each object must be routed to a checkup node at (or by) a certain time.
+
+  \item \textbf{Network:}
+  \[
+    N = \{1,2,\dots,|N|\}, 
+    \quad
+    A \subseteq N \times N
+  \]
+  Here, $N$ is the set of nodes and $A$ is the set of arcs/edges (directed if necessary).
+
+  \item \textbf{Schedules (Paths):} You can either
+  \begin{enumerate}
+    \item Enumerate a finite set $S$ of possible schedules (each is a route plus specific timing), or
+    \item Build schedules dynamically using a time-expanded network.
+  \end{enumerate}
+  If enumerated:
+  \[
+    S = \{1, 2, \dots, |S|\}
+  \]
+  Each $s \in S$ has start node $\mathrm{start}(s)$, end node $\mathrm{end}(s)$, start time $t_{\text{start}}^s$, end time $t_{\text{end}}^s$, and possibly a cost $c_s$.
+
+  \item \textbf{Time Set:} In discrete time,
+  \[
+    T = \{0,1,\dots,H\}.
+  \]
+  For a time-expanded network, each node $n \in N$ is replicated for each time $t \in T$.
+
+  \item \textbf{Object Requirements:} Each object $o$ must be at checkup node $\mathrm{check}(o)$ at time $t_{\mathrm{check}}(o)$ (or in a time window $[t_{\mathrm{check}}^{\min}(o),\, t_{\mathrm{check}}^{\max}(o)]$).
+\end{itemize}
+
+\subsection*{2.2 Decision Variables}
+
+\subsubsection*{Approach A: Assign Objects to Pre-Defined Schedules}
+
+\[
+  x_{o,s} = 
+  \begin{cases} 
+      1 & \text{if object $o$ follows schedule $s$}, \\
+      0 & \text{otherwise.}
+  \end{cases}
+\]
+
+\begin{itemize}
+  \item \textbf{Objective:}
+  \[
+    \min \sum_{o \in O} \sum_{s \in S} c_{o,s}\, x_{o,s},
+  \]
+  where $c_{o,s}$ is the cost of assigning object $o$ to schedule $s$.
+
+  \item \textbf{Constraints:}
+  \begin{enumerate}
+    \item \textbf{One-schedule-per-object:}
+    \[
+      \sum_{s \in S} x_{o,s} = 1 
+      \quad \forall\, o \in O.
+    \]
+    \item \textbf{Feasibility:} If schedule $s$ does not meet object $o$'s checkup requirement, then $x_{o,s}$ must be 0 (either remove such schedules from $S$ or add big-$M$ constraints).
+    \item \textbf{Capacity (optional):} If only a limited number of objects can use a particular route/time slot,
+    \[
+      \sum_{o \in O} x_{o,s} \le \mathrm{Cap}_s 
+      \quad \forall\, s \in S.
+    \]
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Approach B: Flow-Based (Time-Expanded Network)}
+
+\begin{enumerate}
+  \item Create a time-expanded graph: For each node $n \in N$ and time $t \in T$, create a ``time node'' $(n,t)$. For each original arc $(n_1, n_2)$ that takes $\Delta$ time, add arcs
+  \[
+    (n_1, t) \to (n_2, t+\Delta)
+    \quad
+    \text{for all } t \text{ such that } t+\Delta \le H.
+  \]
+
+  \item Define a multi-commodity flow problem, where each object $o$ is a commodity:
+  \begin{itemize}
+    \item Each commodity $o$ has source $(\mathrm{start}(o),\,t_{\mathrm{start}}(o))$ and sink $(\mathrm{check}(o),\,t_{\mathrm{check}}(o))$.
+    \item Let $f_{o,i,j}$ be the flow of object $o$ on arc $i \to j$ in the time-expanded graph.
+    \item Impose flow conservation, capacity, and integrality constraints.
+  \end{itemize}
+\end{enumerate}
+
+\subsection*{2.3 Constraints}
+
+\begin{itemize}
+  \item \textbf{Flow Conservation (for each object $o$):}
+  \[
+    \sum_{j:\, j \to i} f_{o,j,i} \;-\; \sum_{k:\, i \to k} f_{o,i,k}
+    \;=\;
+    \begin{cases}
+      1 & \text{if $i$ is the source node of $o$},\\
+      -1 & \text{if $i$ is the sink node of $o$},\\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+
+  \item \textbf{Capacity:} If arcs or nodes have limited capacity,
+  \[
+    \sum_{o \in O} f_{o,i,j} \;\le\; \mathrm{Cap}_{i,j}
+    \quad \forall \text{ arc }(i \to j).
+  \]
+
+  \item \textbf{Checkup Time Window:} If an object must arrive exactly at time $t_{\mathrm{check}}(o)$, then its sink is $(\mathrm{check}(o),\, t_{\mathrm{check}}(o))$ only. For a time window $[t_{\mathrm{check}}^{\min}(o),\, t_{\mathrm{check}}^{\max}(o)]$, allow multiple sink nodes.
+\end{itemize}
+
+\subsection*{2.4 Objective Function}
+
+Common objective functions include:
+
+\begin{enumerate}
+  \item \textbf{Minimize Total Cost:}
+  \[
+    \min \sum_{o \in O} \sum_{\substack{\text{arcs }(i \to j)}} 
+      \bigl(\mathrm{cost}_{i,j}\bigr)\, f_{o,i,j}.
+  \]
+
+  \item \textbf{Minimize Lateness/Tardiness:} 
+  \[
+    \min \sum_{o \in O} \max\{\,0,\; \mathrm{arrivalTime}(o) - t_{\mathrm{check}}(o)\}.
+  \]
+  (Linearized via auxiliary variables in an ILP.)
+
+  \item \textbf{Maximize Throughput:} 
+  \[
+    \max \sum_{o \in O} \mathbf{1}\{\text{object $o$ meets checkup on time}\}.
+  \]
+\end{enumerate}
+
+\subsection*{3. Approaches to Solve}
+
+\begin{itemize}
+  \item \textbf{Exact Methods (MILP / MIP Solvers):} Use a solver (Gurobi, CPLEX, etc.) for moderate-size instances or if guaranteed optimality is crucial.
+  \item \textbf{Constraint Programming (CP):} Good for scheduling/time-window constraints (e.g., CP-SAT, IBM CP Optimizer).
+  \item \textbf{Heuristics / Metaheuristics:} For large-scale or online problems, consider greedy algorithms, local search, genetic algorithms, or tabu search.
+  \item \textbf{Decomposition Techniques:} Break down the problem (e.g., route construction first, then assignment) or use Benders Decomposition if separable.
+  \item \textbf{Rolling-Horizon / Online Optimization:} Re-solve periodically as new information arrives, fixing decisions that have already been implemented.
+\end{itemize}
