@@ -1,81 +1,788 @@
+\section{Loss Function for Neural Networks}
+\label{sec:loss_function}
 
+A neural network models a function $f_{\theta}(x)$, where $\theta$ represents the parameters (weights and biases) of the network, and $x$ is an input vector.
 
+\paragraph{Options}
 
+To train the network, we need to measure how well the predicted output $f_{\theta}(x)$ matches the true label $y$. This is achieved using a \textit{loss function} $\mathcal{L}(f_{\theta}(x), y)$ that quantifies the error.\\
 
-\section{Curve fitting}
-
-% Hier bin ich stehen geblieben: Was war mit den Satz gemeint: Ein einzelen Neuron ist eine Funtion. Dann bin über die Mathematische beschreibung gestolpert, welche zwei Aspekte beinhaltet hat, wie ein NN beschrieben wurde. Daraufhin habe ich geschaut, welche verschiedenen Aspekte der matheamtik bei einem NN zu berücksichtigen sind, aus welcher weise es beschrieben werden kann und bereiche der Mathematik noch bei einem NN von Rolle spielen.
-
-\paragraph{Idea}
-The \gls{AI_NN} fittes it's internal parameter to that degree, that the training data given the parameter of the \gls{AI_NN} produce an output that $"$fit's$"$ the required output.\\
-
-For example, the training data output or target values $\vec{y}$ are representing a sinus curve. The \gls{AI_NN} produces linear output.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale = 0.2]{attachment/chapter_AML/Scc032}
-	\caption{Curve fitting inital start}
-\end{figure}
-
-After some iteration of weights by tthe process \textit{backpropagation} (General term  \textit{gradient descent}) the \gls{AI_NN} reduces the loss value. 
-The \gls{AI_NN} $"$fits$"$ more the target values.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale = 0.2]{attachment/chapter_AML/Scc033}
-	\caption{Curve fitting after some iteration}
-\end{figure}
-
-This process is generalisable and therefore not specific to any function, this is derived from the Universal approximation theorem.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale = 0.2]{attachment/chapter_AML/Scc034}
-	\caption{A Neural Net as universal function approximator $f(x) \approx NN(x)$}
-\end{figure}
-	
-
-
-\subsection{Gradient Descent}
-\subsubsection{Optimization Using Gradient Descent}
-We now consider the problem of solving for the \textit{minimum} of a real-values function
+For a dataset $\{(x_i, y_i)\}_{i=1}^N$, the total loss (also called the empirical risk) is defined as:
 \begin{align}
-	\min_{x} f(x).
+	\mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \ell(f_{\theta}(x_i), y_i),
 \end{align}
-We assume
+where $\ell(\cdot, \cdot)$ is a pointwise loss, such as:\\
 \begin{itemize}
-	\item $f:\R^4 \rightarrow R$ captures the machine learning problem at hand,
-	\item $f$ is differentiable,
-	\item we are unable to analytically find the solution in closed form.
+	\item \textbf{Mean Squared Error (MSE)} for regression:
+	\begin{align}
+		\ell(f_{\theta}(x_i), y_i) = \|f_{\theta}(x_i) - y_i\|^2
+	\end{align}
+	\item \textbf{Cross-Entropy Loss} for classification:
+	\begin{align}
+		\ell(f_{\theta}(x_i), y_i) = - \sum_{c=1}^C y_{i,c} \log f_{\theta,c}(x_i)
+	\end{align}
+	where $C$ is the number of classes and $y_{i,c}$ is 1 if the true label is class $c$. Note: The $\log (1)= 0$. Hence, it sums up, there the probablity for the $c$ is less then one.
 \end{itemize}
-The \textit{gradient descent} takes steps a proportionaly ($\gamma$) to the negative of the gradient of the function $\nabla f$ at the current point $x_0$:
+
+
+\section{Classification: Understanding the Loss Function Output of Cross Entropy}
+
+\paragraph{Last Layer}
+
+We consider a neural network in the last layer with:
+
+\begin{itemize}
+	\item Input vector: $x \in \mathbb{R}^d$ or as describt above $y^{(l-1)}$, if it is the output of the previous layer.
+	\item Weight matrix: $W \in \mathbb{R}^{C \times d}$
+	\item Bias vector: $b \in \mathbb{R}^{C}$
+	\item Logits: $Wx + b = z \in \mathbb{R}^{C}$  is the vector of logits output by the neural network, where $C$ is the number of classes.
+	\item True class label: $y \in \{0, \dots, C{-}1\}$, were $C$ is the number of instances in the class.
+\end{itemize}
+
+Instead of an activation function the last layer values $z$ are passed through the  \texttt{softmax} function:
+
 \begin{align}
-	\nabla x_1 = x_0 - \gamma ((\nabla f)(x_0))^T.
+	P(y = i \mid x) = \text{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}}, \quad \text{where } z = f(x)
 \end{align}
-At the point $x_0$ the function $f(x_0)$ degresses fastes if on moves from $x_0$ in the direction of the negative gradient $- \gamma ((\nabla f)(x_0))^T$ of $f$ at $x_0$. From this follows: For a small \textit{step-size}\footnote{In Azure ML is called \textit{learning-rate}} $\gamma \geq 0$ $f(x_1)\geq f(x_0)$.\\
 
-\paragraph{The Simple Gradient Descent Algorithm}
-To find the \underline{local} optimum $f_{x_*}$ we start with a inial guess $x_0$ of the parameter we wish to optimize. Then we iterate according to 
+This creates an probability distribution. Sometimes the log part of the loss function is used to denote the output of the last layer as well: $\hat{y}_y = \log \left( \text{softmax}(z)_y \right)$ , where $\hat{y}$ is the predicted log-probability for the true class.\\
+
+The loss function used here is the negative log-likelihood (also known as cross-entropy with log-softmax). It is defined as:
 
 \begin{align}
-	\nabla x_{i+1} = x_i - \gamma_i ((\nabla f)(x_i))^T.
+	\mathcal{L} &= -\log \left( \text{softmax}(z)_y \right) = -\hat{y}_y
 \end{align}
-For a suitable step-size $\gamma_i$, the sequence $f(x_0)\leq f(x_1) \leq ... $ converges to a \textit{local} minimum.
 
-\paragraph{Graphical Gradient Descent}
-Only if the step-size $\gamma$ is a big, that the $f(x_{i+1}$ overshots the local minimum, the functional value $y=f(x_{i})$ converges to the local minimum.
+The subscript $y$ in $\text{softmax}(z)_y$ indicates the element of the softmax output corresponding to the correct class. That is, we are interested in how much probability the model assigns to the true class.
+
+\textbf{Example:} Let the model output logits for 3 classes:
+\[
+z = [2.0,\ 1.0,\ 0.1]
+\]
+Then:
+\[
+\text{softmax}(z) = \left[ \frac{e^{2.0}}{e^{2.0}+e^{1.0}+e^{0.1}}, \frac{e^{1.0}}{\cdots}, \frac{e^{0.1}}{\cdots} \right] \approx [0.659,\ 0.242,\ 0.099]
+\]
+So the model assigns a probability of $0.659$ to the true class $y = 0$, and the loss is:
+\[
+\mathcal{L} = -\log(0.659) \approx 0.417
+\]
+
+
+\paragraph{Why the Loss is a Single Scalar Value}
+
+In classification using \texttt{NLLLoss} or \texttt{CrossEntropyLoss}, the model outputs a log-probability vector, see \texttt{softmax}\begin{align}
+	\hat{y} = \log \left( \text{softmax}(z) \right)
+	= [\log P(y=0|x),\ \log P(y=1|x),\ \dots,\ \log P(y=C-1|x)]
+\end{align} \footnote{
+The expression $P(y = 0 \mid x)$ denotes the probability of the output class being 0 given the input $x$. While it may seem that we should condition on $z = w^\top x + b$, which is the input to the sigmoid function in logistic regression or neural networks, $z$ is actually an intermediate quantity that is deterministically computed from $x$. Therefore, the conditional probability is properly defined as a function of $x$, since $z$ does not add any new information — it is fully determined by $x$. Thus, $P(y = 0 \mid x)$ is the correct and standard form.
+}
+
+Given the true class label $y_{\text{true}}$, the loss only uses the log-probability corresponding to the correct class:
+
+\begin{align}
+	\mathcal{L} = -\log P(y_{\text{true}} | x) = -\hat{y}_{y_{\text{true}}}
+\end{align}
+
+Thus, the loss function returns a \textbf{single scalar} per input sample, not a vector. The model is not penalized for the incorrect classes individually — only for not assigning enough probability to the correct class.\\
+
+If there are $N$ samples in a batch, the final loss is:
+
+\begin{align}
+	\mathcal{L}_{\text{batch}} = \frac{1}{N} \sum_{i=1}^{N} -\log P(y_i | x_i)
+\end{align}
+
+\paragraph{Example: Perfect Prediction}
+
+If the model is \textbf{100\% confident} in the correct class, say class $y=1$, then the softmax output is:
+
+\begin{align}
+	\text{softmax}(z) = [0,\ 1,\ 0,\dots]
+\end{align}
+
+Taking log:
+
+\begin{align}
+	[-\infty,\ 0,\ -\infty,\dots]
+\end{align}
+
+Then the loss becomes:
+
+\begin{align}
+	\mathcal{L} = -\hat{y}_{y=1} = 0
+\end{align}
+
+This zero loss indicates a \textbf{perfect prediction} — no gradient will be generated for this sample, and weights will not be updated.
+
+
+\section{Gradient Descent}
+
+\subsection{Overview}
+Gradient descent updates parameters $\theta$ by stepping in the direction opposite to the gradient:
+\begin{align}
+	\theta_{k+1} = \theta_k - \gamma_k \nabla \mathcal{L}(\theta_k),
+\end{align}
+where $\gamma_k > 0$ is the step size or \textit{learning rate}.
+
+\subsubsection*{Full-Batch vs. Mini-Batch vs. Stochastic}
+
+There are multiple variants of gradient descent, depending on how much data is used to compute $\nabla \mathcal{L}$:
+
+\begin{itemize}
+	\item \textbf{Batch Gradient Descent:} Computes the gradient using the full dataset. While accurate, this is computationally expensive for large datasets.
+	
+	\item \textbf{Stochastic Gradient Descent (SGD):} Approximates the gradient using a single data point $(x_i, y_i)$:
+	\begin{align}
+		\theta_{k+1} = \theta_k - \gamma_k \nabla_\theta \ell(f_\theta(x_i), y_i)
+	\end{align}
+	SGD introduces noise into the optimization, which can help escape shallow local minima but may also lead to fluctuations near the optimum.
+	
+	\item \textbf{Mini-Batch Gradient Descent:} A compromise between batch and stochastic methods. The gradient is estimated over a small subset (mini-batch) of the data:
+	\begin{align}
+		\theta_{k+1} = \theta_k - \gamma_k \frac{1}{|\mathcal{B}_k|} \sum_{i \in \mathcal{B}_k} \nabla_\theta \ell(f_\theta(x_i), y_i)
+	\end{align}
+	where $\mathcal{B}_k$ is the mini-batch at step $k$.
+\end{itemize}
+
+\subsubsection*{Choosing the Step Size}
+
+The choice of the learning rate $\gamma_k$ is critical. If it's too large, the algorithm may overshoot the minimum or diverge. If it's too small, convergence will be slow. In practice, learning rates are often decayed over time:
+\begin{align}
+	\gamma_k = \frac{\gamma_0}{1 + \lambda k}
+\end{align}
+for some decay rate $\lambda > 0$.
+
+\subsection{Goal of Training}
+
+The \textbf{goal of training} is to find parameters $\theta$ that minimize the total loss:
+\begin{align}
+	\theta^* = \arg\min_{\theta} \mathcal{L}(\theta).
+\end{align}
+This minimization problem is solved using optimization methods such as stochastic gradient descent.
+
+Training a neural network involves finding the parameters $\theta$ that minimize a loss function $\mathcal{L}(\theta)$. This optimization problem is typically framed as:
+\begin{align}
+	\min_{\theta} \; \mathcal{L}(\theta),
+\end{align}
+where $\mathcal{L} : \mathbb{R}^n \rightarrow \mathbb{R}$ is a differentiable function representing the empirical risk over a dataset.\\
+
+Because $\mathcal{L}$ often depends on millions of parameters and data points, we cannot typically solve this minimization analytically. Instead, we rely on  \textit{\textbf{iterative optimization methods}}. The most common such method in deep learning is \textbf{Stochastic Gradient Descent (SGD)}.
+
+
+\section*{Gradient of Cross-Entropy Loss with Softmax}
+
+\subsection*{Notation Overview}
+\begin{itemize}
+    \item $z \in \mathbb{R}^C$ — Logits (unnormalized outputs) produced by the neural network - \textbf{Vector}
+\footnote{The true label $y$ is an index, not a one-hot vector. This allows us to use $z_y$ to directly refer to the logit corresponding to the correct class.}
+	\item $z_i / z_k \in \mathbb{R}$ - \textbf{Single Scalar Value}.
+    \item $p \in \mathbb{R}^C$ — The softmax output vector: $p = \text{softmax}(z)$
+    \item $\text{softmax}(z)_i$ — Predicted probability for class $i$ \footnote{The denominator sums over all components of the input vector $z \in \mathbb{R}^C$, where each $z_j$ corresponds to the unnormalized score (logit) for class $j$. This normalization ensures that the softmax outputs form a valid probability distribution.}
+    \item $\delta_y \in \mathbb{R}^C$ — One-hot encoding of the true class label $y$
+   \item $y \in \{0, 1, \dots, C-1\}$ — True class label (an integer index/ specific index)
+   \item $C$ — Number of classes
+   \item $i$ — Index used for general form by defining softmax values: $\text{softmax}(z)_i$ is the predicted probability for class $i$ (any class)
+    \item $k$ — A dummy variable used when differentiating w.r.t. components of the vector $z$, by denoting the gradient with respect to the $k$-th logit
+\end{itemize}
+
+We consider the cross-entropy loss for a neural network with a softmax output layer: \footnote{
+Using the identity $\log(a/b) = \log a - \log b$This is a standard logarithmic identity: $\log(a/b) = \log a - \log b$, often used to simplify expressions involving log-likelihoods.}
+\begin{align}
+	\mathcal{L} &= -\log\left(\text{softmax}(z)_y\right) \\
+		&= -\log\left( \frac{e^{z_y}}{\sum_{j=1}^C e^{z_j}} \right) \\ 
+		&= -z_y + \log\left( \sum_{j=1}^C e^{z_j} \right) 
+\end{align} 
+
+\subsection*{Gradient with Respect to Logits (z)}
+
+\paragraph{Derivative}
+
+We now compute the derivative of the loss with respect to each logit $z_k$ \footnote{
+Remember: The index $k$ is a dummy variable used when differentiating w.r.t. components of the vector z
+}:
+
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial z_k} =
+\begin{cases}
+\text{softmax}(z)_k - 1 & \text{if } k = y \\
+\text{softmax}(z)_k & \text{if } k \neq y
+\end{cases}
+\end{align}
+
+\noindent This result reflects that the gradient is shifted by $-1$ only at the index of the true class.\footnote{The true class contributes a $-1$ because $\frac{\partial z_y}{\partial z_k} = \delta_{k=y}$ and the rest of the gradient comes from differentiating the log-sum-exp term.}
+
+This can be written compactly as:
+\[
+\frac{\partial \mathcal{L}}{\partial z_k} = \text{softmax}(z)_k - \mathbf{1}_{[k = y]}
+\]
+
+Let $p = \text{softmax}(z) \in \mathbb{R}^C$ be the predicted class distribution, and let $\delta_y \in \mathbb{R}^C$ be the one-hot vector for the true label:
+
+\[
+\delta_y[i] = 
+\begin{cases}
+1 & \text{if } i = y \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+Then, in \textbf{vector form} , the gradient of the loss with respect to the logits becomes:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial z} &= \text{softmax}(z) - \delta_y \\ 
+	&= p - \delta_y
+\end{align}
+
+\noindent This representation is especially useful for vectorized backpropagation\footnote{Since this form matches the dimensionality of $z$, it can be directly used in automatic differentiation frameworks without looping over each class.}, and it shows that the network reduces the predicted probability for incorrect classes and increases it for the correct one.
+
+
+
+\paragraph{Numeric Example}
+
+Let the network output logits for 3 classes:
+\[
+z = [2.0,\ 1.0,\ 0.1], \quad y = 0
+\]
+
+\textbf{Step 1: Compute softmax:}
+\[
+p = \text{softmax}(z) = 
+\left[
+\frac{e^{2.0}}{e^{2.0} + e^{1.0} + e^{0.1}},\ 
+\frac{e^{1.0}}{\cdots},\ 
+\frac{e^{0.1}}{\cdots}
+\right]
+\approx [0.659,\ 0.242,\ 0.099]
+\]
+
+\textbf{Step 2: One-hot vector for $y = 0$:}
+\[
+\delta_y = [1,\ 0,\ 0]
+\]
+
+\textbf{Step 3: Gradient of the loss w.r.t. logits:}
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial z}
+&= p - \delta_y \\
+&= [0.659,\ 0.242,\ 0.099] - [1,\ 0,\ 0] \\
+&= [-0.341,\ 0.242,\ 0.099]
+\end{align}
+
+This gradient will be used to update the weights during backpropagation:
+\begin{itemize}
+	\item The logit for the correct class (index 0) will be increased (negative gradient).
+	\item The logits for the incorrect classes (index 1 and 2) will be decreased (positive gradients).
+\end{itemize}
+
+\subsection*{Gradient of the Loss w.r.t. Weights and Bias (One Layer Case)}
+
+\paragraph{Derivative}
+
+We now consider a linear output layer of the form:
+\[
+z = Wx + b
+\]
+where:
+\begin{itemize}
+    \item $x \in \mathbb{R}^D$ is the input vector to the layer
+    \item $W \in \mathbb{R}^{C \times D}$ is the weight matrix
+    \item $b \in \mathbb{R}^C$ is the bias vector
+    \item $z \in \mathbb{R}^C$ is the output logit vector (before softmax)
+\end{itemize}
+
+
+
+Using the chain rule:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial W}
+	&= \frac{\partial \mathcal{L}}{\partial z} \cdot \frac{\partial z}{\partial W}
+	= (p - \delta_y) \cdot x^\top \\
+	\frac{\partial \mathcal{L}}{\partial b}
+	&= \frac{\partial \mathcal{L}}{\partial z} \cdot \frac{\partial z}{\partial b}
+	= p - \delta_y
+\end{align}
+
+So, if $W$ is shape $(C \times d)$ and $x \in \mathbb{R}^d$, then:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial W} \in \mathbb{R}^{C \times d}, \quad
+	\frac{\partial \mathcal{L}}{\partial b} \in \mathbb{R}^{C}
+\end{align}
+
+This is the \textbf{fully vectorized} gradient for a single-layer network with softmax output and cross-entropy loss.
+
+\subsection*{Why the Transpose Appears in \texorpdfstring{$\frac{\partial \mathcal{L}}{\partial W}$}{∂L/∂W}}
+
+To understand the transpose, we isolate the derivative of $z$ with respect to $x$. Recall that:
+\[
+z = Wx + b
+\]
+The gradient of $z$ with respect to $x$ is:
+\[
+\frac{\partial z}{\partial x} = W
+\]
+
+Now, when we compute the derivative with respect to the **weight matrix** \( W \), we treat each logit \( z_c \) as a function of the row \( W_c \in \mathbb{R}^D \), giving:
+\[
+\frac{\partial z_c}{\partial W_c} = x^\top
+\]
+
+So in full matrix form:
+\[
+\frac{\partial z}{\partial W} \in \mathbb{R}^{C \times D} \quad \text{with rows} \quad \frac{\partial z_c}{\partial W_c} = x^\top
+\]
+
+Therefore:
+\[
+\frac{\partial \mathcal{L}}{\partial W} = \left( \frac{\partial \mathcal{L}}{\partial z} \right) \cdot x^\top
+\]
+\footnote{The vector $\frac{\partial \mathcal{L}}{\partial z} \in \mathbb{R}^C$ acts as a row vector multiplying the transpose of $x \in \mathbb{R}^D$ to yield a matrix in $\mathbb{R}^{C \times D}$, matching the shape of $W$. This is equivalent to an outer product: each row in the gradient matches the gradient for one class.}
+
+This aligns the gradient dimensions correctly:
+\[
+\mathbb{R}^C \cdot (\mathbb{R}^D)^\top = \mathbb{R}^{C \times D}
+\]
+
+This is why the input vector \( x \) is transposed in the gradient expression.
+
+\paragraph{Numeric Example}
+
+Let:
+\[
+x = \begin{bmatrix} 1.0 \\ 2.0 \end{bmatrix}, \quad
+W = \begin{bmatrix} 0.2 & -0.1 \\ 0.5 & 0.3 \end{bmatrix}, \quad
+b = \begin{bmatrix} 0.0 \\ 0.0 \end{bmatrix}, \quad
+\delta_y = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+\]
+
+Then:
+\[
+z = Wx + b =
+\begin{bmatrix} 0.2 & -0.1 \\ 0.5 & 0.3 \end{bmatrix}
+\begin{bmatrix} 1.0 \\ 2.0 \end{bmatrix}
+=
+\begin{bmatrix} 0.0 \\ 1.1 \end{bmatrix}
+\]
+
+Softmax:
+\[
+p = \text{softmax}(z) =
+\begin{bmatrix}
+	\frac{e^{0.0}}{e^{0.0} + e^{1.1}} \\
+	\frac{e^{1.1}}{e^{0.0} + e^{1.1}}
+\end{bmatrix}
+\approx
+\begin{bmatrix} 0.2491 \\ 0.7509 \end{bmatrix}
+\]
+
+Gradient of the loss:
+\[
+\nabla_b \mathcal{L} = p - \delta_y = 
+\begin{bmatrix} 0.2491 \\ -0.2491 \end{bmatrix}, \quad
+\nabla_W \mathcal{L} = (p - \delta_y)x^\top =
+\begin{bmatrix}
+	0.2491 \cdot 1.0 & 0.2491 \cdot 2.0 \\
+	-0.2491 \cdot 1.0 & -0.2491 \cdot 2.0
+\end{bmatrix}
+=
+\begin{bmatrix}
+	0.2491 & 0.4982 \\
+	-0.2491 & -0.4982
+\end{bmatrix}
+\]
+
+
+
+\section{Applying Gradient Descent to Update the Model Parameter - One Layer}
+\subsubsection*{Example Usage: Gradient Descent Steps on $L(\theta) = \theta^2$}
+
+Given the update rule:
+\[
+\theta_{t+1} = \theta_t - \alpha \cdot \nabla_\theta L(\theta_t) = \theta_t - 2\alpha \theta_t = \theta_t(1 - 2\alpha)
+\]
+with learning rate $\alpha = 0.2$ and initial value $\theta_0 = -2.5$, we get:
+
+\begin{center}
+	\begin{tabular}{@{}ccc@{}}
+		\toprule
+		\textbf{Step $t$} & \textbf{Parameter $\theta_t$} & \textbf{Loss $L(\theta_t) = \theta_t^2$} \\
+		\midrule
+		0 & $-2.5000$ & $6.2500$ \\
+		1 & $-1.5000$ & $2.2500$ \\
+		2 & $-0.9000$ & $0.8100$ \\
+		3 & $-0.5400$ & $0.2916$ \\
+		4 & $-0.3240$ & $0.10498$ \\
+		5 & $-0.1944$ & $0.0378$ \\
+		6 & $-0.11664$ & $0.0136$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale = 0.2]{attachment/chapter_10/Scc053}
-	\caption{Graph shows the gradient descent on a two dimensional quadratic surface.}
+	\scalebox{1}{%
+
+
+\begin{tikzpicture}
+	\begin{axis}[
+		domain=-3:3,
+		samples=100,
+		axis lines=middle,
+		xlabel={$\theta$},
+		ylabel={$L(\theta)$},
+		ymin=0,
+		xmin=-3.5, xmax=3.5,
+		ytick=\empty,
+		xtick=\empty,
+		enlargelimits=true,
+		clip=false,
+		width=12cm,
+		height=8cm,
+		]
+		% Plot loss function
+		\addplot[blue, thick] {x^2};
+		
+		% Gradient descent steps (example steps)
+		\addplot[only marks, mark=*, red] coordinates {(-2.5, 6.25)};
+		\addplot[only marks, mark=*, red] coordinates {(-1.5, 2.25)};
+		\addplot[only marks, mark=*, red] coordinates {(-0.9, 0.81)};
+		\addplot[only marks, mark=*, red] coordinates {(-0.5, 0.25)};
+		\addplot[only marks, mark=*, red] coordinates {(-0.2, 0.04)};
+		\addplot[only marks, mark=*, red] coordinates {(0, 0)};
+		
+		% Arrows showing steps
+		\draw[-{Latex[length=3mm]}, red, thick] (axis cs:-2.5,6.25) -- (axis cs:-1.5,2.25);
+		\draw[-{Latex[length=3mm]}, red, thick] (axis cs:-1.5,2.25) -- (axis cs:-0.9,0.81);
+		\draw[-{Latex[length=3mm]}, red, thick] (axis cs:-0.9,0.81) -- (axis cs:-0.5,0.25);
+		\draw[-{Latex[length=3mm]}, red, thick] (axis cs:-0.5,0.25) -- (axis cs:-0.2,0.04);
+		\draw[-{Latex[length=3mm]}, red, thick] (axis cs:-0.2,0.04) -- (axis cs:0,0);
+		
+		% Label
+		\node at (axis cs:-2.5,6.5) [anchor=south east] {Start};
+		\node at (axis cs:0,0) [anchor=north] {Minimum};
+	\end{axis}
+\end{tikzpicture}
+}
+
+\caption{Reducing the loss values by Gradient Descent}
 \end{figure}
 
+\subsubsection*{Example Usage: Gradient Descent Steps on Cross-Entropy Loss $L(W)$}
 
-The zig-zag of the graph
+Given:
+\[
+x = \begin{bmatrix} 1.0 \\ 2.0 \end{bmatrix}, \quad y = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+W_0 = \begin{bmatrix} 0.1 & -0.3 \\ 0.4 & 0.2 \end{bmatrix}, \quad \alpha = 0.1
+\]
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale = 0.2]{attachment/chapter_10/Scc052}
-	\caption{Example of a one dimentional function. Negative gradient descent is indicated by the arrows.}
-\end{figure}
+We compute the prediction:
+\[
+z = W x = \begin{bmatrix} 0.1 & -0.3 \\ 0.4 & 0.2 \end{bmatrix}
+\begin{bmatrix} 1.0 \\ 2.0 \end{bmatrix} =
+\begin{bmatrix} 0.1 - 0.6 \\ 0.4 + 0.4 \end{bmatrix} =
+\begin{bmatrix} -0.5 \\ 0.8 \end{bmatrix}
+\]
 
-\subsubsection{Solving a Linear Equation System}
-\paragraph{In Form Ax=b}
+Softmax:
+\[
+\hat{y} = \text{softmax}(z) = 
+\begin{bmatrix}
+	\frac{e^{-0.5}}{e^{-0.5} + e^{0.8}} \\
+	\frac{e^{0.8}}{e^{-0.5} + e^{0.8}}
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+	0.1824 \\
+	0.8176
+\end{bmatrix}
+\]
+
+Cross-entropy loss:
+\[
+L = -\sum_i y_i \log \hat{y}_i = -\log(0.8176) \approx 0.2011
+\]
+
+Since $y$ is a one-hot encoded label vector, only the predicted logit corresponding to the correct class contributes to the loss. Thus, the cross-entropy loss simplifies to a single scalar value. The index $i$ in the loss formula refers to the position of each class in the output vector.
+
+
+Gradient:
+\[
+\nabla_W L = (\hat{y} - y)x^T = 
+\begin{bmatrix}
+	0.1824 \\ -0.1824
+\end{bmatrix}
+\begin{bmatrix} 1.0 & 2.0 \end{bmatrix}
+=
+\begin{bmatrix}
+	0.1824 & 0.3648 \\
+	-0.1824 & -0.3648
+\end{bmatrix}
+\]
+
+
+
+Gradient descent update:
+\[
+W_1 = W_0 - \alpha \cdot \nabla_W L =
+\begin{bmatrix} 0.1 & -0.3 \\ 0.4 & 0.2 \end{bmatrix}
+-
+0.1 \cdot
+\begin{bmatrix}
+	0.1824 & 0.3648 \\
+	-0.1824 & -0.3648
+\end{bmatrix}
+=
+\begin{bmatrix}
+	0.0818 & -0.3365 \\
+	0.4182 & 0.2365
+\end{bmatrix}
+\]
+
+\vspace{1em}
+
+\begin{center}
+	\begin{tabular}{@{}ccc@{}}
+		\toprule
+		\textbf{Step $t$} & \textbf{Weights $W_t$} & \textbf{Loss $L(W_t)$} \\
+		\midrule
+		0 & 
+		$\begin{bmatrix} 0.1000 & -0.3000 \\ 0.4000 & 0.2000 \end{bmatrix}$ & 
+		$0.2011$ \\
+		1 & 
+		$\begin{bmatrix} 0.0818 & -0.3365 \\ 0.4182 & 0.2365 \end{bmatrix}$ &
+		$0.1720$ \\
+		2 & 
+		$\begin{bmatrix} 0.0665 & -0.3666 \\ 0.4335 & 0.2666 \end{bmatrix}$ &
+		$0.1503$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+
+\chapter{Applying Gradient Descent to Update the Model Parameter}
+Question: How this this work for multiple layers.
+
+
+\begin{algorithm}[H]
+	\caption{Stochastic Gradient Descent for an $L$‑layer Neural Network}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	
+	\Input{feature vector $x$, label $t$, learning rate $\eta$}
+	\Output{updated weights $W^{(\ell)}$ and biases $b^{(\ell)}$ for $\ell=1,\dots,L$}
+	
+	% Forward pass
+	$y^{(0)} \gets x$\tcp*{initial activation}
+	\For{$\ell \leftarrow 1$ \KwTo $L$}{
+		$z^{(\ell)} \gets W^{(\ell)}\,y^{(\ell-1)} + b^{(\ell)}$\tcp*{pre‑activation}
+		
+		$y^{(\ell)} \gets \phi\bigl(z^{(\ell)}\bigr)$\tcp*{post‑activation}
+	}
+	
+	% Backward pass
+	$\delta^{(L)} \gets \nabla_{y^{(L)}}L\bigl(y^{(L)},t\bigr)\;\odot\;\phi'\bigl(z^{(L)}\bigr)$\tcp*{output error}
+	\For{$\ell \leftarrow L-1$ \KwTo $1$}{
+		$\delta^{(\ell)} \gets \bigl(W^{(\ell+1)\,T}\,\delta^{(\ell+1)}\bigr)\;\odot\;\phi'\bigl(z^{(\ell)}\bigr)$\tcp*{propagate error}
+	}
+	
+	% Parameter update
+	\For{$\ell \leftarrow 1$ \KwTo $L$}{
+		$W^{(\ell)} \gets W^{(\ell)} - \eta\;\bigl(\delta^{(\ell)}\,(y^{(\ell-1)})^T\bigr)$\tcp*{weight update}
+		
+		$b^{(\ell)} \gets b^{(\ell)} - \eta\;\delta^{(\ell)}$\tcp*{bias update}
+	}
+	
+\end{algorithm}
+\section*{Concrete Example: Gradient Descent Step}
+
+\subsection*{One Layer Network (Input Dimension = 3)}
+
+Consider a neural network layer with weights $W \in \mathbb{R}^{2 \times 3}$ and bias $b \in \mathbb{R}^{2}$. 
+
+Let the initial weight matrix $W$ and bias $b$ be:
+
+\begin{align}
+	W &=
+	\begin{bmatrix}
+		0.5874 & -0.6551 & 0.1234 \\
+		0.2451 &  0.6924 & -0.4312
+	\end{bmatrix}, \quad
+	b =
+	\begin{bmatrix}
+		-0.3219 & -0.4241
+	\end{bmatrix}
+\end{align}
+
+The input is:
+
+\begin{align}
+	x = \begin{bmatrix} 1.0 & 2.0 & -1.0 \end{bmatrix}
+\end{align}
+
+The network computes:
+
+\begin{align}
+	z &= xW^\top + b \\
+	\hat{y} &= \log \left( \frac{e^{z_i}}{\sum_j e^{z_j}} \right) \quad \text{(log-softmax)}\\
+	\mathcal{L} &= -\log(\hat{y}_{\text{target}})
+\end{align}
+
+
+\subsection*{Forward Pass and Loss}
+
+Linear output before softmax:
+
+\begin{align}
+	z &= xW^\top + b \\
+	&= \begin{bmatrix} 1.0 & 2.0 & -1.0 \end{bmatrix}
+	\begin{bmatrix}
+		0.5874 & 0.2451 \\
+		-0.6551 & 0.6924 \\
+		0.1234 & -0.4312
+	\end{bmatrix}
+	+ b \\
+	&= \begin{bmatrix}
+		(1.0)(0.5874) + (2.0)(-0.6551) + (-1.0)(0.1234) \\
+		(1.0)(0.2451) + (2.0)(0.6924) + (-1.0)(-0.4312)
+	\end{bmatrix}
+	+ b \\
+	&= \begin{bmatrix}
+		0.5874 - 1.3102 - 0.1234 \\
+		0.2451 + 1.3848 + 0.4312
+	\end{bmatrix}
+	+ b \\
+	&= \begin{bmatrix}
+		-0.8462 \\
+		2.0611
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		-0.3219 \\
+		-0.4241
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		-1.1681 \\
+		1.6370
+	\end{bmatrix}
+7\end{align}
+
+After \texttt{log\_softmax}, the predicted log probabilities are:
+
+\begin{align}
+	\hat{y} &= \log \left( \frac{e^{z_i}}{\sum_j e^{z_j}} \right)
+	= \log \left( \text{softmax}(z) \right) \\
+	&= \left[ \log(0.0387),\ \log(0.9613) \right]
+	= \left[ -3.2524,\ -0.0391 \right]
+\end{align}
+
+Assuming the correct class is index 1, the loss is:
+
+\begin{align}
+	\mathcal{L} = -\log(\hat{y}_1) = -(-0.0391) = 0.0391
+\end{align}
+
+\subsection*{Gradient Computation}
+
+Let $y = [0, 1]$ be the one-hot encoded true class vector.
+
+The gradient of the loss with respect to the logit is:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial z} = \hat{y}_{\text{softmax}} - y
+	= \begin{bmatrix} 0.0387 \\ 0.9613 \end{bmatrix} - \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+	= \begin{bmatrix} 0.0387 \\ -0.0387 \end{bmatrix}
+\end{align}
+
+Then:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial W} &= \frac{\partial \mathcal{L}}{\partial z} \cdot x \\
+	&= 
+	\begin{bmatrix}
+		0.0387 \\
+		-0.0387
+	\end{bmatrix}
+	\begin{bmatrix}
+		1.0 & 2.0 & -1.0
+	\end{bmatrix} \\
+	&=
+	\begin{bmatrix}
+		0.0387 & 0.0774 & -0.0387 \\
+		-0.0387 & -0.0774 & 0.0387
+	\end{bmatrix}
+\end{align}
+
+The gradient with respect to bias is:
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial b} = \frac{\partial \mathcal{L}}{\partial z}
+	= \begin{bmatrix} 0.0387 \\ -0.0387 \end{bmatrix}
+\end{align}
+
+
+\subsection*{Parameter Update}
+
+With learning rate $\eta = 0.1$, the parameter updates are:
+
+\begin{align}
+	W_{\text{new}} &= W - \eta \cdot \frac{\partial \mathcal{L}}{\partial W} \\
+	b_{\text{new}} &= b - \eta \cdot \frac{\partial \mathcal{L}}{\partial b}
+\end{align}
+
+Using the earlier gradient result (example values):
+
+\begin{align}
+	\frac{\partial \mathcal{L}}{\partial W} &=
+	\begin{bmatrix}
+		0.0387 & 0.0774 & -0.0387 \\
+		-0.0387 & -0.0774 & 0.0387
+	\end{bmatrix} \\[6pt]
+	\frac{\partial \mathcal{L}}{\partial b} &=
+	\begin{bmatrix}
+		0.0387 \\
+		-0.0387
+	\end{bmatrix}
+\end{align}
+
+Apply the update rule:
+
+\begin{align}
+	W_{\text{new}} &= 
+	\begin{bmatrix}
+		0.5874 & -0.6551 & 0.1234 \\
+		0.2451 &  0.6924 & -0.4312
+	\end{bmatrix}
+	-
+	0.1 \cdot
+	\begin{bmatrix}
+		0.0387 & 0.0774 & -0.0387 \\
+		-0.0387 & -0.0774 & 0.0387
+	\end{bmatrix} \\[6pt]
+	&=
+	\begin{bmatrix}
+		0.5835 & -0.6628 & 0.1273 \\
+		0.2490 &  0.7001 & -0.4351
+	\end{bmatrix} \\[12pt]
+	b_{\text{new}} &= 
+	\begin{bmatrix}
+		-0.3219 \\
+		-0.4241
+	\end{bmatrix}
+	-
+	0.1 \cdot
+	\begin{bmatrix}
+		0.0387 \\
+		-0.0387
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		-0.3258 \\
+		-0.4202
+	\end{bmatrix}
+\end{align}
+
+This completes one gradient descent step using the computed gradients.
+
+

@@ -1,0 +1,47 @@
+\section{Problem Restatement (Informal)}
+
+\paragraph{Draft 3}
+Das Optimierungsproblem ist simple. Wir versuchen Fahrzeuge auf einem Umlaufketten, neunen Umläufeketten zuzuweisen.
+
+Warum: Weil es Wartungsblöcke in diesen Umlaufketten gibt, welche nicht mehr erreicht werden können.
+$\rightarrow$ Diese Wartungsblöcken sind den Fahrzeugen zugewiesen.
+
+Hier ist die angepasste Problemstellung unter Verwendung der LaTeX-Notation und mathematischen Symbole:
+
+
+\paragraph{Draft 2}
+
+Lass uns die Problemstellung mathematisch und fachlich sauber zu definieren. Hier ist ein grobe skizzierung.
+
+\begin{itemize}
+	\item Wir haben Fahrt-Ketten. Diese besteht aus einzelnen Fahrten.
+	\item Eine Fahrt geht durch ein Netz. Das Netz unteteilt sich in Linien. Einige Stationen auf den Linie sind die gleichen Stationen.
+	\item Eine Station behinhaltet Gleisen, an welche die Fahrzeuge durchfahren. Eine Station hat mindestens ein Gleis. 
+	\item Es gibt Strecken-Abschnitte, zwischen zwei Stationen, welche nur "ein-Gleising" zu befahren sind. Andere Abschnitte haben eine Hin-und-Rückrichtung.
+	\item Jede Fahrt hat ein Start-Station und ein Ende-Station. Zwischen zwei Fahrten kann eine Pause sein. Das Fahrzeug bleibt aber am gleichen Ort im Netz.
+	\item Die letzte Fahrt in einer Fahrtkette endet an besonderen Station (Oder Menge an Stationen) im Netzwerk.
+\end{itemize}
+
+
+\begin{itemize}
+	\item Eine Fahrzeug hat zu gewissen Zeiten fixe „Check“ Blöcke, wo das Fahrzeug an besonderen Stationen sein muss. Diese Menge von Stationen kann ebenso die gleiche Menge an Stationen sein, welche das Ende der letzten Fahrt in der Fahrtkette beschreibt.
+\end{itemize}
+
+Das Problem: Im Plan sind diese fixen Check-Blöcke in der Fahrtkette integriert, dass eine Fahrt in der Fahrtkette an der besonderne Station endet. 
+Im laufenden Betrieb werden jedoch Fahrzeuge Fahrtkette zugewiesen, wo die Check-Blöcke sich mit Fahrt überlappen. Es kommt zu einem Zuführungskonflikt.
+
+
+	
+\paragraph{Draft 1}
+\begin{enumerate}
+  \item \textbf{Objects:} You have a set of objects (e.g., trucks or data packets) that each need to be routed through a network.
+  \item \textbf{Network \& Schedules:}
+    \begin{itemize}
+      \item There is a network of nodes and edges (or arcs).
+      \item A ``routing schedule'' is a path (and timing) through the network ending at a particular checkup node at a certain time.
+    \end{itemize}
+  \item \textbf{Checkup Requirement:} Each object $o$ has a required checkup time slot (or a set of valid time slots) during which it should arrive at a checkup node.
+  \item \textbf{Reassignment / Rescheduling:} Over the course of the day (or planning horizon), objects may be reassigned to new or modified schedules. However, the endpoint (the checkup node) remains the same.
+  \item \textbf{Goal:} Often, the goal is to minimize an overall cost (e.g., transit cost, lateness, or resource usage) or ensure feasibility under given constraints.
+\end{enumerate}
+
