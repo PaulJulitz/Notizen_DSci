@@ -1,0 +1,105 @@
+\chapter{Graph Meta-Model}
+\section{Overview}
+
+This meta-model defines a heterogeneous graph structure for representing an IT architecture, including systems, modules, functions, events, data flows, and the people interacting with them. Each node type represents a distinct entity, while edge types describe the semantic relationships between these entities. The goal is to visualize data flows, ownership, and interactions across complex IT landscapes in a consistent and analyzable way.
+
+\subsection{Core Node Types}
+
+\begin{itemize}
+    \item \textbf{Person} --- Represents a human user, system owner, or service account that interacts with or triggers operations within the architecture.
+    \item \textbf{System} --- Represents an application, platform, or major IT system (e.g., ERP, CRM, Data Warehouse). Systems can contain multiple modules.
+    \item \textbf{Module} --- Represents a component or sub-system within a System. Modules may also contain submodules to express nested structure.
+    \item \textbf{Function} --- Represents an executable capability or handler within a Module, such as an API endpoint or background process.
+    \item \textbf{EventType} --- Represents a class or schema of messages or notifications that indicate something has happened (e.g., \emph{OrderCreated}, \emph{PaymentAuthorized}).
+    \item \textbf{DataObject} --- Represents a data payload such as a file, table, or API data transfer object.
+\end{itemize}
+
+\subsection{Core Edge Types and Relationships}
+
+Edges are directed and typed according to their semantics.
+
+\subsubsection{Structural and Ownership Relationships}
+\begin{itemize}
+    \item \texttt{CONTAINS}: System $\rightarrow$ Module, Module $\rightarrow$ Module, Module $\rightarrow$ Function.\\
+    Defines structural composition and hierarchy.
+    \item \texttt{OWNS}: Person $\rightarrow$ System$|$Module.\\
+    Indicates responsibility or ownership.
+\end{itemize}
+
+\subsubsection{Usage and Initiation Relationships}
+\begin{itemize}
+    \item \texttt{USES}: Person $\rightarrow$ System$|$Module$|$Function.\\
+    Shows which systems, modules, or functions a person interacts with.
+    \item \texttt{STARTS}: Person $\rightarrow$ Function.\\
+    Represents a manual or automated trigger of a function by a person.
+\end{itemize}
+
+\subsubsection{Synchronous and Asynchronous Interactions}
+\begin{itemize}
+    \item \texttt{CALLS}: Function $\rightarrow$ Function.\\
+    Represents a direct invocation or dependency between functions.
+    \item \texttt{EMITS}: Function $\rightarrow$ EventType.\\
+    Indicates that a function produces a specific kind of event.
+    \item \texttt{TRIGGERS}: EventType $\rightarrow$ Function.\\
+    Specifies that the occurrence of an event causes a function to execute.
+\end{itemize}
+
+\subsubsection{Data Flow Relationships}
+\begin{itemize}
+    \item \texttt{EMITS\_DATA}: Module$|$Function $\rightarrow$ DataObject.\\
+    Denotes data produced by a component.
+    \item \texttt{CONSUMED\_BY}: DataObject $\rightarrow$ Module$|$Function.\\
+    Denotes consumption or reading of a data object.
+    \item \texttt{SENDS\_TO}: Module$|$Function $\rightarrow$ Module$|$Function.\\
+    Summarizes a direct data transfer or integration.
+\end{itemize}
+
+\subsection{Key Attributes}
+
+Attributes enrich nodes and edges without increasing the number of edge types.
+
+\begin{itemize}
+    \item \textbf{Protocol}: HTTP, gRPC, Kafka, SFTP, etc.
+    \item \textbf{Schedule}: Batch, streaming, cron expression.
+    \item \textbf{Throughput / Latency}: Quantitative performance metrics.
+    \item \textbf{PII / Criticality}: Data classification and sensitivity indicators.
+    \item \textbf{Owner\_Team}: Accountability or operational owner.
+    \item \textbf{Schema\_Version / Topic}: For EventType nodes.
+\end{itemize}
+
+\subsection{Consistency Rules}
+\begin{itemize}
+    \item Only \textbf{Functions} may emit or be triggered by \textbf{EventTypes}.
+    \item \textbf{Modules} do not directly emit or consume events; they contain functions that do.
+    \item Prefer function-level links (\texttt{CALLS}, \texttt{EMITS}, \texttt{TRIGGERS}) for accuracy.
+    \item Use attributes to express protocol, schedule, or data format instead of creating redundant edge types.
+\end{itemize}
+
+\subsection{Visualization Guidelines}
+\begin{itemize}
+    \item Group modules under their parent systems.
+    \item Color nodes by type (Person, System, Module, Function, Event, DataObject).
+    \item Use solid arrows for synchronous edges (\texttt{CALLS}), dashed arrows for asynchronous edges (\texttt{EMITS}/\texttt{TRIGGERS}), and light grey lines for structural edges (\texttt{CONTAINS}).
+    \item Label edges minimally, displaying only key attributes (protocol, topic, or schedule).
+\end{itemize}
+
+% -------------------------------------------------------------------------
+\section{Optional Extensions}
+
+The following node and edge types are not part of the core model but can be added if needed for future use cases such as business process mapping, observability, or governance.
+
+\subsection{Process Nodes}
+
+A \textbf{Process} node represents a higher-level business or technical workflow, describing \emph{what} is being achieved rather than \emph{how}. 
+Processes can connect business context to technical realization.  
+When used, a Process can be linked to \textbf{Systems}, \textbf{Modules}, or \textbf{Functions} via a \texttt{SUPPORTED\_BY} edge, and to \textbf{People} via \texttt{OWNS} or \texttt{STARTS} edges to show responsibility or initiation.
+
+\subsection{EventInstance Nodes}
+
+An \textbf{EventInstance} represents a specific occurrence of an \textbf{EventType}. 
+It can be used to analyze runtime behavior or trace end-to-end flows.  
+EventInstances may be connected by \texttt{CORRELATES\_WITH} edges (sharing correlation or trace IDs) and typically include attributes such as \texttt{timestamp}, \texttt{correlationId}, and \texttt{status}. 
+This extension is optional and mainly valuable for observability or debugging use cases.
+
+
+

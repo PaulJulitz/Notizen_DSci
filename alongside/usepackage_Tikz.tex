@@ -9,6 +9,10 @@
 			end/.style={circle, minimum width=3pt, fill, inner sep=0pt},
 		}
 	\usetikzlibrary{decorations.markings}
+	
+	% Rubric: Personal
+	\usetikzlibrary{positioning}
+	
 
 	% XY-Diagramm
 	\usepackage[all]{xy}
@@ -29,7 +33,7 @@
 				\node[folder style, inner sep=4pt, minimum size=#1, xshift=-0.4*#1] at (-foldericon.center){};}
 		},
 		pics/folder/.default={10pt},
-		folder style/.style={draw=gray,top color=mainone,bottom color=mainone}
+		folder style/.style={draw=gray,top color=Rubric_FlowState_Lapis_Lazuli,bottom color=Rubric_FlowState_Lapis_Lazuli}
 	}
 	
 	\forestset{is file/.style={edge path'/.expanded={%
