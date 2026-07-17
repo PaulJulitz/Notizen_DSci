@@ -1,0 +1,30 @@
+{
+    "InternalPDFViewer": {
+        "Embedded": true,
+        "File": "../../../OneDrive - Deutsche Bahn/Dokumente/GitHub/LaTeX_git__DAP_MEMO/DAP_Memo.pdf"
+    },
+    "Session": {
+        "Bookmarks": [
+            {
+                "bookmarkNumber": 1,
+                "fileName": "Notizen_DSci/chapter/section_1_2_3.tex",
+                "lineNumber": 34,
+                "text": "section_1_2_3.tex\n# automatic CI flake8, mypy (at least) for model script"
+            }
+        ],
+        "CurrentFile": "main-Study-and-Research.tex",
+        "FileVersion": 1,
+        "Files": [
+            {
+                "Col": 0,
+                "EditorGroup": 0,
+                "FileName": "main-Study-and-Research.tex",
+                "FirstLine": 0,
+                "FoldedLines": "",
+                "Line": 0
+            }
+        ],
+        "MasterFile": "main-Study-and-Research.tex",
+        "VerticalSplit": false
+    }
+}

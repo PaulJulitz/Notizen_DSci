@@ -4,6 +4,9 @@
 # Paths
 scripts/*
 
+# Local archives/backups
+*.zip
+
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
